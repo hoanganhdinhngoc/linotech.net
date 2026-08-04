@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linotech - Cầu Nối Công Nghệ Đỉnh Cao</title>
+    <meta name="description" content="Linotech - Nhà phân phối giải pháp CNTT và Điện toán đám mây ZStack hàng đầu tại Việt Nam.">
+    <meta property="og:image" content="./cdn/images/logo-dark-theme-reg.png">
+    <link rel="icon" href="../cdn/images/icon-dark.png">
+    
+    <link rel="stylesheet" href="./common/style.css">
+    
+    <style>
+        /* --- NHÚNG FONT LINOTECH TỪ SITEMAP --- */
+        @font-face {
+            font-family: 'LinotechFont';
+            src: url('./font/font.otf') format('opentype');
+            font-display: swap;
+        }
+
+        body {
+            font-family: 'LinotechFont', sans-serif;
+        }
+
+        /* --- SECTION 1: HERO --- */
+        .hero {
+            height: 100vh; min-height: 600px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 0 20px; box-sizing: border-box;
+            background: radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.15), rgba(37, 99, 235, 0.1) 40%, transparent 70%);
+        }
+        .hero h1 { font-size: 4.5rem; margin-bottom: 20px; letter-spacing: -1px; font-weight: 600; line-height: 1.1;}
+        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin-bottom: 40px; }
+
+        /* --- SECTION 2: INFRASTRUCTURE --- */
+        .scale-grid { display: grid; grid-template-columns: 0.8fr 1.7fr; gap: 30px; }
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 30px; padding: 50px; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: flex-end; min-height: 450px; box-sizing: border-box;
+        }
+        .card-left { background: linear-gradient(to top, rgba(0,0,0,0.8), transparent), url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80') center/cover; }
+        .card-right { background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80') center/cover; }
+        
+        /* --- SECTION 3: OUR NETWORK --- */
+        .network-section { 
+             background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.1) 30%, transparent 70%); 
+             text-align: center;
+        }
+        .iframe-container {
+            position: relative; width: 100%; aspect-ratio: 16 / 8;
+            max-height: 80vh; border-radius: 30px; 
+            overflow: hidden; border: 1px solid var(--border-color); 
+            background: #090830; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        /* --- SECTION 4: PROVEN --- */
+        .proven-grid {
+            position: relative; min-height: 660px; display: block; border-radius: 30px; overflow: hidden;
+            background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80') center/cover;
+            border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 10px 40px rgba(0,0,0,0.5); color: #ffffff;
+        }
+        .proven-title-box { position: absolute; top: 60px; left: 60px; }
+        .proven-subtitle-box { position: absolute; top: 60px; right: 130px; width: 300px; text-align: left; font-size: 1.2rem; font-weight: 300; }
+        .proven-stats-box { position: absolute; bottom: 60px; right: 15px; display: flex; flex-direction: column; gap: 44px; width: 560px; text-align: left; }
+        .stat-item { display: flex; align-items: flex-start; gap: 20px; }
+        .stat-item .stat-number { font-size: 2.3rem; font-weight: 500; color: #ffffff; width: 125px; flex-shrink: 1; }
+        .stat-item .stat-text { display: flex; flex-direction: column; }
+        .stat-item .stat-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 5px 0; }
+        .stat-item p { margin: 0; font-size: 1.2rem; font-weight: 300; opacity: 0.8; line-height: 1.2; }
+
+        /* --- SECTION 5: WHAT CLIENTS SAY --- */
+        .glow-left { position: absolute; top: 10%; left: -15%; width: 50%; height: 80%; background: radial-gradient(circle at center, rgba(34, 197, 94, 0.12), transparent 70%); pointer-events: none; z-index: 0; }
+        .glow-right { position: absolute; top: 10%; right: -15%; width: 50%; height: 80%; background: radial-gradient(circle at center, rgba(37, 99, 235, 0.12), transparent 70%); pointer-events: none; z-index: 0; }
+        .testimonial-slider-wrapper { position: relative; overflow: hidden; width: 100%; cursor: grab; touch-action: pan-y; }
+        .testimonial-slider-wrapper:active { cursor: grabbing; }
+        .testimonial-track { display: flex; width: 100%; will-change: transform; }
+        .slide-item { flex: 0 0 100%; width: 100%; padding-bottom: 20px; box-sizing: border-box; }
+        .clients-grid { display: grid; grid-template-columns: 1fr 280px; gap: 30px; position: relative; z-index: 1; align-items: stretch; }
+        .quote-card { 
+             background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 30px; 
+             padding: 50px 60px; backdrop-filter: blur(5px); display: flex; flex-direction: column; justify-content: center;
+            min-height: 320px; box-sizing: border-box;
+        }
+        .stars { color: var(--primary-green); font-size: 1.5rem; margin-bottom: 20px; }
+        .quote-text { font-size: 1.6rem; line-height: 1.5; font-weight: 300; margin: 0; }
+        .client-img-card { border-radius: 30px; width: 100%; position: relative; background-size: cover; background-position: center; }
+        .client-info-badge {
+            position: absolute; bottom: 30px; left: 30px; right: 30px; 
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
+            padding: 15px 20px; border-radius: 20px; border: 1px solid var(--border-color);
+        }
+
+        /* --- RESPONSIVE RIÊNG CHO TRANG CHỦ --- */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3.5rem; }
+            .hero p { font-size: 1.1rem; }
+            .proven-grid { display: flex; flex-direction: column; align-items: flex-start; padding: 50px 40px; gap: 40px; min-height: auto; }
+            .proven-title-box, .proven-subtitle-box, .proven-stats-box { position: relative; top: auto; left: auto; right: auto; bottom: auto; width: 100%; }
+            .proven-subtitle-box { text-align: left; }
+            .proven-stats-box { gap: 30px; }
+            .quote-card { padding: 40px 30px; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .iframe-container { min-height: 550px; aspect-ratio: 2/3; border-radius: 20px;}
+            .scale-grid { grid-template-columns: 1fr; }
+            .card { min-height: 300px; padding: 30px; }
+            .proven-grid { padding: 40px 20px; }
+            .proven-title-box h3 { font-size: 2.5rem !important; }
+            .stat-item { flex-direction: column; gap: 5px; }
+            .stat-item .stat-number { font-size: 2rem; width: 100%; }
+            .stat-item .stat-title { font-size: 1.3rem; }
+            .clients-grid { grid-template-columns: 1fr; align-items: stretch;}
+            .client-img-card { min-height: 400px; }
+            .quote-text { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <script>window.ROOT_PATH = './';</script>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="hero">
+            <h1>Cầu nối công nghệ<br>Trung - Việt</h1>
+            <p>Linotech phân phối các giải pháp CNTT và hạ tầng đám mây tiên tiến nhất. Triển khai kiến trúc hiện đại, linh hoạt và tối ưu chi phí cho hàng trăm doanh nghiệp tại Việt Nam.</p>
+            <a href="./solutions/index.html" class="btn btn-outline">Khám phá Giải pháp</a>
+        </section>
+
+        <section class="section-container">
+            <h2 class="section-title">Hạ Tầng Tối Ưu Cho Mọi Quy Mô</h2>
+            <div class="scale-grid">
+                <div class="card card-left"></div>
+                <div class="card card-right">
+                    <div style="position: relative; z-index: 2;">
+                        <p style="color: #e2e8f0; margin-bottom: 30px; max-width: 80%;">Đặc biệt với nền tảng điện toán đám mây ZStack (Cloud IaaS/PaaS) - Triển khai siêu tốc, mở rộng không giới hạn và tiết kiệm chi phí vượt trội so với các giải pháp truyền thống.</p>
+                        <div style="display: flex; gap: 15px;">
+                            <a href="./solutions/ZStack/index.html" class="btn btn-green">Tìm hiểu ZStack &rarr;</a>
+                            <a href="#connect-section" class="btn btn-outline">Nhận tư vấn &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="our-network" class="section-container network-section">
+            <h2 class="section-title">Hệ Sinh Thái Giải Pháp</h2>
+            <div class="iframe-container">
+                <iframe width="100%" height="100%" frameborder="0" scrolling="no" loading="lazy"
+                    src="./solutions/index.html" 
+                    title="Linotech Solutions Ecosystem" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <section class="section-container">
+            <h2 class="section-title">Proven</h2>
+            <div class="proven-grid">
+                <div class="proven-title-box">
+                    <h3 style="font-size: 3rem; margin: 0; line-height: 1.1; font-weight: 400;">Những Con Số<br>Biết Nói</h3>
+                </div>
+                <div class="proven-subtitle-box">
+                    Chúng tôi mang chất lượng quốc tế về phục vụ doanh nghiệp Việt.
+                </div>
+                <div class="proven-stats-box">
+                    <div class="stat-item">
+                        <div class="stat-number">99.99%</div>
+                        <div class="stat-text">
+                            <div class="stat-title">Cam kết Uptime</div>
+                            <p>Sự ổn định tuyệt đối từ hệ thống ZStack Cloud</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-text">
+                            <div class="stat-title">Khách hàng tin dùng</div>
+                            <p>Các doanh nghiệp triển khai hạ tầng thông qua Linotech</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-text">
+                            <div class="stat-title">Hỗ trợ kỹ thuật</div>
+                            <p>Đồng hành cùng đối tác 24/7 trong suốt vòng đời dự án</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-container">
+            <div class="glow-left"></div>
+            <div class="glow-right"></div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1; margin-bottom: 50px;">
+                <p style="color: var(--text-muted); font-size: 1.1rem; margin: 0;">Đánh giá từ các Giám đốc CNTT</p>
+                <h2 class="section-title" style="margin: 0;">Khách Hàng Nói Gì</h2>
+            </div>
+            
+            <div class="testimonial-slider-wrapper" id="sliderWrapper">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="slide-item">
+                        <div class="clients-grid">
+                            <div class="quote-card">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                                    <h3 style="color: var(--primary-blue); font-size: 2rem; margin: 0;">TechCorp VN</h3>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                                <div class="quote-text">"Nhờ Linotech phân phối ZStack, chúng tôi đã giảm thiểu được 40% chi phí bản quyền ảo hóa mà hệ thống vẫn chạy cực kỳ mượt mà."</div>
+                            </div>
+                            <div class="client-img-card" style="background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80')">
+                                <div class="client-info-badge">
+                                    <div style="font-weight: 500; font-size: 1.1rem;">Anh Tuấn</div>
+                                    <div style="color: var(--text-muted); font-size: 0.9rem;">CIO, TechCorp VN</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-item">
+                        <div class="clients-grid">
+                            <div class="quote-card">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                                    <h3 style="color: var(--primary-green); font-size: 2rem; margin: 0;">DataVenture</h3>
+                                    <div class="stars">★★★★★</div>
+                                </div>
+                                <div class="quote-text">"Đội ngũ Linotech hỗ trợ triển khai hạ tầng rất sát sao. Kiến trúc linh hoạt của họ giúp chúng tôi chuyển đổi số nhanh chóng."</div>
+                            </div>
+                            <div class="client-img-card" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80')">
+                                <div class="client-info-badge">
+                                    <div style="font-weight: 500; font-size: 1.1rem;">Chị Mai Lan</div>
+                                    <div style="color: var(--text-muted); font-size: 0.9rem;">CTO, DataVenture</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="connect-placeholder"></div>
+    <div id="footer-placeholder"></div>
+
+    <script src="./common/main.js"></script>
+
+    <script>
+        // Logic Slider cho mục Khách hàng (Được giữ nguyên)
+        const track = document.getElementById('testimonialTrack');
+        if (track) {
+            const originalSlides = Array.from(track.children);
+            const firstClone = originalSlides[0].cloneNode(true);
+            const lastClone = originalSlides[originalSlides.length - 1].cloneNode(true);
+            
+            track.appendChild(firstClone);
+            track.insertBefore(lastClone, originalSlides[0]);
+            
+            const slides = Array.from(track.children);
+            
+            let currentIndex = 1; 
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let animationID;
+            let autoSlideInterval;
+            let isTransitioning = false;
+
+            function updateSliderPosition() { track.style.transform = `translateX(${currentTranslate}px)`; }
+
+            function setPositionByIndex(useTransition = true) {
+                currentTranslate = currentIndex * -track.offsetWidth;
+                prevTranslate = currentTranslate;
+                track.style.transition = useTransition ? 'transform 0.5s ease-in-out' : 'none';
+                updateSliderPosition();
+            }
+
+            setPositionByIndex(false);
+
+            function nextSlide() {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                currentIndex++;
+                setPositionByIndex(true);
+            }
+
+            function prevSlide() {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                currentIndex--;
+                setPositionByIndex(true);
+            }
+
+            function startAutoSlide() { autoSlideInterval = setInterval(nextSlide, 5000); }
+            function stopAutoSlide() { clearInterval(autoSlideInterval); }
+
+            track.addEventListener('transitionend', () => {
+                isTransitioning = false;
+                if (currentIndex === slides.length - 1) { 
+                    track.style.transition = 'none';
+                    currentIndex = 1; 
+                    setPositionByIndex(false);
+                }
+                if (currentIndex === 0) { 
+                    track.style.transition = 'none';
+                    currentIndex = slides.length - 2; 
+                    setPositionByIndex(false);
+                }
+            });
+
+            track.addEventListener('pointerdown', touchStart);
+            track.addEventListener('pointerup', touchEnd);
+            track.addEventListener('pointerleave', touchEnd);
+            track.addEventListener('pointermove', touchMove);
+
+            window.addEventListener('contextmenu', e => { if(isDragging) e.preventDefault(); });
+            track.ondragstart = () => false;
+
+            function touchStart(event) {
+                if (isTransitioning) return;
+                isDragging = true;
+                startPos = event.clientX;
+                stopAutoSlide();
+                track.style.transition = 'none'; 
+                animationID = requestAnimationFrame(() => {}); 
+            }
+
+            function touchMove(event) {
+                if (isDragging) {
+                    const currentPosition = event.clientX;
+                    currentTranslate = prevTranslate + currentPosition - startPos;
+                    updateSliderPosition();
+                }
+            }
+
+            function touchEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+                cancelAnimationFrame(animationID);
+                
+                const movedBy = currentTranslate - prevTranslate;
+                if (movedBy < -100) { isTransitioning = true; currentIndex++; } 
+                else if (movedBy > 100) { isTransitioning = true; currentIndex--; }
+                
+                setPositionByIndex(true);
+                startAutoSlide();
+            }
+
+            window.addEventListener('resize', () => {
+                track.style.transition = 'none';
+                setPositionByIndex(false);
+            });
+
+            startAutoSlide();
+        }
+    </script>
+</body>
+</html>

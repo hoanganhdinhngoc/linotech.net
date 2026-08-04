@@ -1,0 +1,18 @@
+📁 linotech.net/ (Root Folder)
+├── 📄 index.html (Home)
+├── 📁 common/ (Common codes)
+├── 📁 about-us/
+│   └── 📄 index.html (About us page)
+├── 📁 solutions/
+│   └── 📄 index.html (Services page)
+│	└──  📁 ZStack/
+│	└──  📁 IOC/
+│	└──  📁 data-platforms/
+├── 📁 blogs/
+│   ├── 📄 index.html (Blog combination page)
+│   └── 📁 article/ (contain all articles)
+│       ├── 📄 article-number-1-title.html
+│		└── 📄 ... (all article html files)
+└── 📁 font/
+    ├── 📄 font.otf  
+    └── 📄 ...(all otf files)

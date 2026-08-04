@@ -1,0 +1,462 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Mera AI</title>
+    <meta name="description" content="Mera AI services">
+    <meta property="og:image" content="../images/logo.png">
+    <link rel="icon" href="../images/logo-icon.png">
+    
+    <link rel="stylesheet" href="../common/style.css">
+    
+    <style>
+        /* --- KHOẢNG CÁCH CHUNG GHI ĐÈ CHO TRANG NÀY --- */
+        .section-container { padding: 80px 5%; }
+        
+        /* --- SECTION 1: HERO SERVICES --- */
+        .hero {
+            width: 100%;
+            min-height: 50vh;
+            height: auto;      
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 160px 20px 80px;
+            box-sizing: border-box;
+            background: radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.15), rgba(37, 99, 235, 0.1) 40%, transparent 70%);
+        }
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; letter-spacing: -1px; font-weight: 600; line-height: 1.1;}
+        .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 800px; margin-bottom: 0; text-align: center; line-height: 1.8;}
+
+        /* --- SECTION 2: SERVICE CARDS --- */
+        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .service-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border: 1px solid var(--border-color); border-radius: 20px; padding: 40px;
+            display: flex; flex-direction: column;
+            position: relative; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .service-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+            background: var(--primary-blue); opacity: 0.5; transition: opacity 0.3s, background 0.3s;
+        }
+        .service-card:hover { transform: translateY(-5px); border-color: var(--primary-green); }
+        .service-card:hover::before { opacity: 1; background: var(--primary-green); }
+        .service-icon { 
+            color: var(--text-muted); margin-bottom: 20px; 
+            display: flex; align-items: center; transition: color 0.3s ease;
+        }
+        .service-icon svg { width: 40px; height: 40px; }
+        .service-card:hover .service-icon { color: var(--text-light); }
+        .service-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #ffffff; font-weight: 500;}
+        .service-card p { font-size: 1rem; color: var(--text-muted); margin: 0; line-height: 1.6;}
+
+        /* --- SECTION 3: PRICING CALCULATOR --- */
+        .pricing-section { background: rgba(0, 0, 0, 0.3); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+        .tabs-header { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
+        .tab-btn {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            color: var(--text-light); padding: 12px 25px; border-radius: 30px;
+            cursor: pointer; font-size: 1rem; transition: all 0.3s; font-family: inherit;
+        }
+        .tab-btn.active, .tab-btn:hover { background: var(--primary-green); color: #000; border-color: var(--primary-green); font-weight: 500; }
+        
+        .tab-content { display: none; animation: fadeIn 0.4s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .calculator-wrapper {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 50px;
+        }
+        .calc-header h3 { font-size: 1.8rem; margin-bottom: 10px; color: var(--text-light); }
+        .calc-header p { color: var(--text-muted); margin-bottom: 40px; font-size: 1.05rem; }
+        
+        .calc-row {
+            display: flex; flex-direction: column; gap: 10px;
+            padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .calc-row:first-of-type { padding-top: 0; }
+        .calc-row:last-child { border-bottom: none; padding-bottom: 0;}
+        .calc-row label { font-size: 1rem; color: var(--text-light); font-weight: 400; }
+        
+        .calc-select {
+            width: 100%; max-width: 400px; background-color: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255,255,255,0.2); color: var(--text-light);
+            padding: 14px 20px; border-radius: 10px; font-family: 'SVN-Gilroy', sans-serif;
+            font-size: 1rem; font-weight: 300; cursor: pointer; transition: all 0.3s ease;
+            appearance: none; 
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat; background-position: right 15px center; background-size: 16px;
+        }
+        .calc-select:focus { outline: none; border-color: var(--primary-green); background-color: rgba(34, 197, 94, 0.05); }
+        .calc-select option { background-color: var(--bg-dark); color: var(--text-light); padding: 15px; font-size: 1rem; }
+        
+        .calc-right {
+            background: linear-gradient(145deg, rgba(34, 197, 94, 0.05), rgba(0,0,0,0.2));
+            border-radius: 15px; padding: 40px; text-align: center; 
+            display: flex; flex-direction: column; justify-content: center;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        .calc-right h4 { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .total-price { font-size: 4rem; font-weight: 600; color: var(--primary-green); margin-bottom: 10px; line-height: 1; }
+        .total-price span { font-size: 1.2rem; color: var(--text-muted); font-weight: 300; margin-left: 5px; text-transform: none;}
+
+        /* --- SECTION 4: CORE STRENGTHS --- */
+        .strengths-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .strength-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border: 1px solid var(--border-color); border-radius: 20px; padding: 30px;
+            display: flex; flex-direction: column; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .strength-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+            background: var(--primary-blue); opacity: 0.5; transition: opacity 0.3s;
+        }
+        .strength-card:hover::before { opacity: 1; background: var(--primary-green); }
+        .strength-card h3 { font-size: 1.4rem; margin-bottom: 10px; color: #ffffff; }
+        .strength-card p { font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;}
+
+        /* --- RESPONSIVE RIÊNG CHO SERVICES --- */
+        @media (max-width: 992px) {
+            .section-container { padding: 60px 5%; }
+            .hero h1 { font-size: 3rem; }
+            .hero p { font-size: 1rem; }
+            
+            .services-grid { grid-template-columns: 1fr; }
+            .strengths-grid { grid-template-columns: 1fr; }
+            .calculator-wrapper { grid-template-columns: 1fr; gap: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            .section-container { padding: 40px 5%; }
+            .hero { padding-top: 120px; padding-bottom: 60px; }
+            .hero h1 { font-size: 2.2rem; }
+            .calc-select { max-width: 100%; }
+
+            .services-grid { gap: 15px; }
+            .service-card {
+                padding: 20px; display: grid; grid-template-columns: auto 1fr; 
+                column-gap: 15px; row-gap: 10px; align-items: center;
+            }
+            .service-icon { font-size: 2rem; margin-bottom: 0; grid-column: 1; grid-row: 1; }
+            .service-card h3 { font-size: 1.15rem; margin-bottom: 0; grid-column: 2; grid-row: 1; }
+            .service-card p { font-size: 0.9rem; grid-column: 1 / span 2; grid-row: 2; line-height: 1.4; }
+
+            .pricing-section { padding: 40px 0; } 
+            .tabs-header { margin-bottom: 25px; gap: 8px; }
+            .tab-btn { padding: 10px 15px; font-size: 0.85rem; }
+            
+            .calculator-wrapper { padding: 15px; gap: 15px; }
+            .calc-header h3 { font-size: 1.3rem; margin-bottom: 5px; }
+            .calc-header p { font-size: 0.85rem; margin-bottom: 15px; }
+            
+            .calc-row { padding: 10px 0; gap: 5px; }
+            .calc-row label { font-size: 0.9rem; }
+            .calc-select { padding: 10px 15px; font-size: 0.9rem; background-position: right 10px center; }
+            
+            .calc-right {
+                padding: 15px 20px; flex-direction: row; flex-wrap: wrap; 
+                justify-content: space-between; align-items: baseline; 
+            }
+            .calc-right h4 { width: 100%; text-align: left; margin-bottom: 5px; font-size: 0.8rem; }
+            .total-price { font-size: 2.2rem; margin-bottom: 0; }
+            .calc-right > span { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <script>window.ROOT_PATH = '../';</script>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="hero">
+            <h1>Global Connectivity Solutions</h1>
+            <p>Comprehensive internet infrastructure services seamlessly bridging national backbones to intercontinental submarine cables, delivering the world to your business with ultra-low latency.</p>
+        </section>
+
+        <section class="section-container">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                    </div>
+                    <h3>Vietnam National Backbone</h3>
+                    <p>Ultra-broadband national backbone network connecting major data centers across Vietnam (Hanoi, Da Nang, HCMC) directly, ensuring the lowest local latency and a comprehensive Ring Topology redundancy system.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                    </div>
+                    <h3>Cross-Border Terrestrial Transit</h3>
+                    <p>Unlocking high-speed cross-border terrestrial connectivity from Vietnam through Laos, Cambodia, and Thailand, reaching international transit hubs in Malaysia and Singapore independently of submarine cables.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6 0 1.2-.2 1.8-.6L5.5 4a3.5 3.5 0 0 1 4 0l1.7 1.4c.6.4 1.2.6 1.8.6.6 0 1.2-.2 1.8-.6L16.5 4a3.5 3.5 0 0 1 4 0l1.7 1.4c.6.4 1.2.6 1.8.6"></path><path d="M2 12c.6 0 1.2-.2 1.8-.6L5.5 10a3.5 3.5 0 0 1 4 0l1.7 1.4c.6.4 1.2.6 1.8.6.6 0 1.2-.2 1.8-.6L16.5 10a3.5 3.5 0 0 1 4 0l1.7 1.4c.6.4 1.2.6 1.8.6"></path><path d="M2 18c.6 0 1.2-.2 1.8-.6L5.5 16a3.5 3.5 0 0 1 4 0l1.7 1.4c.6.4 1.2.6 1.8.6.6 0 1.2-.2 1.8-.6L16.5 16a3.5 3.5 0 0 1 4 0l1.7 1.4c.6.4 1.2.6 1.8.6"></path></svg>
+                    </div>
+                    <h3>Submarine Cable Connectivity</h3>
+                    <p>Massive bandwidth transmission solutions via high-speed international submarine fiber optic systems. Direct connections from landing stations (Da Nang, Quy Nhon, Vung Tau) straight to Hong Kong and Singapore.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    </div>
+                    <h3>Global IP Transit & Peering</h3>
+                    <p>Global IP routing solutions providing direct access to the Internet routing table (BGP) and direct peering with major content providers (Tier-1 ISPs, Cloud Providers) to optimize your network path.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing-section">
+            <div class="section-container">
+                <h2 class="section-title">Pricing Calculator</h2>
+                
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-target="tab-backbone">Vietnam Backbone</button>
+                    <button class="tab-btn" data-target="tab-inland">Terrestrial Transit</button>
+                    <button class="tab-btn" data-target="tab-submarine">Submarine Cable</button>
+                    <button class="tab-btn" data-target="tab-ip">Global IP Transit</button>
+                </div>
+
+                <div class="tab-content active" id="tab-backbone">
+                    <div class="calculator-wrapper">
+                        <div class="calc-left">
+                            <div class="calc-header">
+                                <h3>Vietnam National Backbone</h3>
+                                <p>Configure bandwidth capacity and redundancy architecture for your domestic backbone route.</p>
+                            </div>
+                            <div class="calc-row">
+                                <label>Port Capacity</label>
+                                <select class="calc-select" data-operation="base">
+                                    <option value="800">1 Gbps - $800 / month</option>
+                                    <option value="5000">10 Gbps - $5,000 / month</option>
+                                    <option value="35000">100 Gbps - $35,000 / month</option>
+                                </select>
+                            </div>
+                            <div class="calc-row">
+                                <label>Redundancy Architecture</label>
+                                <select class="calc-select" data-operation="multiply">
+                                    <option value="1">Single Path (Standard)</option>
+                                    <option value="1.8">1+1 Ring Protection (x1.8 cost)</option>
+                                </select>
+                            </div>
+                            <div class="calc-row">
+                                <label>SLA Support Level</label>
+                                <select class="calc-select" data-operation="add">
+                                    <option value="0">Standard Support 99.9% (Included)</option>
+                                    <option value="300">Premium 24/7 99.99% (+ $300)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="calc-right">
+                            <h4>Estimated Monthly Cost</h4>
+                            <div class="total-price">$<span class="price-value">0</span></div>
+                            <span>USD / Month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-inland">
+                    <div class="calculator-wrapper">
+                        <div class="calc-left">
+                            <div class="calc-header">
+                                <h3>Cross-Border Terrestrial Transit</h3>
+                                <p>Establish direct transnational terrestrial connections to major transit hubs.</p>
+                            </div>
+                            <div class="calc-row">
+                                <label>Connection Route</label>
+                                <select class="calc-select" data-operation="base">
+                                    <option value="2000">Vietnam - Cambodia ($2,000 / month)</option>
+                                    <option value="2500">Vietnam - Laos ($2,500 / month)</option>
+                                    <option value="4500">Vietnam - Thailand ($4,500 / month)</option>
+                                    <option value="8000">Vietnam - Singapore Terrestrial ($8,000 / month)</option>
+                                </select>
+                            </div>
+                            <div class="calc-row">
+                                <label>Bandwidth Multiplier</label>
+                                <select class="calc-select" data-operation="multiply">
+                                    <option value="1">10 Gbps (Base)</option>
+                                    <option value="8">100 Gbps (x8 cost)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="calc-right">
+                            <h4>Estimated Monthly Cost</h4>
+                            <div class="total-price">$<span class="price-value">0</span></div>
+                            <span>USD / Month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-submarine">
+                    <div class="calculator-wrapper">
+                        <div class="calc-left">
+                            <div class="calc-header">
+                                <h3>Submarine Cable Connectivity</h3>
+                                <p>Ultra-high bandwidth transmission directed straight to Hong Kong and Singapore landing stations.</p>
+                            </div>
+                            <div class="calc-row">
+                                <label>Destination Hub</label>
+                                <select class="calc-select" data-operation="base">
+                                    <option value="5000">Singapore Landing Point ($5,000 / month)</option>
+                                    <option value="4800">Hong Kong Landing Point ($4,800 / month)</option>
+                                </select>
+                            </div>
+                            <div class="calc-row">
+                                <label>Wavelength Capacity</label>
+                                <select class="calc-select" data-operation="multiply">
+                                    <option value="1">10G Lambda (Base)</option>
+                                    <option value="7">100G Lambda (x7 cost)</option>
+                                    <option value="25">400G Lambda (x25 cost)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="calc-right">
+                            <h4>Estimated Monthly Cost</h4>
+                            <div class="total-price">$<span class="price-value">0</span></div>
+                            <span>USD / Month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-ip">
+                    <div class="calculator-wrapper">
+                        <div class="calc-left">
+                            <div class="calc-header">
+                                <h3>Global IP Transit</h3>
+                                <p>Direct routing connections with global server clusters and premium content providers.</p>
+                            </div>
+                            <div class="calc-row">
+                                <label>Routing Table Level</label>
+                                <select class="calc-select" data-operation="base">
+                                    <option value="1000">Partial Route / Peering Only ($1,000 / month)</option>
+                                    <option value="3500">Full BGP Route ($3,500 / month)</option>
+                                </select>
+                            </div>
+                            <div class="calc-row">
+                                <label>Committed Information Rate (CIR)</label>
+                                <select class="calc-select" data-operation="multiply">
+                                    <option value="1">1 Gbps (Base)</option>
+                                    <option value="5">10 Gbps (x5 cost)</option>
+                                    <option value="30">100 Gbps (x30 cost)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="calc-right">
+                            <h4>Estimated Monthly Cost</h4>
+                            <div class="total-price">$<span class="price-value">0</span></div>
+                            <span>USD / Month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-container">
+            <h2 class="section-title">Core Strengths</h2>
+            <div class="strengths-grid">
+                <div class="strength-card">
+                    <h3>Global Resilience</h3>
+                    <p>Our infrastructure is designed with multi-layered redundancies, ensuring that even under immense load or physical disruptions, data routing remains uninterrupted worldwide.</p>
+                </div>
+                <div class="strength-card">
+                    <h3>Scalable Architecture</h3>
+                    <p>We build systems that grow seamlessly with your business. Whether you are expanding to a new city or a new continent, our nodes adapt without costly downtime.</p>
+                </div>
+                <div class="strength-card">
+                    <h3>Security First</h3>
+                    <p>Incorporating state-of-the-art encryption protocols at both the hardware and software layers to protect sensitive B2B data against modern cyber threats.</p>
+                </div>
+                <div class="strength-card">
+                    <h3>Expert Support</h3>
+                    <p>Our dedicated operations center runs 24/7, manned by certified network architects ready to resolve any anomalies instantly and efficiently.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="connect-placeholder"></div>
+    <div id="footer-placeholder"></div>
+
+    <script src="../common/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Đoạn code nhỏ tự động bôi xanh menu "Services" sau khi Header load xong
+            setTimeout(() => {
+                const navLinks = document.querySelectorAll('.main-nav a');
+                navLinks.forEach(link => {
+                    if(link.innerText === 'Services') {
+                        link.style.color = 'var(--primary-green)';
+                    }
+                });
+            }, 500); // Đợi 0.5s để fetch HTML xong
+
+            /* --- JS PRICING CALCULATOR LÔ-GIC --- */
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    btn.classList.add('active');
+                    const targetId = btn.getAttribute('data-target');
+                    document.getElementById(targetId).classList.add('active');
+                    
+                    calculatePrice(targetId);
+                });
+            });
+
+            function calculatePrice(tabId) {
+                const tab = document.getElementById(tabId);
+                if (!tab) return;
+                
+                const selects = tab.querySelectorAll('.calc-select');
+                let total = 0;
+                
+                // Tính giá gốc (Base cost)
+                selects.forEach(select => {
+                    if (select.dataset.operation === 'base') {
+                        total += parseFloat(select.value) || 0;
+                    }
+                });
+                
+                // Tính cấp số nhân và cộng thêm
+                selects.forEach(select => {
+                    const val = parseFloat(select.value) || 0;
+                    if (select.dataset.operation === 'add') {
+                        total += val;
+                    } else if (select.dataset.operation === 'multiply') {
+                        total *= val;
+                    }
+                });
+
+                const priceSpan = tab.querySelector('.price-value');
+                priceSpan.innerText = total.toLocaleString('en-US');
+            }
+
+            // Gắn sự kiện thay đổi giá cho toàn bộ Select
+            document.querySelectorAll('.calc-select').forEach(select => {
+                select.addEventListener('change', function() {
+                    const parentTabId = this.closest('.tab-content').id;
+                    calculatePrice(parentTabId);
+                });
+            });
+
+            // Tính giá lần đầu khi vừa vào trang
+            tabContents.forEach(tab => calculatePrice(tab.id));
+        });
+    </script>
+</body>
+</html>
