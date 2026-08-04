@@ -1,4 +1,9 @@
-// Function Setup Contact Form (Trích lược phần JS xử lý form)
+// ==========================================
+// KHAI BÁO URL GOOGLE APPS SCRIPT CỦA LINOTECH
+// ==========================================
+const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxP7-uZKjKaGj7OyNoid-Q8wCEpTA7NR865ksm0EnbGi-CZ7b6XCLAr3iPw6gtfplI/exec";
+
+// Function Setup Contact Form xử lý gửi dữ liệu qua Google Script
 function setupContactForm() {
     const form = document.getElementById('linotechContactForm');
     if (!form) return;
@@ -19,7 +24,10 @@ function setupContactForm() {
             submittedAt: new Date().toISOString()
         };
 
-        submitBtn.disabled = true; submitBtn.innerText = 'Sending...';
+        if (submitBtn) {
+            submitBtn.disabled = true; 
+            submitBtn.innerText = 'Sending...';
+        }
 
         fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
             method: 'POST',
@@ -29,22 +37,39 @@ function setupContactForm() {
         .then(res => res.json())
         .then(data => {
             if (data.status === 'success') {
-                feedbackMsg.style.display = 'inline-block';
-                feedbackMsg.style.color = 'var(--primary-green)';
+                if (feedbackMsg) {
+                    feedbackMsg.style.display = 'inline-block';
+                    feedbackMsg.style.color = 'var(--primary-green)';
+                    feedbackMsg.innerText = 'Message sent successfully!';
+                }
                 form.reset();
+            } else {
+                if (feedbackMsg) {
+                    feedbackMsg.style.display = 'inline-block';
+                    feedbackMsg.style.color = '#ff3333';
+                    feedbackMsg.innerText = 'Error: ' + data.message;
+                }
             }
         })
+        .catch(err => {
+            console.error('Fetch error:', err);
+        })
         .finally(() => {
-            submitBtn.disabled = false; submitBtn.innerText = 'Send';
-            setTimeout(() => { feedbackMsg.style.display = 'none'; }, 5000);
+            if (submitBtn) {
+                submitBtn.disabled = false; 
+                submitBtn.innerText = 'Send';
+            }
+            if (feedbackMsg) {
+                setTimeout(() => { feedbackMsg.style.display = 'none'; }, 5000);
+            }
         });
     });
 }
 
 // Hàm Fetch HTML file và chèn vào một div cụ thể
-async function loadComponent(placeholderId, filePath) {
+async function loadComponent(placeholderId, filePath, callback) {
     const placeholder = document.getElementById(placeholderId);
-    if (!placeholder) return; // Nếu trang không có chỗ chứa này thì bỏ qua
+    if (!placeholder) return; 
 
     try {
         const response = await fetch(filePath);
@@ -53,6 +78,11 @@ async function loadComponent(placeholderId, filePath) {
         }
         const html = await response.text();
         placeholder.innerHTML = html;
+        
+        // Nếu có hàm callback (ví dụ kích hoạt form sau khi load xong connect.html), hãy chạy nó
+        if (typeof callback === 'function') {
+            callback();
+        }
     } catch (error) {
         console.error("Lỗi khi load component:", error);
     }
@@ -60,10 +90,14 @@ async function loadComponent(placeholderId, filePath) {
 
 // Chạy hàm ngay khi HTML tải xong
 document.addEventListener("DOMContentLoaded", () => {
-    // ROOT_PATH được khai báo ở đầu các file index.html để đảm bảo đường dẫn luôn chuẩn
     const basePath = window.ROOT_PATH || './';
     
     loadComponent('header-placeholder', basePath + 'common/header.html');
-    loadComponent('connect-placeholder', basePath + 'common/connect.html');
+    
+    // Khi load xong file connect.html vào placeholder, gọi luôn hàm setupContactForm để gắn sự kiện submit cho form
+    loadComponent('connect-placeholder', basePath + 'common/connect.html', () => {
+        setupContactForm();
+    });
+    
     loadComponent('footer-placeholder', basePath + 'common/footer.html');
 });
