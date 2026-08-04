@@ -40,3 +40,30 @@ function setupContactForm() {
         });
     });
 }
+
+// Hàm Fetch HTML file và chèn vào một div cụ thể
+async function loadComponent(placeholderId, filePath) {
+    const placeholder = document.getElementById(placeholderId);
+    if (!placeholder) return; // Nếu trang không có chỗ chứa này thì bỏ qua
+
+    try {
+        const response = await fetch(filePath);
+        if (!response.ok) {
+            throw new Error(`Cannot fetch ${filePath} - Status: ${response.status}`);
+        }
+        const html = await response.text();
+        placeholder.innerHTML = html;
+    } catch (error) {
+        console.error("Lỗi khi load component:", error);
+    }
+}
+
+// Chạy hàm ngay khi HTML tải xong
+document.addEventListener("DOMContentLoaded", () => {
+    // ROOT_PATH được khai báo ở đầu các file index.html để đảm bảo đường dẫn luôn chuẩn
+    const basePath = window.ROOT_PATH || './';
+    
+    loadComponent('header-placeholder', basePath + 'common/header.html');
+    loadComponent('connect-placeholder', basePath + 'common/connect.html');
+    loadComponent('footer-placeholder', basePath + 'common/footer.html');
+});

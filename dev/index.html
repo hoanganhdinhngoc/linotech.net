@@ -1,27 +1,16 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linotech - Cầu Nối Công Nghệ Đỉnh Cao</title>
-    <meta name="description" content="Linotech - Nhà phân phối giải pháp CNTT và Điện toán đám mây ZStack hàng đầu tại Việt Nam.">
+    <title>Linotech - Global Technology Bridge</title>
+    <meta name="description" content="Linotech - Leading distributor of IT solutions and ZStack Cloud infrastructure.">
     <meta property="og:image" content="./cdn/images/logo-dark-theme-reg.png">
-    <link rel="icon" href="../cdn/images/icon-dark.png">
+    <link rel="icon" href="./cdn/images/logo-dark-theme-reg.png">
     
     <link rel="stylesheet" href="./common/style.css">
     
     <style>
-        /* --- NHÚNG FONT LINOTECH TỪ SITEMAP --- */
-        @font-face {
-            font-family: 'LinotechFont';
-            src: url('./font/font.otf') format('opentype');
-            font-display: swap;
-        }
-
-        body {
-            font-family: 'LinotechFont', sans-serif;
-        }
-
         /* --- SECTION 1: HERO --- */
         .hero {
             height: 100vh; min-height: 600px; display: flex; flex-direction: column;
@@ -42,18 +31,31 @@
         .card-left { background: linear-gradient(to top, rgba(0,0,0,0.8), transparent), url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80') center/cover; }
         .card-right { background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80') center/cover; }
         
-        /* --- SECTION 3: OUR NETWORK --- */
-        .network-section { 
-             background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.1) 30%, transparent 70%); 
-             text-align: center;
+        /* --- SECTION 3: SOLUTIONS (4-CARD GRID) --- */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 50px;
         }
-        .iframe-container {
-            position: relative; width: 100%; aspect-ratio: 16 / 8;
-            max-height: 80vh; border-radius: 30px; 
-            overflow: hidden; border: 1px solid var(--border-color); 
-            background: #090830; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        .solution-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
-        .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .solution-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary-green);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.1);
+        }
+        .solution-card h3 { color: var(--text-light); font-size: 1.5rem; margin-bottom: 15px; line-height: 1.3;}
+        .solution-card p { color: var(--text-muted); font-size: 1rem; margin: 0; line-height: 1.6;}
 
         /* --- SECTION 4: PROVEN --- */
         .proven-grid {
@@ -92,10 +94,11 @@
             padding: 15px 20px; border-radius: 20px; border: 1px solid var(--border-color);
         }
 
-        /* --- RESPONSIVE RIÊNG CHO TRANG CHỦ --- */
+        /* --- RESPONSIVE TRANG CHỦ --- */
         @media (max-width: 992px) {
             .hero h1 { font-size: 3.5rem; }
             .hero p { font-size: 1.1rem; }
+            .solutions-grid { grid-template-columns: repeat(2, 1fr); }
             .proven-grid { display: flex; flex-direction: column; align-items: flex-start; padding: 50px 40px; gap: 40px; min-height: auto; }
             .proven-title-box, .proven-subtitle-box, .proven-stats-box { position: relative; top: auto; left: auto; right: auto; bottom: auto; width: 100%; }
             .proven-subtitle-box { text-align: left; }
@@ -104,8 +107,8 @@
         }
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
-            .iframe-container { min-height: 550px; aspect-ratio: 2/3; border-radius: 20px;}
             .scale-grid { grid-template-columns: 1fr; }
+            .solutions-grid { grid-template-columns: 1fr; }
             .card { min-height: 300px; padding: 30px; }
             .proven-grid { padding: 40px 20px; }
             .proven-title-box h3 { font-size: 2.5rem !important; }
@@ -124,69 +127,84 @@
 
     <div id="header-placeholder"></div>
 
-    <main>
+    <main style="padding-top: 80px;">
         <section class="hero">
-            <h1>Cầu nối công nghệ<br>Trung - Việt</h1>
-            <p>Linotech phân phối các giải pháp CNTT và hạ tầng đám mây tiên tiến nhất. Triển khai kiến trúc hiện đại, linh hoạt và tối ưu chi phí cho hàng trăm doanh nghiệp tại Việt Nam.</p>
-            <a href="./solutions/index.html" class="btn btn-outline">Khám phá Giải pháp</a>
+            <h1>Bridging Technology<br>Across Borders</h1>
+            <p>Linotech distributes advanced IT and cloud infrastructure solutions. We deploy modern, agile, and cost-effective architectures for enterprises worldwide.</p>
+            <a href="./solutions/index.html" class="btn btn-outline">Explore Solutions</a>
         </section>
 
         <section class="section-container">
-            <h2 class="section-title">Hạ Tầng Tối Ưu Cho Mọi Quy Mô</h2>
+            <h2 class="section-title">Infrastructure Built For Scale</h2>
             <div class="scale-grid">
                 <div class="card card-left"></div>
                 <div class="card card-right">
                     <div style="position: relative; z-index: 2;">
-                        <p style="color: #e2e8f0; margin-bottom: 30px; max-width: 80%;">Đặc biệt với nền tảng điện toán đám mây ZStack (Cloud IaaS/PaaS) - Triển khai siêu tốc, mở rộng không giới hạn và tiết kiệm chi phí vượt trội so với các giải pháp truyền thống.</p>
+                        <p style="color: #e2e8f0; margin-bottom: 30px; max-width: 80%;">Specializing in ZStack Cloud Computing (IaaS/PaaS) - Ultra-fast deployment, limitless scalability, and outstanding cost efficiency compared to traditional solutions.</p>
                         <div style="display: flex; gap: 15px;">
-                            <a href="./solutions/ZStack/index.html" class="btn btn-green">Tìm hiểu ZStack &rarr;</a>
-                            <a href="#connect-section" class="btn btn-outline">Nhận tư vấn &rarr;</a>
+                            <a href="./solutions/ZStack/index.html" class="btn btn-green">Discover ZStack &rarr;</a>
+                            <a href="#connect-section" class="btn btn-outline">Get Consulted &rarr;</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="our-network" class="section-container network-section">
-            <h2 class="section-title">Hệ Sinh Thái Giải Pháp</h2>
-            <div class="iframe-container">
-                <iframe width="100%" height="100%" frameborder="0" scrolling="no" loading="lazy"
-                    src="./solutions/index.html" 
-                    title="Linotech Solutions Ecosystem" 
-                    allowfullscreen>
-                </iframe>
+        <section id="our-network" class="section-container">
+            <h2 class="section-title" style="margin-bottom: 15px;">Global Connectivity Solutions</h2>
+            <p style="text-align: center; color: var(--text-muted); max-width: 800px; margin: 0 auto 40px auto; font-size: 1.15rem;">
+                Empowering your business with scalable, secure, and high-performance infrastructure designed for the modern enterprise ecosystem.
+            </p>
+            
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <h3>ZStack Cloud</h3>
+                    <p>Next-generation cloud infrastructure delivering high availability, seamless scalability, and unmatched performance for enterprise applications.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>IOC Platform</h3>
+                    <p>Intelligent Operations Center providing centralized monitoring, smart management, and real-time data for strategic decision making.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Data Platforms</h3>
+                    <p>Robust data management solutions ensuring data integrity, advanced security protocols, and lightning-fast information retrieval.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>IT Infrastructure</h3>
+                    <p>End-to-end hardware and software integration tailored specifically for enterprise-grade networking and deployments.</p>
+                </div>
             </div>
         </section>
 
         <section class="section-container">
-            <h2 class="section-title">Proven</h2>
+            <h2 class="section-title">Proven Excellence</h2>
             <div class="proven-grid">
                 <div class="proven-title-box">
-                    <h3 style="font-size: 3rem; margin: 0; line-height: 1.1; font-weight: 400;">Những Con Số<br>Biết Nói</h3>
+                    <h3 style="font-size: 3rem; margin: 0; line-height: 1.1; font-weight: 400;">Numbers That<br>Speak</h3>
                 </div>
                 <div class="proven-subtitle-box">
-                    Chúng tôi mang chất lượng quốc tế về phục vụ doanh nghiệp Việt.
+                    We bring international quality standards to empower our partners' growth.
                 </div>
                 <div class="proven-stats-box">
                     <div class="stat-item">
                         <div class="stat-number">99.99%</div>
                         <div class="stat-text">
-                            <div class="stat-title">Cam kết Uptime</div>
-                            <p>Sự ổn định tuyệt đối từ hệ thống ZStack Cloud</p>
+                            <div class="stat-title">Uptime Guarantee</div>
+                            <p>Absolute stability powered by ZStack Cloud systems</p>
                         </div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number">200+</div>
                         <div class="stat-text">
-                            <div class="stat-title">Khách hàng tin dùng</div>
-                            <p>Các doanh nghiệp triển khai hạ tầng thông qua Linotech</p>
+                            <div class="stat-title">Trusted Clients</div>
+                            <p>Enterprises scaling their infrastructure through Linotech</p>
                         </div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number">100%</div>
                         <div class="stat-text">
-                            <div class="stat-title">Hỗ trợ kỹ thuật</div>
-                            <p>Đồng hành cùng đối tác 24/7 trong suốt vòng đời dự án</p>
+                            <div class="stat-title">Technical Support</div>
+                            <p>24/7 dedicated engineering support throughout your project lifecycle</p>
                         </div>
                     </div>
                 </div>
@@ -198,8 +216,8 @@
             <div class="glow-right"></div>
             
             <div style="display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1; margin-bottom: 50px;">
-                <p style="color: var(--text-muted); font-size: 1.1rem; margin: 0;">Đánh giá từ các Giám đốc CNTT</p>
-                <h2 class="section-title" style="margin: 0;">Khách Hàng Nói Gì</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; margin: 0;">Real Stories From Real Companies</p>
+                <h2 class="section-title" style="margin: 0;">What Clients Say</h2>
             </div>
             
             <div class="testimonial-slider-wrapper" id="sliderWrapper">
@@ -208,15 +226,15 @@
                         <div class="clients-grid">
                             <div class="quote-card">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
-                                    <h3 style="color: var(--primary-blue); font-size: 2rem; margin: 0;">TechCorp VN</h3>
+                                    <h3 style="color: var(--primary-blue); font-size: 2rem; margin: 0;">TechCorp</h3>
                                     <div class="stars">★★★★★</div>
                                 </div>
-                                <div class="quote-text">"Nhờ Linotech phân phối ZStack, chúng tôi đã giảm thiểu được 40% chi phí bản quyền ảo hóa mà hệ thống vẫn chạy cực kỳ mượt mà."</div>
+                                <div class="quote-text">"Thanks to Linotech distributing ZStack, we reduced virtualization licensing costs by 40% while maintaining incredibly smooth operations."</div>
                             </div>
                             <div class="client-img-card" style="background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80')">
                                 <div class="client-info-badge">
-                                    <div style="font-weight: 500; font-size: 1.1rem;">Anh Tuấn</div>
-                                    <div style="color: var(--text-muted); font-size: 0.9rem;">CIO, TechCorp VN</div>
+                                    <div style="font-weight: 500; font-size: 1.1rem;">Marcus Chen</div>
+                                    <div style="color: var(--text-muted); font-size: 0.9rem;">CIO, TechCorp</div>
                                 </div>
                             </div>
                         </div>
@@ -228,11 +246,11 @@
                                     <h3 style="color: var(--primary-green); font-size: 2rem; margin: 0;">DataVenture</h3>
                                     <div class="stars">★★★★★</div>
                                 </div>
-                                <div class="quote-text">"Đội ngũ Linotech hỗ trợ triển khai hạ tầng rất sát sao. Kiến trúc linh hoạt của họ giúp chúng tôi chuyển đổi số nhanh chóng."</div>
+                                <div class="quote-text">"The Linotech team provided exceptional deployment support. Their flexible architecture accelerated our digital transformation."</div>
                             </div>
                             <div class="client-img-card" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80')">
                                 <div class="client-info-badge">
-                                    <div style="font-weight: 500; font-size: 1.1rem;">Chị Mai Lan</div>
+                                    <div style="font-weight: 500; font-size: 1.1rem;">Sarah Jenkins</div>
                                     <div style="color: var(--text-muted); font-size: 0.9rem;">CTO, DataVenture</div>
                                 </div>
                             </div>
@@ -249,7 +267,6 @@
     <script src="./common/main.js"></script>
 
     <script>
-        // Logic Slider cho mục Khách hàng (Được giữ nguyên)
         const track = document.getElementById('testimonialTrack');
         if (track) {
             const originalSlides = Array.from(track.children);
@@ -260,7 +277,6 @@
             track.insertBefore(lastClone, originalSlides[0]);
             
             const slides = Array.from(track.children);
-            
             let currentIndex = 1; 
             let isDragging = false;
             let startPos = 0;
@@ -316,7 +332,6 @@
             track.addEventListener('pointerup', touchEnd);
             track.addEventListener('pointerleave', touchEnd);
             track.addEventListener('pointermove', touchMove);
-
             window.addEventListener('contextmenu', e => { if(isDragging) e.preventDefault(); });
             track.ondragstart = () => false;
 
@@ -341,11 +356,9 @@
                 if (!isDragging) return;
                 isDragging = false;
                 cancelAnimationFrame(animationID);
-                
                 const movedBy = currentTranslate - prevTranslate;
                 if (movedBy < -100) { isTransitioning = true; currentIndex++; } 
                 else if (movedBy > 100) { isTransitioning = true; currentIndex--; }
-                
                 setPositionByIndex(true);
                 startAutoSlide();
             }
