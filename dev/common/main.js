@@ -1,7 +1,7 @@
 // ==========================================
 // KHAI BÁO URL GOOGLE APPS SCRIPT CỦA LINOTECH
 // ==========================================
-const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxP7-uZKjKaGj7OyNoid-Q8wCEpTA7NR865ksm0EnbGi-CZ7b6XCLAr3iPw6gtfplI/exec";
+const GOOGLE_SCRIPT_WEB_APP_URL = "/api/contact";
 
 // Function Setup Contact Form xử lý gửi dữ liệu qua Google Script
 function setupContactForm() {
