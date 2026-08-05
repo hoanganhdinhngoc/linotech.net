@@ -1,14 +1,14 @@
 /* ==========================================================================
    1. GLOBAL VARIABLES & FONTS
 ========================================================================== */
-/* Cấu hình phông chữ riêng của Linotech dựa theo sitemap */
-@font-face { 
-    font-family: 'LinotechFont'; 
-    src: url('../font/font.otf') format('opentype'); 
-    font-weight: 300; 
-    font-style: normal; 
-    font-display: swap;
-}
+/* Cấu hình phông chữ riêng của Linotech dựa theo sitemap và mẫu Mera AI */
+@font-face { font-family: 'SVN-Gilroy'; src: url('../font/SVN-Gilroy%20Thin.otf') format('opentype'); font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SVN-Gilroy'; src: url('../font/SVN-Gilroy%20Light.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SVN-Gilroy'; src: url('../font/SVN-Gilroy%20Light%20Italic.otf') format('opentype'); font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: 'SVN-Gilroy'; src: url('../font/SVN-Gilroy%20Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SVN-Gilroy'; src: url('../font/SVN-Gilroy%20Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SVN-Gilroy'; src: url('../font/SVN-Gilroy%20SemiBold.otf') format('opentype'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SVN-Gilroy'; src: url('../font/SVN-Gilroy%20Bold.otf') format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
 
 /* Các biến màu sắc dùng chung (kế thừa giao diện Mera AI) */
 :root {
@@ -33,7 +33,7 @@ body {
     width: 100%;
     background-color: var(--bg-dark);
     color: var(--text-light);
-    font-family: 'LinotechFont', sans-serif; 
+    font-family: 'SVN-Gilroy', sans-serif; 
     font-weight: 300; 
     overflow-x: hidden;
     line-height: 1.6;
@@ -70,7 +70,7 @@ h1, h2, h3, h4 {
     cursor: pointer;
     transition: all 0.3s ease; 
     border: 1px solid transparent; 
-    font-family: 'LinotechFont', sans-serif; 
+    font-family: 'SVN-Gilroy', sans-serif; 
     font-size: 1rem;
     white-space: nowrap;
 }
@@ -239,7 +239,7 @@ header {
     border-radius: 8px; 
     padding: 12px 16px; 
     color: white; 
-    font-family: 'LinotechFont', sans-serif; 
+    font-family: 'SVN-Gilroy', sans-serif; 
     font-weight: 300; 
     font-size: 0.95rem; 
     transition: all 0.3s ease; 
