@@ -97,20 +97,30 @@ function setupSmartContactLinks() {
 // MOBILE DROPDOWN HANDLER
 // ==========================================
 function setupMobileDropdown() {
-    const dropdownToggle = document.querySelector('.has-dropdown > a');
-    if (!dropdownToggle) return;
+    // Bắt sự kiện trên toàn bộ thẻ <li> thay vì chỉ bắt ở thẻ <a>
+    const dropdownLi = document.querySelector('.has-dropdown');
+    const dropdownLink = document.querySelector('.has-dropdown > a');
+    
+    if (!dropdownLi || !dropdownLink) return;
 
-    dropdownToggle.addEventListener('click', function (e) {
-        // Chỉ áp dụng logic chặn click này trên màn hình Mobile/Tablet
+    dropdownLi.addEventListener('click', function (e) {
         if (window.innerWidth <= 992) {
-            const parentLi = this.parentElement;
+            // Kiểm tra trạng thái hiện tại (Đang mở hay Đóng)
+            const isOpen = this.classList.contains('mobile-open');
             
-            // Nếu menu CHƯA mở -> Chặn chuyển trang (preventDefault) và mở menu ra
-            if (!parentLi.classList.contains('mobile-open')) {
-                e.preventDefault();
-                parentLi.classList.add('mobile-open');
+            // Kiểm tra xem User bấm đích danh vào chữ Solutions hay bấm vào khoảng trống rìa ngoài
+            const isClickOnLink = e.target === dropdownLink || dropdownLink.contains(e.target);
+
+            // NẾU: Menu đang MỞ + Bấm đúng vào vùng chữ -> Cho phép chuyển thẳng sang trang Solutions
+            if (isOpen && isClickOnLink) {
+                return; // Thoát hàm, để trình duyệt chuyển trang tự nhiên
             }
-            // Nếu menu ĐÃ mở (có class mobile-open) -> Trình duyệt tự hiểu là click lần 2 và cho qua, chuyển thẳng tới linotech.net/solutions
+
+            // TẤT CẢ CÁC TRƯỜNG HỢP CÒN LẠI:
+            // - Đang đóng (bấm đâu cũng mở)
+            // - Đang mở (nhưng bấm ra rìa ngoài chữ -> đóng lại)
+            e.preventDefault();
+            this.classList.toggle('mobile-open');
         }
     });
 }

@@ -12,15 +12,21 @@
            CSS ĐẶC THÙ RIÊNG CHO TRANG ABOUT US
         ========================================================================== */
 
+        /* --- GLOW EFFECTS --- */
+        .glow-left { position: absolute; top: 10%; left: --15%; width: 50%; height: 80%; background: radial-gradient(circle at center, rgba(34, 197, 94, 0.12), transparent 70%); pointer-events: none; z-index: 0; }
+        .glow-right { position: absolute; top: 10%; right: -15%; width: 50%; height: 80%; background: radial-gradient(circle at center, rgba(37, 99, 235, 0.12), transparent 70%); pointer-events: none; z-index: 0; }
+        .content-relative { position: relative; z-index: 1; }
+
         /* --- SECTION 1: HERO ABOUT US --- */
         .hero {
             width: 100%; min-height: 100vh; height: auto;      
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
             padding: 120px 20px 60px; box-sizing: border-box;
             background: radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.15), rgba(37, 99, 235, 0.1) 40%, transparent 70%);
+            position: relative;
         }
-        .hero h1 { font-size: 4rem; margin-bottom: 20px; letter-spacing: -1px; font-weight: 600; line-height: 1.1;}
-        .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 900px; margin-bottom: 0; text-align: center; line-height: 1.8;}
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; letter-spacing: -1px; font-weight: 600; line-height: 1.1; position: relative; z-index: 1;}
+        .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 900px; margin-bottom: 0; text-align: center; line-height: 1.8; position: relative; z-index: 1;}
 
         /* --- SECTION 2: NUMBERS / STATS --- */
         .stats-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -58,31 +64,58 @@
         .strength-card h3 { font-size: 1.4rem; margin-bottom: 10px; color: #ffffff; }
         .strength-card p { font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;}
 
-        /* --- SECTION 5: CERTIFICATIONS (Replaced Slider) --- */
+        /* --- SECTION 5: CERTIFICATIONS --- */
         .cert-section { overflow: hidden; position: relative; } 
         .cert-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;
-            max-width: 1000px; margin: 0 auto; 
-            align-items: stretch; /* Giữ 2 cột có chiều cao bằng nhau */
-            min-height: 480px; /* Chiều cao tương đương slider cũ */
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; /* Chuyển thành 3 cột */
+            margin: 0 auto; 
+            align-items: stretch; 
         }
         .cert-card {
             background: var(--bg-card); border: 1px solid var(--border-color);
             border-radius: 30px; padding: 30px; text-align: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
             backdrop-filter: blur(5px); transition: transform 0.3s ease, border-color 0.3s ease;
         }
         .cert-card:hover {
             transform: translateY(-5px); border-color: var(--primary-green);
         }
         .cert-image {
-            width: 100%; max-width: 400px; height: auto;
+            width: 100%; max-width: 300px; height: auto;
             border-radius: 10px; margin-bottom: 25px;
             object-fit: contain;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        .cert-title { font-size: 1.3rem; font-weight: 500; color: #ffffff; margin-bottom: 10px; }
+        .cert-title { font-size: 1.2rem; font-weight: 500; color: #ffffff; margin-bottom: 10px; }
         .cert-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; margin: 0; }
+
+        /* --- SECTION 6: SOLUTION PARTNERS (CAROUSEL) --- */
+        .partners-section { overflow: hidden; position: relative; padding: 60px 0; }
+        .partners-track-wrapper {
+            width: 100%; overflow: hidden; position: relative;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .partners-track {
+            display: flex; gap: 40px; width: max-content;
+            cursor: grab; /* Trỏ chuột hình bàn tay */
+            user-select: none; /* Tránh bôi đen khi kéo */
+            -webkit-user-select: none;
+        }
+        .partners-track:active {
+            cursor: grabbing; /* Bàn tay nắm lại khi đang kéo */
+        }
+
+        .partner-item { text-align: center; width: 220px; flex-shrink: 0; }
+        .partner-logo {
+            width: 220px; height: 120px; background: var(--bg-card);
+            border-radius: 20px; margin: 0 auto 15px auto; display: flex;
+            align-items: center; justify-content: center; border: 1px solid var(--border-color);
+            padding: 15px 30px; box-sizing: border-box; transition: all 0.3s ease;
+        }
+        .partner-logo:hover { border-color: var(--primary-green); background: rgba(255,255,255,0.05); }
+        .partner-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .partner-name { font-size: 1rem; font-weight: 500; color: var(--text-light); }
 
         /* ==========================================================================
            RESPONSIVE ĐẶC THÙ CHO TRANG ABOUT US
@@ -92,7 +125,7 @@
             .hero p { font-size: 1rem; }
             .stats-grid-3 { grid-template-columns: 1fr; gap: 15px;}
             .strengths-grid { grid-template-columns: 1fr; }
-            .cert-grid { grid-template-columns: 1fr; gap: 30px; min-height: auto; }
+            .cert-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } /* 2 cột trên Tablet */
         }
 
         @media (max-width: 768px) {
@@ -110,6 +143,7 @@
             .stat-card .stat-title { font-size: 1rem; margin-bottom: 0; }
             .stat-card p { font-size: 0.85rem; line-height: 1.2; }
             
+            .cert-grid { grid-template-columns: 1fr; } /* 1 cột trên Mobile */
             .cert-card { padding: 20px; }
         }
     </style>
@@ -123,43 +157,47 @@
     <main>
         <!-- HERO SECTION -->
         <section class="hero">
+            <div class="glow-left"></div>
+            <div class="glow-right"></div>
             <h1>About Linotech</h1>
             <p>Linotech is a dedicated enterprise and a strategic technology bridge, specializing in distributing advanced Information Technology solutions from China to Vietnam. Our philosophy is rooted in continuous innovation and empowering local businesses with cutting-edge, scalable, and highly cost-optimized infrastructure. Beyond commercial success, we are deeply driven by a commitment to community values—aiming to accelerate Vietnam's digital transformation, eliminate operational friction, and build a robust tech ecosystem where enterprises of all sizes can confidently scale into the future.</p>
         </section>
 
         <!-- STATS SECTION -->
         <section class="section-container">
-            <div class="stats-grid-3">
-                <div class="stat-card">
-                    <div class="stat-icon-wrapper">
-                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="content-relative">
+                <div class="stats-grid-3">
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper">
+                            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">99.99%</div>
+                            <div class="stat-title">Uptime Guarantee</div>
+                            <p>Enterprise-grade reliability for your critical workloads.</p>
+                        </div>
                     </div>
-                    <div class="stat-content">
-                        <div class="stat-number">99.99%</div>
-                        <div class="stat-title">Uptime Guarantee</div>
-                        <p>Enterprise-grade reliability for your critical workloads.</p>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper">
+                            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-title">Local Support</div>
+                            <p>Dedicated technical assistance from our Vietnamese experts.</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon-wrapper">
-                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-title">Local Support</div>
-                        <p>Dedicated technical assistance from our Vietnamese experts.</p>
-                    </div>
-                </div>
 
-                <div class="stat-card">
-                    <div class="stat-icon-wrapper">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number">#1</div>
-                        <div class="stat-title">Strategic Partner</div>
-                        <p>Authorized distributor of leading tech giants like ZStack.</p>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">#1</div>
+                            <div class="stat-title">Strategic Partner</div>
+                            <p>Authorized distributor of leading tech giants like ZStack.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -167,70 +205,117 @@
 
         <!-- 4 KEY SOLUTIONS SECTION -->
         <section class="section-container" id="key-solutions">
-            <h2 class="section-title">Key Solutions</h2>
-            <div class="strengths-grid">
-                <div class="strength-card">
-                    <h3>ZStack Cloud (IaaS/PaaS)</h3>
-                    <p>Next-generation cloud computing architectures providing a seamless, cost-effective alternative to traditional Western vendors without vendor lock-in.</p>
-                </div>
-                <div class="strength-card">
-                    <h3>Intelligent Operation Center (IOC)</h3>
-                    <p>Smart monitoring and real-time dashboard solutions designed for enterprises and smart cities, integrating AI capabilities for rapid decision-making.</p>
-                </div>
-                <div class="strength-card">
-                    <h3>Data Platforms</h3>
-                    <p>Big Data and Data Lakehouse solutions enabling businesses to unlock the true value of their data assets with superior analytics capabilities.</p>
-                </div>
-                <div class="strength-card">
-                    <h3>IT Consulting & Services</h3>
-                    <p>End-to-end consulting, deployment, and operational support by certified local architects ensuring seamless digital transformation.</p>
+            <div class="glow-right"></div>
+            <div class="content-relative">
+                <h2 class="section-title">Key Solutions</h2>
+                <div class="strengths-grid">
+                    <div class="strength-card">
+                        <h3>ZStack Cloud (IaaS/PaaS)</h3>
+                        <p>Next-generation cloud computing architectures providing a seamless, cost-effective alternative to traditional Western vendors without vendor lock-in.</p>
+                    </div>
+                    <div class="strength-card">
+                        <h3>Intelligent Operation Center (IOC)</h3>
+                        <p>Smart monitoring and real-time dashboard solutions designed for enterprises and smart cities, integrating AI capabilities for rapid decision-making.</p>
+                    </div>
+                    <div class="strength-card">
+                        <h3>Data Platforms</h3>
+                        <p>Big Data and Data Lakehouse solutions enabling businesses to unlock the true value of their data assets with superior analytics capabilities.</p>
+                    </div>
+                    <div class="strength-card">
+                        <h3>IT Consulting & Services</h3>
+                        <p>End-to-end consulting, deployment, and operational support by certified local architects ensuring seamless digital transformation.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- CORE STRENGTHS SECTION -->
         <section class="section-container" id="core-strengths">
-            <h2 class="section-title">Core Strengths</h2>
-            <div class="strengths-grid">
-                <div class="strength-card">
-                    <h3>Proven Enterprise Quality</h3>
-                    <p>We exclusively distribute robust, battle-tested solutions that have successfully handled massive workloads for leading tech ecosystems in Asia.</p>
+            
+            <div class="content-relative">
+                <h2 class="section-title">Core Strengths</h2>
+                <div class="strengths-grid">
+                    <div class="strength-card">
+                        <h3>Proven Enterprise Quality</h3>
+                        <p>We exclusively distribute robust, battle-tested solutions that have successfully handled massive workloads for leading tech ecosystems in Asia.</p>
+                    </div>
+                    <div class="strength-card">
+                        <h3>Cost Optimization</h3>
+                        <p>Delivering high-performance solutions with a significantly lower Total Cost of Ownership (TCO) compared to legacy Western providers.</p>
+                    </div>
+                    <div class="strength-card">
+                        <h3>Native Local Expertise</h3>
+                        <p>Our dedicated Vietnamese engineering team provides localized, hands-on support, breaking down language and technical barriers for faster deployment.</p>
+                    </div>
+                    <div class="strength-card">
+                        <h3>Flexible & Open Architecture</h3>
+                        <p>We prioritize systems that grow seamlessly with your business, offering open infrastructures that eliminate restrictive vendor lock-in.</p>
+                    </div>
                 </div>
-                <div class="strength-card">
-                    <h3>Unmatched Cost Optimization</h3>
-                    <p>Delivering high-performance infrastructure with a significantly lower Total Cost of Ownership (TCO) compared to legacy Western providers.</p>
-                </div>
-                <div class="strength-card">
-                    <h3>Native Local Expertise</h3>
-                    <p>Our dedicated Vietnamese engineering team provides localized, hands-on support, breaking down language and technical barriers for faster deployment.</p>
-                </div>
-                <div class="strength-card">
-                    <h3>Flexible & Open Architecture</h3>
-                    <p>We prioritize systems that grow seamlessly with your business, offering open infrastructures that eliminate restrictive vendor lock-in.</p>
+            </div>
+        </section>
+        
+        <!-- CERTIFICATIONS SECTION (3 Chứng chỉ) -->
+        <section class="section-container cert-section" id="certifications">
+            <div class="glow-left"></div>
+            <div class="content-relative">
+                <h2 class="section-title">Certifications</h2>
+                
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <img src="../cdn/images/zccc-cert-hoanganh.png" alt="ZCCC Certificate" class="cert-image" onerror="this.src='https://via.placeholder.com/600x400/090830/ffffff?text=ZCCC+Certificate'">
+                        <div class="cert-title">ZCCC Certified Expert</div>
+                        <p class="cert-desc">ZStack Cloud Computing Certification. Validating our deep expertise in deploying and operating scalable ZStack cloud architectures.</p>
+                    </div>
+                    
+                    <div class="cert-card">
+                        <img src="../cdn/images/zcct-cert-huy.jpeg" alt="ZCCT Certificate 1" class="cert-image" onerror="this.src='https://via.placeholder.com/600x400/090830/ffffff?text=ZCCT+Certificate+1'">
+                        <div class="cert-title">ZCCT Certified Expert</div>
+                        <p class="cert-desc">ZStack Cloud Computing Technical Professional. Highlighting our capability to provide professional consulting and technical handover.</p>
+                    </div>
+
+                    <div class="cert-card">
+                        <img src="../cdn/images/zcct-cert-anh.jpeg" alt="ZCCT Certificate 2" class="cert-image" onerror="this.src='https://via.placeholder.com/600x400/090830/ffffff?text=ZCCT+Certificate+2'">
+                        <div class="cert-title">ZCCT Certified Expert</div>
+                        <p class="cert-desc">ZStack Cloud Computing Technical Professional. Highlighting our capability to provide professional consulting and technical handover.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- CERTIFICATIONS SECTION (Replaces Our People) -->
-        <section class="section-container cert-section" id="certifications">
-            <h2 class="section-title">Certifications</h2>
-            
-            <div class="cert-grid">
-                <div class="cert-card">
-                    <!-- Ảnh mockup, Sir thay tên file ảnh thật của ZCCC vào đây nhé -->
-                    <img src="../cdn/images/zccc-cert.png" alt="ZStack Cloud Certification Cloud Computing" class="cert-image">
-                    <div class="cert-title">ZCCC Certification</div>
-                    <p class="cert-desc">ZStack Cloud Certification Cloud Computing. Validating our deep expertise in deploying and operating scalable ZStack cloud architectures.</p>
-                </div>
+        <!-- SOLUTION PARTNERS (CAROUSEL) -->
+        <section class="section-container partners-section" id="solution-partners">
+            <div class="content-relative">
+                <h2 class="section-title">Our Solution Partners</h2>
                 
-                <div class="cert-card">
-                    <!-- Ảnh mockup, Sir thay tên file ảnh thật của ZCCT vào đây nhé -->
-                    <img src="../cdn/images/zcct-cert.png" alt="ZStack Cloud Certification Cloud Training" class="cert-image">
-                    <div class="cert-title">ZCCT Certification</div>
-                    <p class="cert-desc">ZStack Cloud Certification Cloud Training. Highlighting our capability to provide professional consulting, training, and technical handover.</p>
+                <div class="partners-track-wrapper">
+                    <div class="partners-track" id="partnersTrack">
+                        <!-- Bản Gốc (Original Set) -->
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/byteplus.png" alt="Byte Plus" ></div><div class="partner-name">Byte Plus</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/chenpushen.png" alt="CPS Company"></div><div class="partner-name">CPS Company</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/dtstack.png" alt="DTStack"></div><div class="partner-name">DTStack</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/kodcloud.png" alt="KodCloud"></div><div class="partner-name">KodCloud</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/nanjingpanda.png" alt="Nanjing Panda"></div><div class="partner-name">Nanjing Panda</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/sensordata.png" alt="Sensor Data"></div><div class="partner-name">Sensor Data</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/ucloud.png" alt="UCloud"></div><div class="partner-name">UCloud</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/unv.png" alt="Uniview"></div><div class="partner-name">Uniview</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/zstack.png" alt="ZStack"></div><div class="partner-name">ZStack</div></div>
+
+                        <!-- Bản Sao (Duplicated Set) để Carousel chạy vòng lặp mượt mà -->
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/byteplus.png" alt="Byte Plus" ></div><div class="partner-name">Byte Plus</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/chenpushen.png" alt="CPS Company"></div><div class="partner-name">CPS Company</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/dtstack.png" alt="DTStack"></div><div class="partner-name">DTStack</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/kodcloud.png" alt="KodCloud"></div><div class="partner-name">KodCloud</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/nanjingpanda.png" alt="Nanjing Panda"></div><div class="partner-name">Nanjing Panda</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/sensordata.png" alt="Sensor Data"></div><div class="partner-name">Sensor Data</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/ucloud.png" alt="UCloud"></div><div class="partner-name">UCloud</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/unv.png" alt="Uniview"></div><div class="partner-name">Uniview</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/zstack.png" alt="ZStack"></div><div class="partner-name">ZStack</div></div>
+                    </div>
                 </div>
             </div>
         </section>
+
     </main>
 
     <!-- CONNECT & FOOTER PLACEHOLDERS -->
@@ -238,5 +323,121 @@
     <div id="footer-placeholder"></div>
 
     <script src="../common/main.js"></script>
+
+    <!-- JAVASCRIPT XỬ LÝ DỪNG CAROUSEL TRÊN ĐIỆN THOẠI -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('partnersTrack');
+            if (!track) return;
+
+            const NORMAL_SPEED = 1;        // Tốc độ trượt bình thường (Pixel / Khung hình)
+            const ACCELERATION = 0.02;     // Gia tốc (Số càng nhỏ, tăng tốc càng từ từ và êm ái)
+            const RESUME_DELAY = 1000;     // Độ trễ 1 giây (1000ms) trước khi chạy lại
+
+            let currentX = 0;
+            let isDragging = false;
+            let startX = 0;
+            let isHovered = false;
+            let isPaused = false;
+            let currentSpeed = NORMAL_SPEED;
+            let resumeTimeout = null;
+
+            // Ngăn trình duyệt bắt sự kiện kéo file/ảnh mặc định
+            track.addEventListener('dragstart', (e) => e.preventDefault());
+
+            // --- ĐỘNG CƠ RENDER (CHẠY 60 FPS) ---
+            function animate() {
+                // Xử lý gia tốc khi đang không bị tạm dừng
+                if (!isPaused && !isDragging && !isHovered) {
+                    if (currentSpeed < NORMAL_SPEED) {
+                        currentSpeed += ACCELERATION;
+                        if (currentSpeed > NORMAL_SPEED) currentSpeed = NORMAL_SPEED;
+                    }
+                } else {
+                    currentSpeed = 0;
+                }
+
+                // Nếu user đang không kéo, thì cho nó tự trượt
+                if (!isDragging) {
+                    currentX -= currentSpeed;
+                }
+
+                // Xử lý vòng lặp vô tận mượt mà (Dịch chuyển nửa quãng đường)
+                const halfWidth = track.scrollWidth / 2;
+                
+                while (currentX <= -halfWidth) {
+                    currentX += halfWidth; // Trượt về cuối thì warp lại
+                }
+                while (currentX > 0) {
+                    currentX -= halfWidth; // Kéo giật ngược lại thì warp lên
+                }
+
+                track.style.transform = `translateX(${currentX}px)`;
+                requestAnimationFrame(animate);
+            }
+
+            // Bắt đầu nhịp tim của vòng lặp
+            requestAnimationFrame(animate);
+
+            // --- HÀM XỬ LÝ ĐỘ TRỄ 2 GIÂY TRƯỚC KHI TĂNG TỐC ---
+            function scheduleResume() {
+                clearTimeout(resumeTimeout);
+                isPaused = true;
+                resumeTimeout = setTimeout(() => {
+                    // Nếu vẫn đang không bị hover hay click thì mới cho phép chạy lại
+                    if (!isHovered && !isDragging) {
+                        isPaused = false;
+                        currentSpeed = 0; // Đưa vận tốc về 0 để ép nó chạy hàm ACCELERATION
+                    }
+                }, RESUME_DELAY);
+            }
+
+            // --- XỬ LÝ SỰ KIỆN KÉO THẢ (DRAG & DROP) ---
+            function startDrag(e) {
+                isDragging = true;
+                isPaused = true;
+                currentSpeed = 0;
+                clearTimeout(resumeTimeout);
+                startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+            }
+
+            function moveDrag(e) {
+                if (!isDragging) return;
+                const x = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+                const walk = x - startX;
+                currentX += walk;
+                startX = x;
+            }
+
+            function endDrag() {
+                if (!isDragging) return;
+                isDragging = false;
+                scheduleResume(); // Kích hoạt bộ đếm 2s khi nhấc tay/chuột ra
+            }
+
+            // 1. Gắn sự kiện Chuột (Desktop)
+            track.addEventListener('mousedown', startDrag);
+            window.addEventListener('mousemove', moveDrag); // Gắn vào window để kéo chuột lẹm ra ngoài vẫn ăn
+            window.addEventListener('mouseup', endDrag);
+
+            // 2. Gắn sự kiện Hover (Desktop)
+            track.addEventListener('mouseenter', () => {
+                isHovered = true;
+                isPaused = true;
+                currentSpeed = 0;
+                clearTimeout(resumeTimeout); // Xóa đếm ngược nếu vô tình chĩa chuột vào lại
+            });
+
+            track.addEventListener('mouseleave', () => {
+                isHovered = false;
+                if (!isDragging) scheduleResume(); // Chuột rút đi thì kích hoạt bộ đếm 2s
+            });
+
+            // 3. Gắn sự kiện Chạm (Mobile/Tablet)
+            track.addEventListener('touchstart', startDrag, { passive: true });
+            window.addEventListener('touchmove', moveDrag, { passive: true });
+            window.addEventListener('touchend', endDrag);
+        });
+    </script>
 </body>
 </html>

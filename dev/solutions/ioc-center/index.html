@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOC Center & CIM Digital Twin || Linotech</title>
+    <meta name="description" content="Intelligent Operations Center and CIM Digital Twin Platform solutions provided by Linotech and Shenzhen Chenpusen Information Technology Co., Ltd.">
+    <link rel="stylesheet" href="../../common/style.css">
+    
+    <style>
+        /* --- IOC PAGE SPECIFIC STYLES --- */
+        .hero {
+            height: 80vh; min-height: 500px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 0 20px; box-sizing: border-box;
+            background: radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.15), rgba(37, 99, 235, 0.1) 40%, transparent 70%);
+        }
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; letter-spacing: -1px; font-weight: 600; line-height: 1.1;}
+        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin-bottom: 40px; }
+
+        /* --- GLOW EFFECTS --- */
+        .glow-left { position: absolute; top: 10%; left: -15%; width: 50%; height: 80%; background: radial-gradient(circle at center, rgba(34, 197, 94, 0.12), transparent 70%); pointer-events: none; z-index: 0; }
+        .glow-right { position: absolute; top: 10%; right: -15%; width: 50%; height: 80%; background: radial-gradient(circle at center, rgba(37, 99, 235, 0.12), transparent 70%); pointer-events: none; z-index: 0; }
+        .content-relative { position: relative; z-index: 1; }
+
+        /* --- SOLUTIONS GRID --- */
+        .solutions-grid {
+            display: grid; gap: 25px; margin-top: 50px;
+        }
+        .solutions-grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .solutions-grid-3 { grid-template-columns: repeat(3, 1fr); }
+        
+        .solution-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 40px 30px; transition: all 0.3s ease;
+            display: flex; flex-direction: column; align-items: flex-start;
+        }
+        .solution-card:hover {
+            transform: translateY(-10px); background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary-green); box-shadow: 0 10px 30px rgba(34, 197, 94, 0.1);
+        }
+        .solution-card h3 { color: var(--text-light); font-size: 1.5rem; margin-bottom: 15px; line-height: 1.3;}
+        .solution-card p { color: var(--text-muted); font-size: 1rem; margin: 0; line-height: 1.6;}
+
+        /* --- CALL TO ACTION (DIGITAL TWIN ECOSYSTEM) --- */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(34, 197, 94, 0.2));
+            border: 1px solid var(--primary-blue); border-radius: 30px;
+            padding: 60px 40px; text-align: center; margin-top: 80px;
+        }
+        .cta-banner h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .cta-banner p { font-size: 1.1rem; color: #e2e8f0; max-width: 600px; margin: 0 auto 30px auto; }
+
+        @media (max-width: 992px) {
+            .solutions-grid-4, .solutions-grid-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .solutions-grid-4, .solutions-grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THIẾT LẬP ROOT PATH (Lùi 2 cấp thư mục) -->
+    <script>window.ROOT_PATH = '../../';</script>
+
+    <div id="header-placeholder"></div>
+
+    <main style="padding-top: 80px;">
+        <!-- SEGMENT 1: HERO & IOC INTRO -->
+        <section class="hero">
+            <h1>CIM Digital Twin & IOC Platform</h1>
+            <p>Empower your smart city and enterprise management with the advanced City Information Modeling (CIM) and Intelligent Operations Center (IOC) platform by Shenzhen Chenpusen Information Technology Co., Ltd. Seamlessly integrate BIM, GIS, and AIoT architectures[cite: 1].</p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <a href="#ioc-solutions" class="btn btn-outline">Explore Architecture</a>
+                <a href="#connect-section" class="btn btn-green">Get Consulted</a>
+            </div>
+        </section>
+
+        <!-- SEGMENT 2: PLATFORM ARCHITECTURE -->
+        <section id="ioc-solutions" class="section-container">
+            <h2 class="section-title" style="margin-bottom: 15px;">Comprehensive Platform Architecture</h2>
+            <p style="text-align: center; color: var(--text-muted); max-width: 800px; margin: 0 auto; font-size: 1.15rem;">
+                A unified platform utilizing foundational data, AI computing, and edge gateways to build the ultimate digital twin base for modern cities[cite: 1].
+            </p>
+            
+            <div class="solutions-grid solutions-grid-4">
+                <div class="solution-card">
+                    <h3>IoT Platform</h3>
+                    <p>Handles real-time data collection, device registration, rule engines, and message proxies across an extensive network of IoT hubs[cite: 1].</p>
+                </div>
+                <div class="solution-card">
+                    <h3>AI & Algorithm Models</h3>
+                    <p>Powered by advanced AI computing engines to deliver security monitoring, passenger flow analysis, traffic simulation, and pipe network modeling[cite: 1].</p>
+                </div>
+                <div class="solution-card">
+                    <h3>3D GIS Management</h3>
+                    <p>Manages BIM/CIM models with lightweight processing, geographic scene management, and spatial baseline services for precise twin rendering[cite: 1].</p>
+                </div>
+                <div class="solution-card">
+                    <h3>CIM Visualization</h3>
+                    <p>Highly scalable frontend applications supporting multi-terminal smart city, smart construction, green low-carbon, and industrial investment dashboards[cite: 1].</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEGMENT 3: SMART SCENARIOS / USE CASES -->
+        <section class="section-container" style="background: rgba(0,0,0,0.2);">
+            <div class="glow-left"></div>
+            <div class="content-relative">
+                <h2 class="section-title" style="margin-bottom: 15px;">Multi-Scenario Intelligent Operations</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem;">Delivering deep visualizations for all operational ecosystems, allowing centralized intelligent management[cite: 1].</p>
+                
+                <div class="solutions-grid solutions-grid-3">
+                    <div class="solution-card" style="padding: 25px;">
+                        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80" alt="Smart City Mobility" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                        <h3 style="font-size: 1.3rem;">Smart City & Mobility</h3>
+                        <p>Track real-time vehicle-road coordination, autonomous mini-bus routes, unmanned delivery systems, and automate sweeping vehicles. Ensure seamless urban flow with integrated smart parking management[cite: 1].</p>
+                    </div>
+                    <div class="solution-card" style="padding: 25px;">
+                        <img src="https://images.unsplash.com/photo-1541888086925-0c13e5dd34bc?auto=format&fit=crop&q=80" alt="Smart Construction" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                        <h3 style="font-size: 1.3rem;">Smart Construction Site</h3>
+                        <p>Comprehensive monitoring of project progress, personnel attendance, and perimeter security. Analyze real-time environmental metrics such as AQI, PM2.5, power consumption, and water usage to mitigate safety risks[cite: 1].</p>
+                    </div>
+                    <div class="solution-card" style="padding: 25px;">
+                        <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80" alt="Green Low-Carbon" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                        <h3 style="font-size: 1.3rem;">Green Low-Carbon Network</h3>
+                        <p>Enable Virtual Power Plants by integrating photovoltaic power generation, energy storage devices, and flexible load controls. Visualize energy flows and efficiency metrics to achieve sustainable operations[cite: 1].</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEGMENT 4: DEEP DIVE (AI & BUILDING SUPPORT) -->
+        <section class="section-container">
+            <div class="glow-right"></div>
+            <div class="content-relative">
+                <h2 class="section-title">Next-Gen AI & Micro-Refined Management</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 40px;">
+                    <div>
+                        <h3 style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 20px;">AI Smart Interaction</h3>
+                        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 20px;">
+                            Elevate user experiences with Unity-based virtual character models. The platform features an extensive built-in digital avatar library, combining voice synthesis with high-precision voice recognition (>90% accuracy)[cite: 1]. Utilize NLP-driven voice commands to intuitively control the IOC dashboard and assist in rapid decision-making[cite: 1].
+                        </p>
+                        
+                        <h3 style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 20px; margin-top: 40px;">Digital Building Support</h3>
+                        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 20px;">
+                            Gain unprecedented micro-refined visibility into building operations to reduce maintenance overhead and improve response times[cite: 1].
+                        </p>
+                        <ul class="feature-list">
+                            <li><strong>3D Visual Monitoring:</strong> Stunning macro and micro scene visualizations[cite: 1].</li>
+                            <li><strong>System-wide Control:</strong> Live monitoring of HVAC, lighting, plumbing, power distribution, and elevator statuses[cite: 1].</li>
+                            <li><strong>High-precision Simulation:</strong> Intuitive building structure dismantling and pipeline routing lookups for efficient maintenance[cite: 1].</li>
+                        </ul>
+                    </div>
+                    <div style="border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.02);">
+                        <img src="../../cdn/images/dashboard-ioc-center.png" alt="IOC Dashboard" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEGMENT 5: SUCCESS STORIES -->
+        <section class="section-container" style="background: rgba(0,0,0,0.2);">
+            <div class="glow-left"></div>
+            <div class="content-relative">
+                <h2 class="section-title" style="margin-bottom: 15px;">Success Stories</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem;">Real-world implementations demonstrating the transformative power of our CIM & IOC platforms.</p>
+                
+                    <div class="solutions-grid solutions-grid-3">
+                        <div class="solution-card" style="padding: 25px;">
+                            <img src="../../cdn/images/kexing-park.jpg" alt="Kexing Science Park" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                            <h3 style="font-size: 1.3rem;">Kexing Science Park</h3>
+                            <p><strong>Context:</strong> A billion-level smart tech park complex housing 40,000+ talents and 400+ high-tech enterprises.<br><br><strong>Solution:</strong> Deployed a digital operation platform integrating IoT, asset management, and operation services to reduce energy consumption and significantly improve service efficiency.</p>
+                        </div>
+                        <div class="solution-card" style="padding: 25px;">
+                            <img src="../../cdn/images/gree-group.jpg" alt="Zhuhai Gree Group" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                            <h3 style="font-size: 1.3rem;">Zhuhai Gree Group</h3>
+                            <p><strong>Context:</strong> A state-owned enterprise building a modern industrial park integrating production, living, and ecology.<br><br><strong>Solution:</strong> Implemented a comprehensive smart solution powered by 4 base platforms, 9 application integrations, and 18 smart system integrations to create a cutting-edge smart industrial space.</p>
+                        </div>
+                        <div class="solution-card" style="padding: 25px;">
+                            <img src="../../cdn/images/lenovo-base.jpg" alt="Lenovo Global Smart Manufacturing Base" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                            <h3 style="font-size: 1.3rem;">Lenovo Smart Manufacturing</h3>
+                            <p><strong>Context:</strong> A Fortune 500 global operations center requiring comprehensive digital manufacturing operations.<br><br><strong>Solution:</strong> Deployed a global IOC based on IoT, ESG management, and BIM digital O&M to enable unified global command, refined multi-plant management, and significant production efficiency gains.</p>
+                        </div>
+                    </div>
+            </div>
+        </section>
+
+        <!-- SEGMENT 6: INTERACTIVE DEMO (CTA) -->
+        <section class="section-container" style="padding-top: 0;">
+            <div class="cta-banner">
+                <h2>Experience the Digital Twin Ecosystem</h2>
+                <p>Step into the future of urban and enterprise management. Explore our highly visual, intuitive, and interactive CIM/IOC demo platform crafted specifically to demonstrate our technical excellence.</p>
+                <a href="http://viet.yaoguangxingtu.asia" target="_blank" rel="noopener noreferrer" class="btn btn-green" style="padding: 18px 45px; font-size: 1.1rem;">Launch Live Demo →</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- KÉO FORM LIÊN HỆ & FOOTER TỪ THƯ MỤC COMMON -->
+    <div id="connect-placeholder"></div>
+    <div id="footer-placeholder"></div>
+
+    <script src="../../common/main.js"></script>
+
+</body>
+</html>

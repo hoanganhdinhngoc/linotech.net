@@ -154,7 +154,7 @@ header {
 }
 
 /* --- DROPDOWN MENU (DESKTOP) --- */
-/* --- DROPDOWN MENU (DESKTOP) --- */
+
 .has-dropdown { position: relative; }
 .dropdown-arrow { 
     font-size: 0.8rem; 
@@ -460,30 +460,63 @@ textarea.form-input {
         border-bottom: 1px solid var(--border-color);
     }
     #menu-toggle:checked ~ .main-nav { display: block; }
-    .main-nav ul { flex-direction: column; align-items: center; gap: 20px; }
+    
+    /* Cố định chiều rộng để chống giật/nhảy chữ khi mở menu */
+    .main-nav ul { flex-direction: column; align-items: center; gap: 10px; width: 100%; padding: 0; }
+    .main-nav li { width: 100%; text-align: center; }
+    .main-nav a { display: inline-block; padding: 12px 10px; width: 100%; box-sizing: border-box; }
 
     /* Connect & Footer Responsive */
     .connect-grid { grid-template-columns: 1fr; gap: 40px; }
     .connect-left .section-title { font-size: 3rem; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
-    /* Dropdown Mobile Responsive */
+    
+    /* Dropdown Mobile Responsive - Animation Mượt mà */
+    .has-dropdown {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
     .has-dropdown .dropdown-menu {
         position: static;
-        display: none; /* Vẫn dùng display: none để giấu hẳn trên mobile */
-        visibility: visible;
-        pointer-events: auto;
+        display: flex;
+        flex-direction: column;
         width: 100%;
         background: transparent;
         border: none;
         box-shadow: none;
-        padding: 10px 0 0 20px;
-        opacity: 1;
+        
+        /* Chuyển sang dùng max-height để các mục bên dưới trượt xuống mượt mà */
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        padding: 0;
+        margin: 0;
         transform: none;
+        visibility: hidden;
+        pointer-events: none;
+        transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
     }
     
     .has-dropdown.mobile-open .dropdown-menu {
-        display: flex;
+        max-height: 400px; /* Chiều cao tối đa khi bung ra */
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        padding: 5px 0 15px 0;
     }
+
+    .has-dropdown .dropdown-menu a {
+        padding: 10px 0;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+    .has-dropdown .dropdown-menu a:hover {
+        color: var(--primary-green);
+        background: transparent; /* Bỏ background hover trên mobile cho đỡ rối */
+    }
+    
     .has-dropdown.mobile-open .dropdown-arrow {
         transform: rotate(180deg);
     }
