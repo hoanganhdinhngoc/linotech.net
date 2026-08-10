@@ -94,6 +94,28 @@ function setupSmartContactLinks() {
 }
 
 // ==========================================
+// MOBILE DROPDOWN HANDLER
+// ==========================================
+function setupMobileDropdown() {
+    const dropdownToggle = document.querySelector('.has-dropdown > a');
+    if (!dropdownToggle) return;
+
+    dropdownToggle.addEventListener('click', function (e) {
+        // Chỉ áp dụng logic chặn click này trên màn hình Mobile/Tablet
+        if (window.innerWidth <= 992) {
+            const parentLi = this.parentElement;
+            
+            // Nếu menu CHƯA mở -> Chặn chuyển trang (preventDefault) và mở menu ra
+            if (!parentLi.classList.contains('mobile-open')) {
+                e.preventDefault();
+                parentLi.classList.add('mobile-open');
+            }
+            // Nếu menu ĐÃ mở (có class mobile-open) -> Trình duyệt tự hiểu là click lần 2 và cho qua, chuyển thẳng tới linotech.net/solutions
+        }
+    });
+}
+
+// ==========================================
 // LOAD COMPONENTS & REPLACE PATHS (TỐI ƯU HÓA PROMISE)
 // ==========================================
 async function loadComponent(placeholderId, filePath) {
@@ -116,6 +138,7 @@ async function loadComponent(placeholderId, filePath) {
     }
 }
 
+
 // Khởi chạy khi DOM sẵn sàng bằng async/await
 document.addEventListener("DOMContentLoaded", async () => {
     const basePath = window.ROOT_PATH || './';
@@ -130,6 +153,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Chỉ gọi hàm setup 1 lần duy nhất sau khi mọi HTML đã được chèn vào trang
     setupContactForm();
     setupSmartContactLinks();
+    setupMobileDropdown();
 });
 
 // ==========================================

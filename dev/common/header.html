@@ -7,7 +7,17 @@
     <nav class="main-nav">
         <ul>
             <li><a href="{{ROOT_PATH}}about-us/index.html">About Us</a></li>
-            <li><a href="{{ROOT_PATH}}solutions/index.html">Solutions</a></li>
+            
+            <!-- THÊM CLASS HAS-DROPDOWN VÀ MENU CON CHO SOLUTIONS -->
+            <li class="has-dropdown">
+                <a href="{{ROOT_PATH}}solutions/index.html">Solutions <span class="dropdown-arrow">▾</span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ROOT_PATH}}solutions/zstack">ZStack</a></li>
+                    <li><a href="{{ROOT_PATH}}solutions/ioc-center">IOC Center</a></li>
+                    <li><a href="{{ROOT_PATH}}solutions/data-platforms">Data Platforms</a></li>
+                </ul>
+            </li>
+            
             <li><a href="{{ROOT_PATH}}index.html#connect-section">Contact</a></li>
         </ul>
     </nav>

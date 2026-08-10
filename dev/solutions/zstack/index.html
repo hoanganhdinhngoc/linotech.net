@@ -18,6 +18,11 @@
         .hero h1 { font-size: 4rem; margin-bottom: 20px; letter-spacing: -1px; font-weight: 600; line-height: 1.1;}
         .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin-bottom: 40px; }
 
+        /* --- GLOW EFFECTS --- */
+        .glow-left { position: absolute; top: 10%; left: -15%; width: 50%; height: 80%; background: radial-gradient(circle at center, rgba(34, 197, 94, 0.12), transparent 70%); pointer-events: none; z-index: 0; }
+        .glow-right { position: absolute; top: 10%; right: -15%; width: 50%; height: 80%; background: radial-gradient(circle at center, rgba(37, 99, 235, 0.12), transparent 70%); pointer-events: none; z-index: 0; }
+        .content-relative { position: relative; z-index: 1; }
+
         /* --- SOLUTIONS GRID --- */
         .solutions-grid {
             display: grid; gap: 25px; margin-top: 50px;
@@ -57,13 +62,13 @@
             display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px;
         }
         .reseller-item {
-            text-align: center; width: 150px;
+            text-align: center; width: 220px;
         }
         .reseller-logo {
-            width: 120px; height: 120px; background: var(--bg-card);
+            width: 220px; height: 120px; background: var(--bg-card);
             border-radius: 20px; margin: 0 auto 15px auto; display: flex;
             align-items: center; justify-content: center; border: 1px solid var(--border-color);
-            padding: 15px; box-sizing: border-box; transition: all 0.3s ease;
+            padding: 15px 30px; box-sizing: border-box; transition: all 0.3s ease;
         }
         .reseller-logo:hover {
             border-color: var(--primary-green);
@@ -139,80 +144,88 @@
         </section>
 
         <!-- SEGMENT 2: EXTENDED INTRO & PROVEN EXCELLENCE -->
-        <section class="section-container" style="background: rgba(0,0,0,0.2);">
-            <h2 class="section-title">Global Deployment & Proven Excellence</h2>
-            <div class="cert-grid" style="align-items: center; margin-bottom: 40px; grid-template-columns: 1fr 1fr;">
-                <div>
-                    <h3 style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 20px;">Trusted by 5,000+ Enterprises Worldwide</h3>
-                    <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 20px;">
-                        ZStack's robust cloud infrastructure spans over 30 countries globally, serving critical sectors such as government, finance, telecommunications, and high-end manufacturing. Engineered to solve complex enterprise challenges, ZStack delivers highly scalable virtualization, centralized intelligent cloud management platforms (CMP), and advanced software-defined storage (SDS).
-                    </p>
-                    <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 20px;">
-                        By adopting ZStack, organizations guarantee maximum uptime and unlock a secure, lightweight environment ready for the next generation of AI workloads and Big Data analytics, entirely removing the burden of vendor lock-in and high subscription fees.
-                    </p>
-                    <ul style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; list-style-type: square; padding-left: 20px;">
-                        <li><strong>1,000+</strong> cases of successful VMware replacement.</li>
-                        <li><strong>600+</strong> cases of VMware co-management.</li>
-                        <li><strong>60,000+</strong> hours of stable, uninterrupted operations.</li>
-                    </ul>
-                </div>
-                <div style="border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color);">
-                    <!-- Ảnh minh họa mạng lưới toàn cầu -->
-                    <img src="../../cdn/images/logo-zstack-banner.jpg" alt="Global Network" style="width: 100%; height: auto; display: block;">
+        <section class="section-container">
+            <div class="glow-left"></div>
+            <div class="content-relative">
+                <h2 class="section-title">Global Deployment & Proven Excellence</h2>
+                <div class="cert-grid" style="align-items: center; margin-bottom: 40px; grid-template-columns: 1fr 1fr;">
+                    <div>
+                        <h3 style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 20px;">Trusted by 5,000+ Enterprises Worldwide</h3>
+                        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 20px;">
+                            ZStack's robust cloud infrastructure spans over 30 countries globally, serving critical sectors such as government, finance, telecommunications, and high-end manufacturing. Engineered to solve complex enterprise challenges, ZStack delivers highly scalable virtualization, centralized intelligent cloud management platforms (CMP), and advanced software-defined storage (SDS).
+                        </p>
+                        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 20px;">
+                            By adopting ZStack, organizations guarantee maximum uptime and unlock a secure, lightweight environment ready for the next generation of AI workloads and Big Data analytics, entirely removing the burden of vendor lock-in and high subscription fees.
+                        </p>
+                        <ul style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; list-style-type: square; padding-left: 20px;">
+                            <li><strong>1,000+</strong> cases of successful VMware replacement.</li>
+                            <li><strong>600+</strong> cases of VMware co-management.</li>
+                            <li><strong>60,000+</strong> hours of stable, uninterrupted operations.</li>
+                        </ul>
+                    </div>
+                    <div style="border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color);">
+                        <!-- Ảnh minh họa mạng lưới toàn cầu -->
+                        <img src="../../cdn/images/logo-zstack-banner.jpg" alt="Global Network" style="width: 100%; height: auto; display: block;">
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- SEGMENT 2.5: USE CASES -->
         <section class="section-container">
-            <h2 class="section-title" style="margin-bottom: 15px;">Success Stories</h2>
-            <p style="text-align: center; color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem;">Real-world implementations demonstrating ZStack's power and operational efficiency.</p>
-            
-            <div class="solutions-grid solutions-grid-3">
-                <div class="solution-card" style="padding: 25px;">
-                    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80" alt="Smart City Use Case" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
-                    <h3 style="font-size: 1.3rem;">Smart City (Saudi Arabia)</h3>
-                    <p><strong>Challenge:</strong> Processing massive amounts of CCTV data with real-time AI analysis.<br><br><strong>Solution:</strong> Successfully managed 100+ server nodes and 2,500+ CCTVs by utilizing ZStack's unified CPU/GPU management capabilities, ultimately driving a 40% reduction in TCO.</p>
-                </div>
-                <div class="solution-card" style="padding: 25px;">
-                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80" alt="Telecom Use Case" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
-                    <h3 style="font-size: 1.3rem;">MSP & Telecom (Australia)</h3>
-                    <p><strong>Challenge:</strong> Exorbitant VMware licensing costs and fragmented system management.<br><br><strong>Solution:</strong> Seamlessly and securely migrated 1,000+ VMs from VMware to ZStack, unifying cloud management clusters across multiple cities including Melbourne, Adelaide, and Sydney.</p>
-                </div>
-                <div class="solution-card" style="padding: 25px;">
-                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80" alt="Gov Use Case" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
-                    <h3 style="font-size: 1.3rem;">Intelligent Computing (China)</h3>
-                    <p><strong>Challenge:</strong> Requirement for a highly flexible, multi-engine computing infrastructure.<br><br><strong>Solution:</strong> Deployed a unified management cluster for 2,000+ GPUs, offering robust GPU passthrough, vGPU sharing, and ultra-precise memory slicing based on containers.</p>
+            <div class="glow-right"></div>
+            <div class="content-relative">
+                <h2 class="section-title" style="margin-bottom: 15px;">Success Stories</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem;">Real-world implementations demonstrating ZStack's power and operational efficiency.</p>
+                
+                <div class="solutions-grid solutions-grid-3">
+                    <div class="solution-card" style="padding: 25px;">
+                        <img src="../../cdn/images/saudi-arabia.webp" alt="Smart City Use Case" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                        <h3 style="font-size: 1.3rem;">Smart City (Saudi Arabia)</h3>
+                        <p><strong>Challenge:</strong> Processing massive amounts of CCTV data with real-time AI analysis.<br><br><strong>Solution:</strong> Successfully managed 100+ server nodes and 2,500+ CCTVs by utilizing ZStack's unified CPU/GPU management capabilities, ultimately driving a 40% reduction in TCO.</p>
+                    </div>
+                    <div class="solution-card" style="padding: 25px;">
+                        <img src="../../cdn/images/australia.jpg" alt="Telecom Use Case" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                        <h3 style="font-size: 1.3rem;">MSP & Telecom (Australia)</h3>
+                        <p><strong>Challenge:</strong> Exorbitant VMware licensing costs and fragmented system management.<br><br><strong>Solution:</strong> Seamlessly and securely migrated 1,000+ VMs from VMware to ZStack, unifying cloud management clusters across multiple cities including Melbourne, Adelaide, and Sydney.</p>
+                    </div>
+                    <div class="solution-card" style="padding: 25px;">
+                        <img src="../../cdn/images/data-center.png" alt="Gov Use Case" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                        <h3 style="font-size: 1.3rem;">Intelligent Computing (China)</h3>
+                        <p><strong>Challenge:</strong> Requirement for a highly flexible, multi-engine computing infrastructure.<br><br><strong>Solution:</strong> Deployed a unified management cluster for 2,000+ GPUs, offering robust GPU passthrough, vGPU sharing, and ultra-precise memory slicing based on containers.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- SEGMENT 3: PARTNERSHIP & CERTIFICATES -->
-        <section class="section-container" style="background: rgba(0,0,0,0.2);">
-            <div style="text-align: center; margin-bottom: 50px;">
-                <p style="color: var(--primary-green); font-size: 1.1rem; font-weight: 500; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;">Official Distributor in Vietnam</p>
-                <h2 class="section-title" style="margin: 0;">Linotech & ZStack Partnership</h2>
-                <p style="color: var(--text-muted); max-width: 700px; margin: 20px auto 0 auto; font-size: 1.1rem;">
-                    As the official distributor, Linotech is equipped with certified experts ready to provide deep L2 technical support and seamless deployment for Vietnamese enterprises.
-                </p>
-            </div>
+        <section class="section-container">
+            <div class="glow-left"></div>
+            <div class="content-relative">
+                <div style="text-align: center; margin-bottom: 50px;">
+                    <p style="color: var(--primary-green); font-size: 1.1rem; font-weight: 500; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;">Official Distributor in Vietnam</p>
+                    <h2 class="section-title" style="margin: 0;">Linotech & ZStack Partnership</h2>
+                    <p style="color: var(--text-muted); max-width: 700px; margin: 20px auto 0 auto; font-size: 1.1rem;">
+                        As the official distributor, Linotech is equipped with certified experts ready to provide deep L2 technical support and seamless deployment for Vietnamese enterprises.
+                    </p>
+                </div>
 
-            <div class="cert-grid">
-                <div class="cert-card">
-                    <img src="../../cdn/images/zccc-cert-hoanganh.png" alt="ZCCC Certificate" onerror="this.src='https://via.placeholder.com/600x400/090830/ffffff?text=ZCCC+Certificate'">
-                    <h4>ZCCC Certified Expert</h4>
-                    <p>ZStack Cloud Computing Certification</p>
-                </div>
-                <div class="cert-card">
-                    <img src="../../cdn/images/zcct-cert-huy.jpeg" alt="ZCCT Certificate 1" onerror="this.src='https://via.placeholder.com/600x400/090830/ffffff?text=ZCCT+Certificate+1'">
-                    <h4>ZCCT Certified Expert</h4>
-                    <p>ZStack Cloud Computing Technical Professional</p>
-                </div>
-                <div class="cert-card">
-                    <!-- Ảnh chứng chỉ ZCCT thứ 3: Đổi tên file ở đây -->
-                    <img src="../../cdn/images/zcct-cert-anh.jpeg" alt="ZCCT Certificate 2" onerror="this.src='https://via.placeholder.com/600x400/090830/ffffff?text=ZCCT+Certificate+2'">
-                    <h4>ZCCT Certified Expert</h4>
-                    <p>ZStack Cloud Computing Technical Professional</p>
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <img src="../../cdn/images/zccc-cert-hoanganh.png" alt="ZCCC Certificate" onerror="this.src='https://via.placeholder.com/600x400/090830/ffffff?text=ZCCC+Certificate'">
+                        <h4>ZCCC Certified Expert</h4>
+                        <p>ZStack Cloud Computing Certification</p>
+                    </div>
+                    <div class="cert-card">
+                        <img src="../../cdn/images/zcct-cert-huy.jpeg" alt="ZCCT Certificate 1" onerror="this.src='https://via.placeholder.com/600x400/090830/ffffff?text=ZCCT+Certificate+1'">
+                        <h4>ZCCT Certified Expert</h4>
+                        <p>ZStack Cloud Computing Technical Professional</p>
+                    </div>
+                    <div class="cert-card">
+                        <img src="../../cdn/images/zcct-cert-anh.jpeg" alt="ZCCT Certificate 2" onerror="this.src='https://via.placeholder.com/600x400/090830/ffffff?text=ZCCT+Certificate+2'">
+                        <h4>ZCCT Certified Expert</h4>
+                        <p>ZStack Cloud Computing Technical Professional</p>
+                    </div>
                 </div>
             </div>
         </section>

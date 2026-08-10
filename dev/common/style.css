@@ -153,6 +153,75 @@ header {
     font-weight: 400;
 }
 
+/* --- DROPDOWN MENU (DESKTOP) --- */
+/* --- DROPDOWN MENU (DESKTOP) --- */
+.has-dropdown { position: relative; }
+.dropdown-arrow { 
+    font-size: 0.8rem; 
+    margin-left: 5px; 
+    vertical-align: middle; 
+    transition: transform 0.3s; 
+    display: inline-block;
+}
+.has-dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+
+/* Tạo "cầu nối" vô hình để chuột không bị rớt khi kéo từ chữ xuống menu */
+.has-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 15px; /* Độ dài cầu nối */
+    display: block;
+}
+
+/* Xử lý vùng hover bằng pointer-events và visibility */
+.dropdown-menu {
+    display: flex;
+    visibility: hidden;
+    pointer-events: none; /* Chặn click/hover ảo khi đang tàng hình */
+    position: absolute; 
+    top: calc(100% + 10px); /* Cách chữ một đoạn nhỏ cho thoáng */
+    left: -20px;
+    background: rgba(7, 11, 20, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 10px 0;
+    min-width: 220px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    flex-direction: column;
+    gap: 0 !important;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.3s ease;
+}
+
+/* Hover ngay trên thẻ li chứa chữ thì mới hiện menu */
+@media (min-width: 993px) {
+    .has-dropdown:hover .dropdown-menu { 
+        visibility: visible;
+        pointer-events: auto; /* Bật lại tương tác chuột khi đã hiện */
+        opacity: 1; 
+        transform: translateY(0);
+    }
+}
+
+.dropdown-menu li { width: 100%; }
+.dropdown-menu a {
+    padding: 12px 25px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+.dropdown-menu a:hover { 
+    background: rgba(255, 255, 255, 0.05); 
+    padding-left: 32px; 
+    color: var(--primary-green);
+}
+
 /* ==========================================================================
    3. CONNECT SECTION & FORM
 ========================================================================== */
@@ -397,6 +466,27 @@ textarea.form-input {
     .connect-grid { grid-template-columns: 1fr; gap: 40px; }
     .connect-left .section-title { font-size: 3rem; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    /* Dropdown Mobile Responsive */
+    .has-dropdown .dropdown-menu {
+        position: static;
+        display: none; /* Vẫn dùng display: none để giấu hẳn trên mobile */
+        visibility: visible;
+        pointer-events: auto;
+        width: 100%;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 10px 0 0 20px;
+        opacity: 1;
+        transform: none;
+    }
+    
+    .has-dropdown.mobile-open .dropdown-menu {
+        display: flex;
+    }
+    .has-dropdown.mobile-open .dropdown-arrow {
+        transform: rotate(180deg);
+    }
 }
 
 @media (max-width: 768px) {
