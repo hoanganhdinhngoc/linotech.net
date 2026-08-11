@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTStack Data & AI Platforms || Linotech</title>
+    <meta name="description" content="Linotech distributes DTStack solutions, providing industry-leading Data+AI platforms, digital-intelligent applications, and multi-modal data infrastructure.">
+    <link rel="stylesheet" href="../../common/style.css">
+    
+    <style>
+        /* --- DTSTACK PAGE SPECIFIC STYLES --- */
+        .hero {
+            height: 80vh; min-height: 500px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 0 20px; box-sizing: border-box;
+            background: radial-gradient(circle at 50% 100%, rgba(37, 99, 235, 0.15), rgba(139, 92, 246, 0.1) 40%, transparent 70%);
+        }
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; letter-spacing: -1px; font-weight: 600; line-height: 1.1;}
+        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin-bottom: 40px; }
+
+        /* --- GLOW EFFECTS --- */
+        .glow-left { position: absolute; top: 10%; left: -15%; width: 50%; height: 80%; background: radial-gradient(circle at center, rgba(37, 99, 235, 0.12), transparent 70%); pointer-events: none; z-index: 0; }
+        .glow-right { position: absolute; top: 10%; right: -15%; width: 50%; height: 80%; background: radial-gradient(circle at center, rgba(139, 92, 246, 0.12), transparent 70%); pointer-events: none; z-index: 0; }
+        .content-relative { position: relative; z-index: 1; }
+
+        /* --- SOLUTIONS GRID --- */
+        .solutions-grid {
+            display: grid; gap: 25px; margin-top: 50px;
+        }
+        .solutions-grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .solutions-grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .solutions-grid-2 { grid-template-columns: repeat(2, 1fr); } /* Mới thêm cho Use Cases 2x2 */
+        
+        .solution-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 40px 30px; transition: all 0.3s ease;
+            display: flex; flex-direction: column; align-items: flex-start;
+        }
+        .solution-card:hover {
+            transform: translateY(-10px); background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary-blue); box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
+        }
+        .solution-card h3 { color: var(--text-light); font-size: 1.5rem; margin-bottom: 15px; line-height: 1.3;}
+        .solution-card p { color: var(--text-muted); font-size: 1rem; margin: 0; line-height: 1.6;}
+        .solution-card img.use-case-img { width: 100%; height: 220px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; }
+
+        /* --- CERTIFICATES & PARTNERSHIP --- */
+        .cert-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px;
+        }
+        .cert-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 30px; text-align: center;
+        }
+        .cert-card img {
+            max-width: 100%; height: auto; border-radius: 10px; margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .cert-card h4 { color: var(--primary-blue); font-size: 1.2rem; margin-bottom: 5px;}
+        .cert-card p { color: var(--text-muted); font-size: 0.95rem; margin: 0;}
+
+        /* --- RESELLERS LOGO GRID --- */
+        .reseller-grid {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px;
+        }
+        .reseller-item {
+            text-align: center; width: 220px;
+        }
+        .reseller-logo {
+            width: 220px; height: 120px; background: var(--bg-card);
+            border-radius: 20px; margin: 0 auto 15px auto; display: flex;
+            align-items: center; justify-content: center; border: 1px solid var(--border-color);
+            padding: 15px 30px; box-sizing: border-box; transition: all 0.3s ease;
+        }
+        .reseller-logo:hover {
+            border-color: var(--primary-blue);
+            background: rgba(255,255,255,0.05);
+        }
+        .reseller-logo img {
+            max-width: 100%; max-height: 100%; object-fit: contain;
+        }
+        .reseller-name { font-size: 1rem; font-weight: 500; color: var(--text-light); }
+
+        /* --- CALL TO ACTION --- */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(139, 92, 246, 0.2));
+            border: 1px solid var(--primary-blue); border-radius: 30px;
+            padding: 60px 40px; text-align: center; margin-top: 80px;
+        }
+        .cta-banner h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .cta-banner p { font-size: 1.1rem; color: #e2e8f0; max-width: 600px; margin: 0 auto 30px auto; }
+
+        @media (max-width: 992px) {
+            .solutions-grid-4, .solutions-grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .cert-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .cert-grid { grid-template-columns: 1fr; }
+            
+            /* Thu gọn khoảng cách và padding trên điện thoại để tối ưu chiều dọc */
+            .solutions-grid { gap: 15px; margin-top: 30px; }
+            .solutions-grid-4, .solutions-grid-3, .solutions-grid-2 { grid-template-columns: 1fr; }
+            .solution-card { padding: 25px 20px; }
+            .solution-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+            .solution-card p { font-size: 0.95rem; }
+            .solution-card img.use-case-img { height: 160px; margin-bottom: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THIẾT LẬP ROOT PATH (Lùi 2 cấp thư mục) -->
+    <script>window.ROOT_PATH = '../../';</script>
+
+    <div id="header-placeholder"></div>
+
+    <main style="padding-top: 80px;">
+        <!-- SEGMENT 1: HERO & DTSTACK INTRO -->
+        <section class="hero">
+            <h1>Data + AI Productivity</h1>
+            <p>Empower your enterprise with DTStack, a leading Data and AI platform company providing comprehensive Digital-Intelligent Applications and Data Infrastructure.</p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <a href="#dtstack-solutions" class="btn btn-outline">Explore Capabilities</a>
+                <a href="#connect-section" class="btn btn-green">Request a Demo</a>
+            </div>
+        </section>
+
+        <!-- SEGMENT 2: FEATURES & VISUALS -->
+        <section id="dtstack-solutions" class="section-container">
+            <h2 class="section-title" style="margin-bottom: 15px;">Digital-Intelligent Infrastructure</h2>
+            <p style="text-align: center; color: var(--text-muted); max-width: 800px; margin: 0 auto; font-size: 1.15rem;">
+                DTStack focuses on spatial intelligence, data intelligence, and solid data infrastructure to break down data silos and accelerate AI transformations.
+            </p>
+            
+            <div class="solutions-grid solutions-grid-4">
+                <div class="solution-card">
+                    <h3>Multi-Modal Data Platform</h3>
+                    <p>Integrates structured and unstructured data, leveraging distributed storage and AI technology to achieve cross-modal correlation, feature extraction, and privacy protection.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Lightweight Data Platform</h3>
+                    <p>Supports MPP architectures like StarRocks and Doris. Compute and storage resources scale independently for highly flexible and efficient optimization.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>AIWorks (Agent Platform)</h3>
+                    <p>Provides enterprises with secure, controllable, and flexibly scalable AI Agent development capabilities, supporting visual development and multi-model support for private deployments.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>AIMetrics (AI-Driven Analytics)</h3>
+                    <p>An indicator-centric intelligent decision hub delivering end-to-end support with metric-level lineage tracking and intelligent root-cause analysis, eliminating "black-box" decisions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEGMENT 3: PROBLEMS SOLVED & STRENGTHS -->
+        <section class="section-container">
+            <div class="glow-left"></div>
+            <div class="content-relative">
+                <h2 class="section-title">Industry-Leading Strengths & Global Impact</h2>
+                <div class="cert-grid" style="align-items: center; margin-bottom: 40px; grid-template-columns: 1fr 1fr;">
+                    <div>
+                        <h3 style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 20px;">Trusted by 5,000+ Enterprises Worldwide</h3>
+                        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 20px; text-align: justify;">
+                            DTStack solves complex data governance challenges by providing a unified compliance framework with data classification, masking, encryption, and fine-grained access tracking. This completely removes the burden of heterogeneous integration while guaranteeing secure operations.
+                        </p>
+                        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 20px; text-align: justify;">
+                            Our elastic multi-cloud deployment addresses diverse network instability by supporting AWS, Azure, and GCP for rapid global scaling.
+                        </p>
+                        <ul style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; list-style-type: square; padding-left: 20px; text-align: justify;">
+                            <li><strong>National-Level "Little Giant" Enterprise</strong> (Specialized, Refined, Unique, and New) & CMMI Level 5.</li>
+                            <li><strong>200+</strong> invention patents and software copyrights.</li>
+                            <li><strong>Global Reach:</strong> Covers 50+ industries including Fortune Global 500 and Fortune China 500 organizations.</li>
+                        </ul>
+                    </div>
+                    <div style="border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color);">
+                        <img src="../../cdn/images/dtstack-intro.png" alt="DTStack Platform Excellence" style="width: 100%; height: auto; display: block;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEGMENT 3.5: DATA+AI BUSINESS LANDSCAPE (NEW) -->
+        <section class="section-container">
+            <div class="glow-right"></div>
+            <div class="content-relative">
+                <h2 class="section-title">Data+AI Business Landscape</h2>
+                <div class="cert-grid" style="align-items: center; margin-bottom: 40px; grid-template-columns: 1fr 1fr; gap: 40px;">
+                    <!-- Ảnh Landscape bên trái -->
+                    <div style="border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color);">
+                        <img src="../../cdn/images/data-ai-business-landscape.png" alt="Data+AI Business Landscape" style="width: 100%; height: auto; display: block;">
+                    </div>
+                    <!-- Nội dung phân tích bên phải -->
+                    <div>
+                        <h3 style="font-size: 2rem; color: #22c55e; margin-bottom: 20px;">
+                            Data middle platform architecture is designed to drive global data access and value extraction.
+                        </h3>
+                        <ul style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; list-style-type: square; padding-left: 20px; text-align: justify;">
+                            <li><strong>Computing Storage Platform:</strong> Leverages distributed engines like Hadoop, Kafka, Flink, and Spark to collect and process full-service, multi-terminal data.</li>
+                            <li><strong>Data Development Platform:</strong> Provides tools for offline, real-time, and algorithm task development, enabling efficient data processing and mining.</li>
+                            <li><strong>Data Asset Platform:</strong> Ensures data quality, standardizes data models, and manages metadata, data lineage, and user permissions.</li>
+                            <li><strong>Data Service Platform:</strong> Delivers tangible value through API services, tag factories, and visualization engines to support precision marketing and intelligent operations.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEGMENT 4: USE CASES (Chuyển sang 2x2 Layout) -->
+        <section class="section-container">
+            <div class="glow-left" style="width: 70%;height: 67%;"></div>
+            <div class="content-relative">
+                <h2 class="section-title" style="margin-bottom: 15px;">Transformative Use Cases</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem;">Real-world implementations demonstrating DTStack's ability to unleash data value across industries.</p>
+                
+                <div class="solutions-grid solutions-grid-2">
+                    <div class="solution-card">
+                        <img src="../../cdn/images/advance-manufacturing.jpg" alt="Manufacturing Use Case" class="use-case-img">
+                        <h3>Advanced Manufacturing</h3>
+                        <p><strong>Challenge:</strong> Complex organizational structures needing multi-dimensional insights.<br><br><strong>Solution:</strong> Built a new group-level data middle platform architecture to aggregate data, conduct data governance, and comprehensively monitor equipment health and personnel production. Adopted by leaders like FAW Group and Geely.</p>
+                    </div>
+                    <div class="solution-card">
+                        <img src="../../cdn/images/real-estate.jpg" alt="Real Estate Use Case" class="use-case-img">
+                        <h3>Real Estate</h3>
+                        <p><strong>Challenge:</strong> Decentralized data across property, sales, and marketing systems.<br><br><strong>Solution:</strong> Established a customer-centered data middle platform that integrates online and offline data to create precise customer and agent portraits. This enables highly targeted marketing and intelligent operations, reducing costs and increasing efficiency for top developers like Greentown Group and R&F Properties.</p>
+                    </div>
+                    <div class="solution-card">
+                        <img src="../../cdn/images/finance-industry.jpg" alt="Finance Use Case" class="use-case-img">
+                        <h3>Finance Industry</h3>
+                        <p><strong>Challenge:</strong> Ensuring timely risk identification and strict regulatory compliance.<br><br><strong>Solution:</strong> Implemented intelligent risk control for transaction anti-fraud and post-loan monitoring. Built regulatory data marts to respond to compliance needs and support data asset reporting for institutions like Ping An and China CITIC Bank.</p>
+                    </div>
+                    <div class="solution-card">
+                        <img src="../../cdn/images/university-research.jpg" alt="Education Use Case" class="use-case-img">
+                        <h3>Universities & Research</h3>
+                        <p><strong>Challenge:</strong> Managing vast amounts of fragmented academic, operational, and student data.<br><br><strong>Solution:</strong> Deployed comprehensive data platforms to unify institutional data and support digital campus initiatives, serving prestigious institutions of higher learning such as Zhejiang University and Sun Yat-sen University.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEGMENT 5: CONTACT CTA -->
+        <section class="section-container" style="padding-top: 0;">
+            <div class="cta-banner">
+                <h2>Unlock the Value of Your Data</h2>
+                <p>Linotech provides end-to-end consulting and deployment for DTStack's advanced Data and AI Platforms. Leverage our expert services to map out your digital-intelligent transformation today.</p>
+                <a href="#connect-section" class="btn btn-green" style="padding: 18px 45px; font-size: 1.1rem;">Connect with our Experts &rarr;</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- KÉO FORM LIÊN HỆ & FOOTER TỪ THƯ MỤC COMMON -->
+    <div id="connect-placeholder"></div>
+    <div id="footer-placeholder"></div>
+
+    <script src="../../common/main.js"></script>
+
+</body>
+</html>
