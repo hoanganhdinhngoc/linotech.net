@@ -3,100 +3,468 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linotech - Under Maintenance</title>
-    
-    <link rel="icon" href="dev/cdn/images/icon-dark.png">
+    <title>Linotech || Global Technology Bridge</title>
+    <meta name="description" content="Linotech - Leading distributor of IT solutions and ZStack Cloud infrastructure.">
+    <meta property="og:image" content="./cdn/images/logo-dark-theme-reg.png">
+    <link rel="stylesheet" href="./common/style.css">
     
     <style>
-        /* --- CORE VARIABLES & RESET --- */
-        :root {
-            --text-muted: #94a3b8;
-            --bg-base: #050510; /* Kế thừa tone màu tối của template */
+/* --- SECTION 1: HERO --- */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh; 
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            overflow: hidden; 
+            background-color: var(--bg-dark); /* Màu nền dự phòng trong lúc chờ load ảnh */
+        }
+
+ /* --- Tách lớp Carousel Background --- */
+        .hero-carousel-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none; /* Khóa tương tác chuột vào ảnh */
         }
         
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-base);
-            color: #ffffff;
-            height: 100%;
-        }
-
-        /* --- HERO SECTION (Kế thừa phong cách từ Mera AI) --- */
-        .hero {
-            height: 100vh; 
-            min-height: 600px; 
-            display: flex; 
-            flex-direction: column;
-            justify-content: center; 
-            align-items: center; 
-            text-align: center;
-            padding: 0 20px; 
-            box-sizing: border-box;
-            background: radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.15), rgba(37, 99, 235, 0.1) 40%, transparent 70%);
-            
-            /* Chuẩn bị cho hiệu ứng JS Fade-in */
+        .carousel-slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            z-index: 0; /* Ảnh chờ: Nằm dưới cùng và tàng hình */
+            transition: opacity 0.8s ease-in-out; /* Đổi ảnh mượt mà */
         }
 
-        .hero.loaded {
+        /* THÊM MỚI: Class giữ nguyên ảnh cũ */
+        .carousel-slide.prev {
             opacity: 1;
-            transform: translateY(0);
+            z-index: 1; /* Nằm giữa: Giữ nguyên 100% sáng chờ ảnh mới đè lên */
+            transition: none; /* Tắt hiệu ứng mờ đi */
+        }
+        
+        /* Ảnh mới đang hiện */
+        .carousel-slide.active {
+            opacity: 1;
+            z-index: 2; /* Nằm trên cùng: Từ từ hiện ra che lấp ảnh prev */
         }
 
-        .logo {
-            max-width: 280px;
-            height: auto;
-            margin-bottom: 40px;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3)); /* Nổi bật logo trên nền tối */
+        /* --- Lớp phủ Tối màu & Glow Gradient (Fix lỗi khó đọc chữ) --- */
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            /* Lớp 1: Phủ màu đen 70% toàn bộ để chữ màu trắng luôn sắc nét */
+            background-color: rgba(7, 11, 20, 0.75); 
+            /* Lớp 2: Hắt ánh sáng glow xanh từ dưới đáy lên */
+            background-image: radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.2), rgba(37, 99, 235, 0.25) 40%, transparent 70%);
+            pointer-events: none;
         }
 
-        .hero h1 { 
-            font-size: 3.5rem; 
-            margin: 0 0 20px 0; 
-            letter-spacing: -1px; 
-            font-weight: 600; 
-            line-height: 1.1;
+        /* --- Lớp Nội dung (Nổi lên trên cùng) --- */
+        .hero-content {
+            position: relative;
+            z-index: 2; 
         }
+        .hero-content h1 { font-size: 4.5rem; margin-bottom: 20px; letter-spacing: -1px; font-weight: 600; line-height: 1.1;}
+        .hero-content p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 40px auto; }
 
-        .hero p { 
-            font-size: 1.2rem; 
-            color: var(--text-muted); 
-            max-width: 1200px; 
-            margin: 0 0 40px 0; 
-            line-height: 1.6;
+        /* --- SECTION 2: INFRASTRUCTURE --- */
+        .scale-grid { display: grid; grid-template-columns: 0.8fr 1.7fr; gap: 30px; }
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 30px; padding: 50px; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: flex-end; min-height: 450px; box-sizing: border-box;
         }
+        .card-left { background: linear-gradient(to top, rgba(0,0,0,0.8), transparent), url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80') center/cover; }
+        .card-right { background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80') center/cover; }
+        
+        /* --- SECTION 3: SOLUTIONS (4-CARD GRID) --- */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 50px;
+        }
+        .solution-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .solution-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary-green);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.1);
+        }
+        .solution-card h3 { color: var(--text-light); font-size: 1.5rem; margin-bottom: 15px; line-height: 1.3;}
+        .solution-card p { color: var(--text-muted); font-size: 1rem; margin: 0; line-height: 1.6;}
 
-        /* --- RESPONSIVE --- */
+        /* --- SECTION 4: PROVEN --- */
+        .proven-grid {
+            position: relative; min-height: 660px; display: block; border-radius: 30px; overflow: hidden;
+            background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80') center/cover;
+            border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 10px 40px rgba(0,0,0,0.5); color: #ffffff;
+        }
+        .proven-title-box { position: absolute; top: 60px; left: 60px; }
+        .proven-subtitle-box { position: absolute; top: 60px; right: 130px; width: 300px; text-align: left; font-size: 1.2rem; font-weight: 300; }
+        .proven-stats-box { position: absolute; bottom: 60px; right: 15px; display: flex; flex-direction: column; gap: 44px; width: 560px; text-align: left; }
+        .stat-item { display: flex; align-items: flex-start; gap: 20px; }
+        .stat-item .stat-number { font-size: 2.3rem; font-weight: 500; color: #ffffff; width: 125px; flex-shrink: 1; }
+        .stat-item .stat-text { display: flex; flex-direction: column; }
+        .stat-item .stat-title { font-size: 1.5rem; font-weight: 600; margin: 0 0 5px 0; }
+        .stat-item p { margin: 0; font-size: 1.2rem; font-weight: 300; opacity: 0.8; line-height: 1.2; }
+
+        /* --- SECTION 5: SOLUTION PARTNERS (CAROUSEL) --- */
+        .partners-section { overflow: hidden; position: relative; padding: 60px 0; }
+        .partners-track-wrapper {
+            width: 100%; overflow: hidden; position: relative;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .partners-track {
+            display: flex; gap: 40px; width: max-content;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .partners-track:active {
+            cursor: grabbing;
+        }
+        .partner-item { text-align: center; width: 220px; flex-shrink: 0; }
+        .partner-logo {
+            width: 220px; height: 120px; background: var(--bg-card);
+            border-radius: 20px; margin: 0 auto 15px auto; display: flex;
+            align-items: center; justify-content: center; border: 1px solid var(--border-color);
+            padding: 15px 30px; box-sizing: border-box; transition: all 0.3s ease;
+        }
+        .partner-logo:hover { border-color: var(--primary-green); background: rgba(255,255,255,0.05); }
+        .partner-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .partner-name { font-size: 1rem; font-weight: 500; color: var(--text-light); }
+
+        /* --- RESPONSIVE TRANG CHỦ --- */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3.5rem; }
+            .hero p { font-size: 1.1rem; }
+            .solutions-grid { grid-template-columns: repeat(2, 1fr); }
+            .proven-grid { display: flex; flex-direction: column; align-items: flex-start; padding: 50px 40px; gap: 40px; min-height: auto; }
+            .proven-title-box, .proven-subtitle-box, .proven-stats-box { position: relative; top: auto; left: auto; right: auto; bottom: auto; width: 100%; }
+            .proven-subtitle-box { text-align: left; }
+            .proven-stats-box { gap: 30px; }
+        }
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1.1rem; }
-            .logo { max-width: 220px; margin-bottom: 30px; }
+            .scale-grid { grid-template-columns: 1fr; }
+            .solutions-grid { grid-template-columns: 1fr; }
+            .card { min-height: 300px; padding: 30px; }
+            .proven-grid { padding: 40px 20px; }
+            .proven-title-box h3 { font-size: 2.5rem !important; }
+            .stat-item { flex-direction: column; gap: 5px; }
+            .stat-item .stat-number { font-size: 2rem; width: 100%; }
+            .stat-item .stat-title { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
 
-    <main class="hero" id="maintenance-section">
-        <img src="dev/cdn/images/logo-dark-theme-reg.png" alt="Linotech Logo" class="logo">
-        
-        <h1>Under Maintenance</h1>
-        <p>The Linotech website is currently undergoing scheduled maintenance. We are working hard to bring you a better experience and will be published in the near future.</p>
+    <script>window.ROOT_PATH = './';</script>
+
+    <div id="header-placeholder"></div>
+
+    <main style="padding-top: 80px;">
+        <section class="hero">
+            <!-- 1. CAROUSEL BACKGROUND (No Interaction) -->
+            <div class="hero-carousel-bg">
+                <!-- Android -->
+                <div class="carousel-slide active" style="background-image: url('cdn/images/banner-android.webp');"></div>
+                <!-- Data Center -->
+                <div class="carousel-slide" style="background-image: url('cdn/images/banner-datacenter.png');"></div>
+                <!-- Smartcity -->
+                <div class="carousel-slide" style="background-image: url('cdn/images/banner-smartcity.jpg');"></div>
+                <!-- Automation -->
+                <div class="carousel-slide" style="background-image: url('cdn/images/banner-robothand.jpg');"></div>
+                <!-- Student -->
+                <div class="carousel-slide" style="background-image: url('cdn/images/banner-student.jpg');"></div>
+                <!-- Doctor -->
+                <div class="carousel-slide" style="background-image: url('cdn/images/banner-doctor.jpg');"></div>
+                <!-- Logistic -->
+                <div class="carousel-slide" style="background-image: url('cdn/images/banner-logistic.jpg');"></div>
+            </div>
+
+            <!-- 2. DARK OVERLAY & GLOW EFFECTS -->
+            <div class="hero-overlay"></div>
+
+            <!-- 3. HERO CONTENT -->
+            <div class="hero-content">
+                <h1>Bridging Technology<br>Across Borders</h1>
+                <p>Linotech distributes advanced IT and cloud infrastructure solutions. We deploy modern, agile, cost-effective architectures tailored for your successful digital transformation.</p>
+                <a href="./solutions" class="btn btn-outline">Explore Solutions</a>
+            </div>
+        </section>
+
+        <section class="section-container">
+            <h2 class="section-title">Infrastructure Built For Scale</h2>
+            <div class="scale-grid">
+                <div class="card card-left"></div>
+                <div class="card card-right">
+                    <div style="position: relative; z-index: 2;">
+                        <p style="color: #e2e8f0; margin-bottom: 30px; max-width: 80%;">Specializing in ZStack Cloud Computing (IaaS/PaaS) - Ultra-fast deployment, limitless scalability, and outstanding cost efficiency compared to traditional solutions.</p>
+                        <div style="display: flex; gap: 15px;">
+                            <a href="./solutions/ZStack" class="btn btn-green">Discover ZStack &rarr;</a>
+                            <a href="#connect-section" class="btn btn-outline">Get Consulted &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="our-network" class="section-container">
+            <h2 class="section-title" style="margin-bottom: 15px;">Global Connectivity Solutions</h2>
+            <p style="text-align: center; color: var(--text-muted); max-width: 800px; margin: 0 auto 40px auto; font-size: 1.15rem;">
+                Empowering your business with scalable, secure, and high-performance infrastructure designed for the modern enterprise ecosystem.
+            </p>
+            
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <h3>ZStack Cloud</h3>
+                    <p>Next-generation cloud infrastructure delivering high availability, seamless scalability, and unmatched performance for enterprise applications.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>IOC Platform</h3>
+                    <p>Intelligent Operations Center providing centralized monitoring, smart management, and real-time data for strategic decision making.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Data Platforms</h3>
+                    <p>Robust data management solutions ensuring data integrity, advanced security protocols, and lightning-fast information retrieval.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>IT Infrastructure</h3>
+                    <p>End-to-end hardware and software integration tailored specifically for enterprise-grade networking and deployments.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-container">
+            <h2 class="section-title">Proven Excellence</h2>
+            <div class="proven-grid">
+                <div class="proven-title-box">
+                    <h3 style="font-size: 3rem; margin: 0; line-height: 1.1; font-weight: 400;">Numbers That<br>Speak</h3>
+                </div>
+                <div class="proven-subtitle-box">
+                    We bring international quality standards to empower our partners' growth.
+                </div>
+                <div class="proven-stats-box">
+                    <div class="stat-item">
+                        <div class="stat-number">99.99%</div>
+                        <div class="stat-text">
+                            <div class="stat-title">Uptime Guarantee</div>
+                            <p>Absolute stability powered by ZStack Cloud systems</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-text">
+                            <div class="stat-title">Trusted Clients</div>
+                            <p>Enterprises scaling their infrastructure through Linotech</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-text">
+                            <div class="stat-title">Technical Support</div>
+                            <p>24/7 dedicated engineering support throughout your project lifecycle</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOLUTION PARTNERS (CAROUSEL) -->
+        <section class="section-container partners-section" id="solution-partners">
+            <div style="position: relative; z-index: 1;">
+                <h2 class="section-title">Our Solution Partners</h2>
+                
+                <div class="partners-track-wrapper">
+                    <div class="partners-track" id="partnersTrack">
+                        <!-- Bản Gốc (Original Set) -->
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/byteplus.png" alt="Byte Plus" ></div><div class="partner-name">Byte Plus</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/chenpushen.png" alt="CPS Company"></div><div class="partner-name">CPS Company</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/dtstack.png" alt="DTStack"></div><div class="partner-name">DTStack</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/kodcloud.png" alt="KodCloud"></div><div class="partner-name">KodCloud</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/nanjingpanda.png" alt="Nanjing Panda"></div><div class="partner-name">Nanjing Panda</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/sensordata.png" alt="Sensor Data"></div><div class="partner-name">Sensor Data</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/ucloud.png" alt="UCloud"></div><div class="partner-name">UCloud</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/unv.png" alt="Uniview"></div><div class="partner-name">Uniview</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/zstack.png" alt="ZStack"></div><div class="partner-name">ZStack</div></div>
+
+                        <!-- Bản Sao (Duplicated Set) để Carousel chạy vòng lặp mượt mà -->
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/byteplus.png" alt="Byte Plus" ></div><div class="partner-name">Byte Plus</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/chenpushen.png" alt="CPS Company"></div><div class="partner-name">CPS Company</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/dtstack.png" alt="DTStack"></div><div class="partner-name">DTStack</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/kodcloud.png" alt="KodCloud"></div><div class="partner-name">KodCloud</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/nanjingpanda.png" alt="Nanjing Panda"></div><div class="partner-name">Nanjing Panda</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/sensordata.png" alt="Sensor Data"></div><div class="partner-name">Sensor Data</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/ucloud.png" alt="UCloud"></div><div class="partner-name">UCloud</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/unv.png" alt="Uniview"></div><div class="partner-name">Uniview</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="./cdn/images/zstack.png" alt="ZStack"></div><div class="partner-name">ZStack</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
+    <div id="connect-placeholder"></div>
+    <div id="footer-placeholder"></div>
+
+    <script src="./common/main.js"></script>
+
+    <!-- JAVASCRIPT XỬ LÝ CAROUSEL (DÙNG CHUNG TỪ ABOUT US) -->
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const maintenanceSection = document.getElementById('maintenance-section');
-            
-            // Thêm độ trễ nhỏ 100ms để đảm bảo CSS transition hoạt động trơn tru sau khi load
-            setTimeout(() => {
-                maintenanceSection.classList.add('loaded');
-            }, 100);
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('partnersTrack');
+            if (!track) return;
+
+            const NORMAL_SPEED = 1;        // Tốc độ trượt bình thường
+            const ACCELERATION = 0.02;     // Gia tốc
+            const RESUME_DELAY = 1000;     // Độ trễ (1 giây) trước khi chạy lại
+
+            let currentX = 0;
+            let isDragging = false;
+            let startX = 0;
+            let isHovered = false;
+            let isPaused = false;
+            let currentSpeed = NORMAL_SPEED;
+            let resumeTimeout = null;
+
+            // Ngăn trình duyệt bắt sự kiện kéo file/ảnh mặc định
+            track.addEventListener('dragstart', (e) => e.preventDefault());
+
+            function animate() {
+                if (!isPaused && !isDragging && !isHovered) {
+                    if (currentSpeed < NORMAL_SPEED) {
+                        currentSpeed += ACCELERATION;
+                        if (currentSpeed > NORMAL_SPEED) currentSpeed = NORMAL_SPEED;
+                    }
+                } else {
+                    currentSpeed = 0;
+                }
+
+                if (!isDragging) {
+                    currentX -= currentSpeed;
+                }
+
+                const halfWidth = track.scrollWidth / 2;
+                
+                while (currentX <= -halfWidth) {
+                    currentX += halfWidth;
+                }
+                while (currentX > 0) {
+                    currentX -= halfWidth;
+                }
+
+                track.style.transform = `translateX(${currentX}px)`;
+                requestAnimationFrame(animate);
+            }
+
+            requestAnimationFrame(animate);
+
+            function scheduleResume() {
+                clearTimeout(resumeTimeout);
+                isPaused = true;
+                resumeTimeout = setTimeout(() => {
+                    if (!isHovered && !isDragging) {
+                        isPaused = false;
+                        currentSpeed = 0;
+                    }
+                }, RESUME_DELAY);
+            }
+
+            function startDrag(e) {
+                isDragging = true;
+                isPaused = true;
+                currentSpeed = 0;
+                clearTimeout(resumeTimeout);
+                startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+            }
+
+            function moveDrag(e) {
+                if (!isDragging) return;
+                const x = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+                const walk = x - startX;
+                currentX += walk;
+                startX = x;
+            }
+
+            function endDrag() {
+                if (!isDragging) return;
+                isDragging = false;
+                scheduleResume();
+            }
+
+            // Gắn sự kiện Desktop
+            track.addEventListener('mousedown', startDrag);
+            window.addEventListener('mousemove', moveDrag);
+            window.addEventListener('mouseup', endDrag);
+
+            track.addEventListener('mouseenter', () => {
+                isHovered = true;
+                isPaused = true;
+                currentSpeed = 0;
+                clearTimeout(resumeTimeout);
+            });
+
+            track.addEventListener('mouseleave', () => {
+                isHovered = false;
+                if (!isDragging) scheduleResume();
+            });
+
+            // Gắn sự kiện Mobile
+            track.addEventListener('touchstart', startDrag, { passive: true });
+            window.addEventListener('touchmove', moveDrag, { passive: true });
+            window.addEventListener('touchend', endDrag);
         });
     </script>
 
+<!-- JAVASCRIPT XỬ LÝ HERO CAROUSEL (ĐÃ NÂNG CẤP CROSS-FADE) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.hero-carousel-bg .carousel-slide');
+            if (slides.length === 0) return;
+
+            let currentSlide = 0;
+            const slideInterval = 2800; // Tổng thời gian = 2 giây dừng + 0.8s transition
+
+            setInterval(() => {
+                // Bước 1: Xóa class 'prev' ở tất cả các ảnh để dọn dẹp layer
+                slides.forEach(slide => slide.classList.remove('prev'));
+                
+                // Bước 2: Chuyển ảnh đang hiện tại thành 'prev' (đẩy xuống dưới, giữ nguyên độ sáng)
+                slides[currentSlide].classList.remove('active');
+                slides[currentSlide].classList.add('prev');
+                
+                // Bước 3: Tính toán vị trí ảnh kế tiếp (vòng lặp)
+                currentSlide = (currentSlide + 1) % slides.length;
+                
+                // Bước 4: Bật ảnh mới thành 'active' (nổi lên trên cùng và mờ dần hiện ra)
+                slides[currentSlide].classList.add('active');
+            }, slideInterval);
+        });
+    </script>
+
+    
 </body>
 </html>

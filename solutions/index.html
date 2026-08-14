@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Enterprise Solutions || Linotech</title>
+    <meta name="description" content="Explore Linotech's core enterprise solutions including ZStack Cloud, DTStack Data Platforms, and Intelligent Operations Center (IOC) & CIM Digital Twin.">
+    <link rel="stylesheet" href="../common/style.css">
+    
+    <style>
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 70vh; min-height: 500px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 0 20px; box-sizing: border-box; position: relative; overflow: hidden;
+            background: radial-gradient(circle at 50% 100%, rgba(37, 99, 235, 0.15), transparent 70%);
+        }
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; letter-spacing: -1px; font-weight: 600; line-height: 1.1; z-index: 1;}
+        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 800px; margin-bottom: 40px; z-index: 1;}
+        
+        /* --- GLOW EFFECTS --- */
+        .glow-left { position: absolute; top: 10%; left: -15%; width: 50%; height: 80%; background: radial-gradient(circle at center, rgba(34, 197, 94, 0.12), transparent 70%); pointer-events: none; z-index: 0; }
+        .glow-right { position: absolute; top: 10%; right: -15%; width: 50%; height: 80%; background: radial-gradient(circle at center, rgba(37, 99, 235, 0.12), transparent 70%); pointer-events: none; z-index: 0; }
+        .content-relative { position: relative; z-index: 1; }
+
+        /* --- STRATEGIC PARTNERSHIP & DEPLOYMENT CAPACITY --- */
+        .capacity-box {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(0,0,0,0.2));
+            border: 1px solid var(--border-color);
+            border-radius: 30px; padding: 60px; margin-bottom: 80px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px); text-align: center;
+        }
+        .capacity-box h2 { font-size: 2.2rem; margin-bottom: 20px; color: var(--primary-green); }
+        .capacity-box p { font-size: 1.1rem; color: #e2e8f0; line-height: 1.7; max-width: 900px; margin: 0 auto 20px auto; text-align: justify;}
+
+        /* --- ZIGZAG SOLUTION SHOWCASE (PHÁ CÁCH) --- */
+        .solution-showcase {
+            display: flex; align-items: center; gap: 60px; margin-bottom: 100px;
+        }
+        .solution-showcase.reverse { flex-direction: row-reverse; }
+        
+        .showcase-content { flex: 1; }
+        .showcase-content h2 { font-size: 2.5rem; margin-bottom: 20px; color: var(--text-light); line-height: 1.2; }
+        .showcase-content p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 30px; line-height: 1.6; }
+        
+        /* Grid tính năng nhỏ bên trong content */
+        .feature-chips { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 35px; }
+        .chip {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
+            padding: 15px 20px; border-radius: 12px; font-size: 0.95rem;
+            border-left: 3px solid var(--primary-blue); transition: all 0.3s;
+        }
+        .chip:hover { background: rgba(255,255,255,0.1); border-left-color: var(--primary-green); }
+        .chip h4 { margin: 0 0 5px 0; color: #fff; font-size: 1.05rem;}
+        .chip span { color: var(--text-muted); font-size: 0.9rem;}
+
+        /* Grid hình ảnh sinh động */
+        .showcase-visuals {
+            flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; position: relative;
+        }
+        .visual-img {
+            width: 100%; height: 220px; object-fit: cover; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1); transition: transform 0.4s ease;
+        }
+        .visual-img:hover { transform: scale(1.05); z-index: 2; position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+        .visual-img.large { grid-column: span 2; height: 280px; }
+
+        /* --- SECTION: SOLUTION PARTNERS (CAROUSEL) --- */
+        .partners-section { overflow: hidden; position: relative; padding: 50px 0; }
+        .partners-track-wrapper {
+            width: 100%; overflow: hidden; position: relative;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .partners-track {
+            display: flex; gap: 40px; width: max-content; cursor: grab;
+            user-select: none; -webkit-user-select: none;
+        }
+        .partners-track:active { cursor: grabbing; }
+        .partner-item { text-align: center; width: 220px; flex-shrink: 0; }
+        .partner-logo {
+            width: 220px; height: 120px; background: var(--bg-card);
+            border-radius: 20px; margin: 0 auto 15px auto; display: flex;
+            align-items: center; justify-content: center; border: 1px solid var(--border-color);
+            padding: 15px 30px; box-sizing: border-box; transition: all 0.3s ease;
+        }
+        .partner-logo:hover { border-color: var(--primary-green); background: rgba(255,255,255,0.05); }
+        .partner-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .partner-name { font-size: 1rem; font-weight: 500; color: var(--text-light); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .solution-showcase, .solution-showcase.reverse { flex-direction: column; gap: 40px; }
+            .capacity-box { padding: 40px 30px; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .feature-chips { grid-template-columns: 1fr; }
+            .showcase-visuals { grid-template-columns: 1fr; }
+            .visual-img.large { grid-column: span 1; height: 200px; }
+            .visual-img { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THIẾT LẬP ROOT PATH (Vì file ở trong thư mục solutions/) -->
+    <script>window.ROOT_PATH = '../';</script>
+
+    <div id="header-placeholder"></div>
+
+    <main style="padding-top: 80px;">
+        
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="glow-left"></div>
+            <div class="glow-right"></div>
+            <h1>Empowering The Digital Future</h1>
+            <p>Explore Linotech's comprehensive portfolio of enterprise-grade architectures. From high-availability Cloud Computing and robust Data Platforms to Intelligent Operation Centers for Smart Cities, we build the foundation for your next-generation growth.</p>
+            <a href="#core-capacity" class="btn btn-green" style="padding: 15px 35px; font-size: 1.1rem; z-index: 1;">Discover Our Ecosystem &rarr;</a>
+        </section>
+
+        <section class="section-container" id="core-capacity">
+            <!-- NĂNG LỰC TRIỂN KHAI & ĐỐI TÁC -->
+            <div class="capacity-box content-relative">
+                <h2>Bridging Asian Tech Giants with Vietnam</h2>
+                <p>
+                    Linotech is not just a distributor; we are a dedicated strategic bridge connecting China's leading technology pioneers with the vibrant Vietnamese market. We maintain deep-rooted, strategic alliances with ecosystem giants such as <strong>ZStack, DTStack, Chenpusen (CPS), and BytePlus</strong>. 
+                </p>
+                <p>
+                    By exclusively collaborating with these industry leaders, we bring battle-tested, hyper-scalable, and deeply cost-optimized architectures directly to local enterprises. Backed by our certified Vietnamese engineering team (ZCCC & ZCCT level), Linotech guarantees seamless localization, overcoming technical and language barriers to deliver uninterrupted <strong>L1/L2 Technical Support</strong>, tailored consulting, and flawless deployment for even the most complex IT transformations.
+                </p>
+            </div>
+
+            <!-- 1. ZSTACK SOLUTIONS -->
+            <div class="solution-showcase">
+                <div class="showcase-content">
+                    <p style="color: var(--primary-blue); font-weight: 600; margin-bottom: 10px; text-transform: uppercase;">Cloud Infrastructure</p>
+                    <h2>ZStack Cloud & Virtualization</h2>
+                    <p>Empower your enterprise with the ultimate VMware alternative. ZStack provides a highly scalable, secure, and lightweight cloud infrastructure that ensures extreme lossless recovery and significant TCO reduction.</p>
+                    
+                    <div class="feature-chips">
+                        <div class="chip"><h4>ZStack ZSphere</h4><span>Powerful vSphere alternative</span></div>
+                        <div class="chip" style="border-left-color: var(--primary-green);"><h4>ZStack AIOS</h4><span>Next-gen GPU pooling & AI</span></div>
+                        <div class="chip"><h4>Seamless Migration</h4><span>100% scenario coverage</span></div>
+                        <div class="chip"><h4>Cost Efficiency</h4><span>Reduce TCO by up to 50%</span></div>
+                    </div>
+                    <a href="ZStack" class="btn btn-outline">Explore ZStack Suite &rarr;</a>
+                </div>
+                <div class="showcase-visuals">
+                    <img src="../cdn/images/logo-zstack-banner.jpg" alt="ZStack Global" class="visual-img large">
+                    <img src="../cdn/images/australia.jpg" alt="ZStack Telecom" class="visual-img">
+                    <img src="../cdn/images/saudi-arabia.webp" alt="ZStack Smart City" class="visual-img">
+                </div>
+            </div>
+
+            <!-- 2. DTSTACK SOLUTIONS (REVERSE LAYOUT) -->
+            <div class="solution-showcase reverse">
+                <div class="showcase-content">
+                    <p style="color: #8b5cf6; font-weight: 600; margin-bottom: 10px; text-transform: uppercase;">Data & AI Productivity</p>
+                    <h2>DTStack Data Platforms</h2>
+                    <p>Break down data silos and accelerate AI transformations. DTStack delivers an industry-leading Data Middle Platform designed for spatial intelligence, massive data governance, and secure data sharing across multi-cloud environments.</p>
+                    
+                    <div class="feature-chips">
+                        <div class="chip" style="border-left-color: #8b5cf6;"><h4>Multi-Modal Data</h4><span>Structured & unstructured synergy</span></div>
+                        <div class="chip"><h4>AIMetrics</h4><span>Intelligent decision hub</span></div>
+                        <div class="chip"><h4>AIWorks</h4><span>Scalable Agent development</span></div>
+                        <div class="chip"><h4>Lightweight Engine</h4><span>MPP architectures like StarRocks</span></div>
+                    </div>
+                    <a href="data-platforms" class="btn btn-outline">Explore Data Platforms &rarr;</a>
+                </div>
+                <div class="showcase-visuals">
+                    <img src="../cdn/images/data-report.jpg" alt="Data Business Landscape" class="visual-img large">
+                    <img src="../cdn/images/rack.jpg" alt="DTStack Architecture" class="visual-img">
+                    <img src="../cdn/images/finance-industry.jpg" alt="Advanced Manufacturing" class="visual-img">
+                </div>
+            </div>
+
+            <!-- 3. IOC CENTER & CIM DIGITAL TWIN -->
+            <div class="solution-showcase">
+                <div class="showcase-content">
+                    <p style="color: var(--primary-green); font-weight: 600; margin-bottom: 10px; text-transform: uppercase;">Smart City Ecosystem</p>
+                    <h2>IOC & CIM Digital Twin</h2>
+                    <p>Transform urban and enterprise operations with the Intelligent Operations Center (IOC) by Chenpusen. Seamlessly integrating BIM, GIS, and AIoT, the platform provides micro-refined 3D visual management and AI-driven command centers.</p>
+                    
+                    <div class="feature-chips">
+                        <div class="chip" style="border-left-color: var(--primary-green);"><h4>3D GIS Management</h4><span>BIM/CIM precise twin rendering</span></div>
+                        <div class="chip"><h4>AI Interactions</h4><span>NLP virtual character models</span></div>
+                        <div class="chip"><h4>IoT Platform</h4><span>Real-time massive data collection</span></div>
+                        <div class="chip"><h4>Smart Scenarios</h4><span>Mobility, Construction, ESG</span></div>
+                    </div>
+                    <a href="ioc-center" class="btn btn-outline">Explore IOC Platforms &rarr;</a>
+                </div>
+                <div class="showcase-visuals">
+                    <img src="../cdn/images/dashboard-ioc-center.png" alt="IOC Dashboard" class="visual-img large">
+                    <img src="../cdn/images/smart-city.jpg" alt="Smart City Mobility" class="visual-img">
+                    <img src="../cdn/images/kexing-science-park.jpg" alt="Science Park Operations" class="visual-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- SOLUTION PARTNERS (CAROUSEL) -->
+        <section class="section-container partners-section" id="solution-partners">
+            <div class="content-relative">
+                <h2 class="section-title" style="text-align: center;">Our Solution Partners</h2>
+                <div class="partners-track-wrapper">
+                    <div class="partners-track" id="partnersTrack">
+                        <!-- Bản Gốc (Original Set) -->
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/byteplus.png" alt="Byte Plus" ></div><div class="partner-name">Byte Plus</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/chenpushen.png" alt="CPS Company"></div><div class="partner-name">CPS Company</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/dtstack.png" alt="DTStack"></div><div class="partner-name">DTStack</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/kodcloud.png" alt="KodCloud"></div><div class="partner-name">KodCloud</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/nanjingpanda.png" alt="Nanjing Panda"></div><div class="partner-name">Nanjing Panda</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/sensordata.png" alt="Sensor Data"></div><div class="partner-name">Sensor Data</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/ucloud.png" alt="UCloud"></div><div class="partner-name">UCloud</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/unv.png" alt="Uniview"></div><div class="partner-name">Uniview</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/zstack.png" alt="ZStack"></div><div class="partner-name">ZStack</div></div>
+
+                        <!-- Bản Sao (Duplicated Set) để Carousel chạy vòng lặp mượt mà -->
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/byteplus.png" alt="Byte Plus" ></div><div class="partner-name">Byte Plus</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/chenpushen.png" alt="CPS Company"></div><div class="partner-name">CPS Company</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/dtstack.png" alt="DTStack"></div><div class="partner-name">DTStack</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/kodcloud.png" alt="KodCloud"></div><div class="partner-name">KodCloud</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/nanjingpanda.png" alt="Nanjing Panda"></div><div class="partner-name">Nanjing Panda</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/sensordata.png" alt="Sensor Data"></div><div class="partner-name">Sensor Data</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/ucloud.png" alt="UCloud"></div><div class="partner-name">UCloud</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/unv.png" alt="Uniview"></div><div class="partner-name">Uniview</div></div>
+                        <div class="partner-item"><div class="partner-logo"><img src="../cdn/images/zstack.png" alt="ZStack"></div><div class="partner-name">ZStack</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CONNECT & FOOTER PLACEHOLDERS -->
+    <div id="connect-placeholder"></div>
+    <div id="footer-placeholder"></div>
+
+    <script src="../common/main.js"></script>
+
+    <!-- JAVASCRIPT XỬ LÝ DỪNG CAROUSEL TRÊN ĐIỆN THOẠI -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('partnersTrack');
+            if (!track) return;
+
+            const NORMAL_SPEED = 1;        // Tốc độ trượt bình thường (Pixel / Khung hình)
+            const ACCELERATION = 0.02;     // Gia tốc (Số càng nhỏ, tăng tốc càng từ từ và êm ái)
+            const RESUME_DELAY = 1000;     // Độ trễ 1 giây (1000ms) trước khi chạy lại
+
+            let currentX = 0;
+            let isDragging = false;
+            let startX = 0;
+            let isHovered = false;
+            let isPaused = false;
+            let currentSpeed = NORMAL_SPEED;
+            let resumeTimeout = null;
+
+            track.addEventListener('dragstart', (e) => e.preventDefault());
+
+            // --- ĐỘNG CƠ RENDER (CHẠY 60 FPS) ---
+            function animate() {
+                if (!isPaused && !isDragging && !isHovered) {
+                    if (currentSpeed < NORMAL_SPEED) {
+                        currentSpeed += ACCELERATION;
+                        if (currentSpeed > NORMAL_SPEED) currentSpeed = NORMAL_SPEED;
+                    }
+                } else {
+                    currentSpeed = 0;
+                }
+
+                if (!isDragging) {
+                    currentX -= currentSpeed;
+                }
+
+                const halfWidth = track.scrollWidth / 2;
+                
+                while (currentX <= -halfWidth) {
+                    currentX += halfWidth;
+                }
+                while (currentX > 0) {
+                    currentX -= halfWidth;
+                }
+
+                track.style.transform = `translateX(${currentX}px)`;
+                requestAnimationFrame(animate);
+            }
+
+            requestAnimationFrame(animate);
+
+            // --- HÀM XỬ LÝ ĐỘ TRỄ TRƯỚC KHI TĂNG TỐC ---
+            function scheduleResume() {
+                clearTimeout(resumeTimeout);
+                isPaused = true;
+                resumeTimeout = setTimeout(() => {
+                    if (!isHovered && !isDragging) {
+                        isPaused = false;
+                        currentSpeed = 0;
+                    }
+                }, RESUME_DELAY);
+            }
+
+            // --- XỬ LÝ SỰ KIỆN KÉO THẢ (DRAG & DROP) ---
+            function startDrag(e) {
+                isDragging = true;
+                isPaused = true;
+                currentSpeed = 0;
+                clearTimeout(resumeTimeout);
+                startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+            }
+
+            function moveDrag(e) {
+                if (!isDragging) return;
+                const x = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+                const walk = x - startX;
+                currentX += walk;
+                startX = x;
+            }
+
+            function endDrag() {
+                if (!isDragging) return;
+                isDragging = false;
+                scheduleResume();
+            }
+
+            track.addEventListener('mousedown', startDrag);
+            window.addEventListener('mousemove', moveDrag);
+            window.addEventListener('mouseup', endDrag);
+
+            track.addEventListener('mouseenter', () => {
+                isHovered = true;
+                isPaused = true;
+                currentSpeed = 0;
+                clearTimeout(resumeTimeout);
+            });
+
+            track.addEventListener('mouseleave', () => {
+                isHovered = false;
+                if (!isDragging) scheduleResume();
+            });
+
+            track.addEventListener('touchstart', startDrag, { passive: true });
+            window.addEventListener('touchmove', moveDrag, { passive: true });
+            window.addEventListener('touchend', endDrag);
+        });
+    </script>
+</body>
+</html>
