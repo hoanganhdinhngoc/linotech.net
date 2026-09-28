@@ -4,9 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CEO Group · Phase 1 Management Reporting Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;750;800;850;900&display=swap" rel="stylesheet">
   <style>
     :root{--navy:#09245f;--blue:#1769e9;--blue2:#0e86ff;--sky:#eef7ff;--line:#d6e8fb;--muted:#6b7da4;--teal:#0eaa92;--purple:#6f4de5;--red:#ef5b68;--shadow:0 10px 28px rgba(18,74,143,.10)}
-    *{box-sizing:border-box} body{margin:0;background:#f7fbff;color:var(--navy);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+    *{box-sizing:border-box} button, input, select, textarea { font-family: inherit; } body{margin:0;background:#f7fbff;color:var(--navy);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
     .app{min-height:100vh;background:linear-gradient(135deg,#fbfdff 0%,#f3f9ff 100%)}
     .topbar{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 38px;position:sticky;top:0;z-index:5}
     .brand{display:flex;gap:12px;align-items:center;font-weight:800;letter-spacing:.2px}.brand-mark{width:33px;height:33px;border-radius:10px;background:linear-gradient(145deg,#09d2cf,#1769e9);display:grid;place-items:center;color:#fff;font-size:16px}.brand small{display:block;color:#8293b7;font-size:10px;font-weight:700;letter-spacing:1.4px;margin-top:2px}.demo-badge{padding:7px 11px;border-radius:99px;background:#eaf4ff;color:var(--blue);font-size:11px;font-weight:800}
@@ -143,12 +144,12 @@
   document.getElementById('metricCount').textContent='6';
   function setMetricDomain(domain){activeMetricDomain=domain;document.querySelectorAll('.domain-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.domain===domain));filterMetrics()}
   function filterMetrics(){const term=(document.getElementById('metricSearch')?.value||'').toLowerCase();let count=0;document.querySelectorAll('.metric-item').forEach(item=>{const matchesDomain=activeMetricDomain==='all'||item.dataset.domain===activeMetricDomain;const matchesTerm=item.textContent.toLowerCase().includes(term);const visible=matchesDomain&&matchesTerm;item.classList.toggle('hidden',!visible);if(visible)count++});const scope=activeMetricDomain==='all'?'all domains':activeMetricDomain==='real'?'Real Estate':activeMetricDomain==='agent'?'AI-ready metrics':'Finance';document.getElementById('metricCount').textContent=count;document.getElementById('marketScope').textContent=`Showing ${scope}${term?` · “${term}”`:''}`}
-  function showMetric(name,code,domain,description,dimensions,source){document.querySelectorAll('.metric-item').forEach(item=>item.classList.toggle('selected',item.textContent.includes(code)));document.getElementById('detailName').textContent=name;document.getElementById('detailCode').textContent=code;document.getElementById('detailDomain').textContent=domain;document.getElementById('detailDescription').textContent=description;document.getElementById('detailDimensions').textContent='Dimensions: '+dimensions;document.getElementById('detailSource').textContent='Source: '+source;document.getElementById('metricDetail').classList.add('show')}
+  function showMetric(name,code,domain,description,dimensions,source){document.querySelectorAll('.metric-item').forEach(item=>item.classList.toggle('selected',item.textContent.includes(code)));const setEl=(id,text)=>{const el=document.getElementById(id);el.dataset.enText=text;el.textContent=currentLang==='vi'?(vi[text]||text):text;};setEl('detailName',name);setEl('detailCode',code);setEl('detailDomain',domain);setEl('detailDescription',description);setEl('detailDimensions','Dimensions: '+dimensions);setEl('detailSource','Source: '+source);document.getElementById('metricDetail').classList.add('show');}
   function useMetricInAI(){const name=document.getElementById('detailName').textContent;ask(`Explain ${name} and the main management implication`)}
   document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
-  function ask(q){switchTab('ask');document.getElementById('prompt').value=q;runAsk()}
+  function ask(q){switchTab('ask');document.getElementById('prompt').value=currentLang==='vi'?(vi[q]||q):q;runAsk()}
   let askTimer;
-  function runAsk(){const q=document.getElementById('prompt').value.trim();const key=Object.keys(answers).find(k=>q.toLowerCase().includes(k.toLowerCase().replace('?','')))||'Why is Ocean Vista Phase 2 underperforming?';const a=answers[key];const answer=document.getElementById('answer');answer.classList.add('show');document.getElementById('thinking').classList.remove('hidden');document.getElementById('answerTop').classList.add('hidden');document.getElementById('answerGrid').classList.add('hidden');document.getElementById('causeGrid').classList.add('hidden');document.getElementById('sources').classList.add('hidden');['step1','step2','step3','step4'].forEach(id=>document.getElementById(id).className='thinking-step');clearTimeout(askTimer);const steps=['step1','step2','step3','step4'];steps.forEach((id,i)=>setTimeout(()=>{if(i>0)document.getElementById(steps[i-1]).className='thinking-step done';document.getElementById(id).className='thinking-step active'},i*430));askTimer=setTimeout(()=>{document.getElementById('step4').className='thinking-step done';document.getElementById('thinking').classList.add('hidden');document.getElementById('answerTitle').textContent=a.title;document.getElementById('answerText').textContent=a.text;document.getElementById('answerTop').classList.remove('hidden');document.getElementById('answerGrid').classList.remove('hidden');document.getElementById('causeGrid').classList.remove('hidden');document.getElementById('sources').classList.remove('hidden');if(currentLang==='vi')applyLanguage('vi')},1900)}
+  function runAsk(){const q=document.getElementById('prompt').value.trim();const key=Object.keys(answers).find(k=>{const kLower=k.toLowerCase().replace('?','');const vLower=(vi[k]||'').toLowerCase().replace('?','');const qLower=q.toLowerCase();return qLower.includes(kLower)||(vLower&&qLower.includes(vLower));})||'Why is Ocean Vista Phase 2 underperforming?';const a=answers[key];const answer=document.getElementById('answer');answer.classList.add('show');document.getElementById('thinking').classList.remove('hidden');document.getElementById('answerTop').classList.add('hidden');document.getElementById('answerGrid').classList.add('hidden');document.getElementById('causeGrid').classList.add('hidden');document.getElementById('sources').classList.add('hidden');['step1','step2','step3','step4'].forEach(id=>document.getElementById(id).className='thinking-step');clearTimeout(askTimer);const steps=['step1','step2','step3','step4'];steps.forEach((id,i)=>setTimeout(()=>{if(i>0)document.getElementById(steps[i-1]).className='thinking-step done';document.getElementById(id).className='thinking-step active'},i*430));askTimer=setTimeout(()=>{document.getElementById('step4').className='thinking-step done';document.getElementById('thinking').classList.add('hidden');document.getElementById('answerTitle').textContent=a.title;document.getElementById('answerText').textContent=a.text;document.getElementById('answerTop').classList.remove('hidden');document.getElementById('answerGrid').classList.remove('hidden');document.getElementById('causeGrid').classList.remove('hidden');document.getElementById('sources').classList.remove('hidden');if(currentLang==='vi')applyLanguage('vi')},1900)}
   let reportTimer;
   function generateReport(){const thinking=document.getElementById('reportThinking');const output=document.getElementById('reportOutput');thinking.classList.remove('hidden');output.classList.add('hidden');['rp1','rp2','rp3','rp4'].forEach(id=>document.getElementById(id).className='rp-step');clearTimeout(reportTimer);const steps=['rp1','rp2','rp3','rp4'];steps.forEach((id,i)=>setTimeout(()=>{if(i>0)document.getElementById(steps[i-1]).className='rp-step done';document.getElementById(id).className='rp-step active'},i*520));reportTimer=setTimeout(()=>{document.getElementById('rp4').className='rp-step done';output.classList.remove('hidden');if(currentLang==='vi')applyLanguage('vi')},2350)}
   function enhancedReportMarkup(){return `<h3>CEO Group · July 2026经营决策报告</h3><p><b>本报告不是结果罗列，而是从指标异常 → 原因判断 → 决策选项 → 执行闭环，帮助管理层在本月经营会上形成可落地动作。</b></p><div class="report-summary"><div class="report-kpi"><small>集团销售额</small><strong>25.4T VND</strong><span class="positive">▲ 12% MoM</span></div><div class="report-kpi"><small>核心经营风险</small><strong>Ocean Vista</strong><span class="negative">去化46% · 回款58%</span></div><div class="report-kpi"><small>可释放现金</small><strong>32B VND</strong><span class="negative">逾期&gt;60天</span></div></div><div class="decision-grid"><div class="decision-card emphasis"><span class="decision-tag">AI经营判断</span><h4>建议：先保现金，再修复去化</h4><p>Ocean Vista 的问题不是单一销售下滑，而是“中央区域需求弱 + 未售库存高 + 回款滞后”叠加。若继续按原节奏销售，库存占用与逾期会在未来 30 天继续放大。</p><ul><li>将中央区域列为本月一级经营战场</li><li>用定向价格/佣金组合换取去化速度</li><li>同步锁定高金额逾期合同的回款节点</li></ul></div><div class="decision-card"><span class="decision-tag">为什么现在决策</span><h4>管理窗口：未来 2 周</h4><p>当前销售额仍增长，但结构性风险已经集中到单一项目。提前干预比季度末被动促销更可控，也能避免利润与现金流同时承压。</p><div class="action-line">决策门槛：本周确认优惠上限、重点客户名单和回款责任人</div></div></div><div class="decision-card" style="margin-top:12px"><span class="decision-tag">情景推演</span><h4>三种经营路径与预期影响</h4><div class="scenario-grid"><div class="scenario best"><strong>主动修复（推荐）</strong><span>定向优惠 + 经纪人激励 + 逾期专项回款<br>预计30天去化提升 8–12 pts，释放现金 18–25B VND</span></div><div class="scenario"><strong>温和跟踪</strong><span>维持现有价格，仅加强周报<br>预计去化提升 2–4 pts，库存压力仍在</span></div><div class="scenario risk"><strong>继续观望</strong><span>不调整策略，等待市场自然恢复<br>逾期与库存风险可能继续扩大，错过销售窗口</span></div></div></div><div class="decision-card" style="margin-top:12px"><span class="decision-tag">执行闭环</span><h4>从管理决策到业务反哺</h4><table class="action-table"><thead><tr><th>行动</th><th>责任人</th><th>完成时点</th><th>跟踪指标</th></tr></thead><tbody><tr><td>提交中央区域定向报价方案</td><td>销售负责人</td><td>3个工作日</td><td>去化率、有效线索</td></tr><tr><td>锁定 Top 10 逾期合同回款计划</td><td>财务 + 项目GM</td><td>5个工作日</td><td>回款额、逾期天数</td></tr><tr><td>建立每周经营复盘节奏</td><td>PMO</td><td>本周启动</td><td>动作完成率、风险变化</td></tr></tbody></table></div><div class="decision-card" style="margin-top:12px"><span class="decision-tag">下一次复盘</span><p>下周重点回答三个问题：① 中央区域去化是否提升至 54% 以上；② 逾期回款是否回收 8B VND；③ 优惠是否带来真实成交，而非单纯让利。</p></div>`}
@@ -161,7 +162,184 @@
   function reportHtml(){return `<div style="font-family:Arial,sans-serif;color:#09245f;max-width:980px;margin:0 auto"><div style="border-bottom:4px solid #1769e9;padding:0 0 18px;margin-bottom:22px"><div style="color:#6e9bf1;font-size:12px;font-weight:700;letter-spacing:2px">AI DECISION SUPPORT · CEO GROUP</div><h1 style="font-size:30px;margin:8px 0">July 2026 Management Decision Report</h1><p style="color:#6b7da4;margin:0">From certified metrics to operating decisions, scenario choices and accountable execution.</p></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px"><div style="background:#eef7ff;border:1px solid #cfe3fb;border-radius:12px;padding:16px"><small>Group sales</small><h2 style="margin:8px 0;color:#1769e9">25.4T VND</h2><b style="color:#0eaa92">▲ 12% MoM</b></div><div style="background:#fff7f8;border:1px solid #f3c1c7;border-radius:12px;padding:16px"><small>Priority risk</small><h2 style="margin:8px 0;color:#ef5b68">Ocean Vista</h2><b style="color:#ef5b68">46% sell-through · 58% collection</b></div><div style="background:#f5f1ff;border:1px solid #d8cafa;border-radius:12px;padding:16px"><small>Cash at risk</small><h2 style="margin:8px 0;color:#6f4de5">32B VND</h2><b style="color:#6f4de5">Overdue &gt;60 days</b></div></div><div style="display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-bottom:18px"><div style="border:1px solid #dbeaf9;border-radius:12px;padding:16px"><h2 style="margin:0 0 12px;font-size:18px">Regional sales performance</h2><div style="display:flex;align-items:flex-end;gap:28px;height:180px;padding:10px 20px 28px;border-bottom:1px solid #cfe0f5;background:repeating-linear-gradient(to top,transparent 0,transparent 43px,#edf4fb 44px)"><div style="height:78%;width:46px;background:#1769e9;border-radius:8px 8px 0 0;position:relative"><b style="position:absolute;top:-24px;left:50%;transform:translateX(-50%)">9.8</b><span style="position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);color:#6b7da4">North</span></div><div style="height:51%;width:46px;background:#ef5b68;border-radius:8px 8px 0 0;position:relative"><b style="position:absolute;top:-24px;left:50%;transform:translateX(-50%)">6.4</b><span style="position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);color:#6b7da4">Central</span></div><div style="height:72%;width:46px;background:#0eaa92;border-radius:8px 8px 0 0;position:relative"><b style="position:absolute;top:-24px;left:50%;transform:translateX(-50%)">9.2</b><span style="position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);color:#6b7da4">South</span></div></div><p style="color:#536b99;font-size:12px;margin:16px 0 0"><b>Interpretation:</b> Central region contributes the largest performance gap versus the 70% target and should receive the first commercial intervention.</p></div><div style="border:1px solid #dbeaf9;border-radius:12px;padding:16px"><h2 style="margin:0 0 12px;font-size:18px">Receivables aging</h2><div style="display:flex;gap:18px;align-items:center"><div style="width:130px;height:130px;border-radius:50%;background:conic-gradient(#1769e9 0 47%,#f2c54e 47% 78%,#e883a7 78% 92%,#b7c7db 92% 100%);position:relative"><div style="position:absolute;inset:28px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;font-weight:bold">68%<small style="display:block;color:#6b7da4">on time</small></div></div><ul style="margin:0;padding-left:18px;line-height:1.8;color:#536b99;font-size:12px"><li>Current: <b>182B</b></li><li>1–30 days: <b>120B</b></li><li>31–60 days: <b>54B</b></li><li>&gt;60 days: <b style="color:#ef5b68">32B</b></li></ul></div></div></div><div style="background:#f0f7ff;border:1px solid #a9ccf6;border-radius:12px;padding:18px;margin-bottom:18px"><h2 style="margin:0 0 8px;color:#1769e9">AI business judgment</h2><p style="margin:0;color:#536b99;line-height:1.6"><b>Recommendation: protect cash first, then restore sell-through.</b> Weak Central region demand, elevated unsold inventory and delayed collections are compounding. The next two weeks are the intervention window; waiting shifts the problem from a sales issue into a margin and liquidity issue.</p></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px"><div style="border:1px solid #7fd5c1;background:#effcf8;border-radius:12px;padding:14px"><h3 style="margin:0 0 6px;color:#087e68">Active recovery · Recommended</h3><p style="font-size:12px;color:#536b99">Targeted offer + broker incentives + collection sprint. Expected 30-day sell-through lift: <b>8–12 pts</b>; cash release: <b>18–25B VND</b>.</p></div><div style="border:1px solid #dbeaf9;border-radius:12px;padding:14px"><h3 style="margin:0 0 6px">Monitor and adjust</h3><p style="font-size:12px;color:#536b99">Maintain pricing and strengthen weekly review. Expected sell-through lift: <b>2–4 pts</b>; inventory pressure remains.</p></div><div style="border:1px solid #f3c1c7;background:#fff8f8;border-radius:12px;padding:14px"><h3 style="margin:0 0 6px;color:#ef5b68">Wait and see</h3><p style="font-size:12px;color:#536b99">No intervention until the market recovers. Overdue and inventory risk may continue to expand.</p></div></div><div style="border:1px solid #dbeaf9;border-radius:12px;padding:16px"><h2 style="margin:0 0 10px;font-size:18px">Execution loop</h2><table style="width:100%;border-collapse:collapse;font-size:12px"><tr style="background:#eaf4ff;text-align:left"><th style="padding:9px">Action</th><th style="padding:9px">Owner</th><th style="padding:9px">Due</th><th style="padding:9px">Measure</th></tr><tr><td style="padding:9px;border-bottom:1px solid #edf3f9">Submit Central region offer plan</td><td style="padding:9px;border-bottom:1px solid #edf3f9">Sales lead</td><td style="padding:9px;border-bottom:1px solid #edf3f9">3 working days</td><td style="padding:9px;border-bottom:1px solid #edf3f9">Sell-through, qualified leads</td></tr><tr><td style="padding:9px;border-bottom:1px solid #edf3f9">Lock Top 10 overdue contract plans</td><td style="padding:9px;border-bottom:1px solid #edf3f9">Finance + Project GM</td><td style="padding:9px;border-bottom:1px solid #edf3f9">5 working days</td><td style="padding:9px;border-bottom:1px solid #edf3f9">Cash collected, overdue days</td></tr><tr><td style="padding:9px">Start weekly operating review</td><td style="padding:9px">PMO</td><td style="padding:9px">This week</td><td style="padding:9px">Action closure, risk movement</td></tr></table></div><p style="color:#8ca0c4;font-size:11px;margin-top:18px">Demo only · Virtual data for illustration. Production data would be governed and validated by CEO Group.</p></div>`}
   function downloadReport(type){const html=reportHtml().replace(/Receivables aging/g,'Collection status').replace(/Current:/g,'Paid / current:').replace(/1–30 days:/g,'1–30 days late:').replace(/31–60 days:/g,'31–60 days late:').replace(/&gt;60 days:/g,'More than 60 days late:');if(type==='word'){const blob=new Blob(['<html><body style="font-family:Arial">'+html+'</body></html>'],{type:'application/msword'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='CEO_Group_July_2026_Management_Decision_Report.doc';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}else{const w=window.open('','_blank');if(!w)return;w.document.write('<html><head><title>CEO Group Management Decision Report</title><style>body{font-family:Arial;max-width:980px;margin:48px auto;color:#09245f;line-height:1.6}h1{color:#1769e9}h2{color:#1769e9;margin-top:28px}table{width:100%;border-collapse:collapse}th{background:#eaf4ff;text-align:left}td,th{border:1px solid #cfe0f5}</style></head><body>'+html+'</body></html>');w.document.close();w.focus();setTimeout(()=>w.print(),250)}}
   const vi={
-    'Intelligent Analysis':'Phân tích thông minh','Metrics Application':'Ứng dụng chỉ số','Metrics Market':'Thị trường chỉ số','Metrics Center':'Trung tâm chỉ số','INTERACTIVE DEMO · VIRTUAL DATA':'BẢN DEMO TƯƠNG TÁC · DỮ LIỆU MÔ PHỎNG',
+    'Show sales and collection rate by region':'Hiển thị doanh số và tỷ lệ thu hồi theo khu vực',
+    'Why is Ocean Vista Phase 2 underperforming?':'Tại sao Ocean Vista Phase 2 chưa đạt hiệu quả?',
+    'What is the overdue receivables risk?':'Rủi ro phải thu quá hạn là gì?',
+    'Why is Ocean Vista underperforming?':'Tại sao Ocean Vista chưa đạt hiệu quả?',
+    'Sales trend by region':'Xu hướng doanh số theo khu vực',
+    'Group collection rate':'Tỷ lệ thu hồi toàn tập đoàn',
+    'Overdue receivables risk':'Rủi ro phải thu quá hạn',
+
+    'Ocean Vista Phase 2 is below target':'Ocean Vista Phase 2 chưa đạt mục tiêu',
+    'Sales absorption is 46%, below the 70% target. The main drivers are slower Central region demand, 120B VND of unsold inventory, and a 58% collection rate. A recovery plan should focus on pricing, broker incentives and overdue collections.':'Tỷ lệ hấp thụ là 46%, dưới mục tiêu 70%. Nguyên nhân chính là do nhu cầu khu vực miền Trung chậm lại, 120 tỷ VND tồn kho chưa bán, và tỷ lệ thu hồi 58%. Kế hoạch phục hồi nên tập trung vào định giá, ưu đãi môi giới và thu hồi nợ quá hạn.',
+    'Central region needs attention':'Khu vực miền Trung cần được lưu ý',
+    'North and South are tracking above target. Central region sales absorption is 58%, 12 points below the 70% target, and its collection rate is 64%, below the group average of 68%.':'Miền Bắc và miền Nam đang vượt mục tiêu. Tỷ lệ hấp thụ bán hàng miền Trung là 58%, thấp hơn 12 điểm so với mục tiêu 70% và tỷ lệ thu hồi là 64%, thấp hơn mức trung bình toàn tập đoàn là 68%.',
+    '32B VND is overdue by more than 60 days':'32 tỷ VND đã quá hạn hơn 60 ngày',
+    'Total overdue receivables are 388B VND. The highest-risk bucket is the 32B VND overdue by more than 60 days, concentrated in a small number of high-value villa contracts.':'Tổng nợ phải thu quá hạn là 388 tỷ VND. Nhóm rủi ro cao nhất là 32 tỷ VND đã quá hạn hơn 60 ngày, tập trung ở một số ít hợp đồng biệt thự giá trị cao.',
+    
+    'Hello, I can query certified metrics and explain the business drivers':'Xin chào, tôi có thể truy vấn các chỉ số xác thực và giải thích các động lực kinh doanh',
+    'AI METRICS + AIWORKS':'CHỈ SỐ AI + AIWORKS',
+    'Show sales and collection by region':'Hiển thị doanh số và thu hồi theo khu vực',
+    'Explain Ocean Vista Phase 2':'Giải thích Ocean Vista Phase 2',
+    'Explain overdue risk':'Giải thích rủi ro nợ quá hạn',
+    'Ask':'Hỏi',
+    
+    'AI Analysis':'Phân tích AI',
+    '< Start New Conversation':'< Cuộc trò chuyện mới',
+    'Last 15 days':'15 ngày qua',
+    'Last 30 days':'30 ngày qua',
+    'Suggested':'Đề xuất',
+    'Generate management report':'Tạo báo cáo quản trị',
+    
+    '1 · Understand intent':'1 · Hiểu ý định',
+    '2 · Match certified metrics':'2 · Ghép nối chỉ số xác thực',
+    '3 · Query source data':'3 · Truy vấn dữ liệu gốc',
+    '4 · Explain the result':'4 · Giải thích kết quả',
+    
+    'Answer':'Trả lời',
+    
+    'Primary driver':'Nguyên nhân chính',
+    'Cash exposure':'Rủi ro tiền mặt',
+    
+    'Sales absorption vs target':'Tỷ lệ hấp thụ so với mục tiêu',
+    'Based on ':'Dựa trên ',
+    'Traceable to project records':'Dấu vết về hồ sơ dự án',
+    'July 2026 data':'Dữ liệu tháng 7 2026',
+
+    'Target 70% · gap 8.2 pts':'Mục tiêu 70% · thiếu 8.2 điểm',
+    '93% of monthly plan':'93% kế hoạch tháng',
+
+    'Cash balance':'Số dư tiền mặt',
+    'Receivables aging':'Phân tích tuổi nợ',
+    'Revenue by business unit':'Doanh thu theo mảng kinh doanh',
+    'Gross margin by region':'Biên lợi nhuận gộp theo khu vực',
+    'Net operating cash · B VND':'Tiền mặt từ HĐKD · Tỷ VND',
+    'July 2026 · VND trillion':'Tháng 7 2026 · Nghìn tỷ VND',
+    'Actual vs 20% target':'Thực tế so với mục tiêu 20%',
+    'Monthly sales value':'Giá trị bán hàng tháng',
+    'Sales absorption by project':'Tỷ lệ hấp thụ theo dự án',
+    'Actual vs 70% Phase 1 target':'Thực tế so với mục tiêu Phase 1 (70%)',
+    'Sales performance by region':'Hiệu quả bán hàng theo khu vực',
+    'July sales · VND trillion':'Doanh số tháng 7 · Nghìn tỷ VND',
+    'Leasing performance':'Hiệu quả cho thuê',
+    'Occupancy / monthly rent collection':'Lấp đầy / Thu tiền thuê tháng',
+    'Project commercial performance':'Hiệu quả thương mại dự án',
+    'Role-scoped data':'Dữ liệu phân quyền theo vai trò',
+    'Needs action':'Cần xử lý',
+    'On track':'Đúng tiến độ',
+    'Click to view top 10 contracts':'Nhấp để xem top 10 hợp đồng',
+    'Click chart to drill down':'Nhấp vào biểu đồ để xem chi tiết',
+    'Click for project breakdown':'Nhấp để xem chi tiết dự án',
+    'Click to drill down':'Nhấp để xem chi tiết',
+    
+    'Executive Financial Status':'Tài chính Tổng thể',
+    'Executive Real Estate Operations':'Kinh doanh Bất động sản Tổng thể',
+    
+    // Exact text node matches for subtitles and drill-down headers
+    'Cash flow, receivables, revenue and gross margin · July 2026':'Dòng tiền, phải thu, doanh thu và biên lợi nhuận · Tháng 7/2026',
+    'Portfolio sales, inventory and leasing performance · July 2026':'Hiệu quả bán hàng, tồn kho và cho thuê · Tháng 7/2026',
+    'Operating exceptions, execution status and accountable actions · July 2026':'Ngoại lệ vận hành, tiến độ và người phụ trách · Tháng 7/2026',
+    'Commercial funnel, sales performance and inventory · July 2026':'Phễu kinh doanh, hiệu quả bán hàng và tồn kho · Tháng 7/2026',
+    
+    'Drilled from Financial Status / Receivables Aging / >60 days · CEO — Group view':'Trích xuất từ Tài chính / Phân tích nợ / >60 ngày · CEO — Góc nhìn Tập đoàn',
+    'Drilled from Real Estate Operations / Unsold Inventory · CEO — Group view':'Trích xuất từ Kinh doanh BĐS / Hàng tồn kho · CEO — Góc nhìn Tập đoàn',
+    'Drilled from Financial Status / Receivables Aging / >60 days · Deputy CEO — Operations':'Trích xuất từ Tài chính / Phân tích nợ / >60 ngày · Phó TGĐ — Vận hành',
+    'Drilled from Real Estate Operations / Unsold Inventory · Deputy CEO — Operations':'Trích xuất từ Kinh doanh BĐS / Hàng tồn kho · Phó TGĐ — Vận hành',
+    'Drilled from Financial Status / Receivables Aging / >60 days · Sales Director — Commercial':'Trích xuất từ Tài chính / Phân tích nợ / >60 ngày · GĐ Bán hàng — Kinh doanh',
+    'Drilled from Real Estate Operations / Unsold Inventory · Sales Director — Commercial':'Trích xuất từ Kinh doanh BĐS / Hàng tồn kho · GĐ Bán hàng — Kinh doanh',
+    
+    'Unsold inventory · Project breakdown':'Hàng tồn kho · Chi tiết dự án',
+    'Overdue debt — Top 10 contracts':'Nợ quá hạn — Top 10 hợp đồng',
+    'Source trace: ERP contract ledger → certified Finance / Real Estate metric → Management Cockpit · Refreshed 06:00 today':'Nguồn: Sổ cái hợp đồng ERP → Chỉ số Tài chính / BĐS đã xác thực → Bảng điều hành · Cập nhật 06:00 hôm nay',
+
+    // Add missing Metric definitions and combinations
+    'Dimensions: Region · Project · Month':'Chiều phân tích: Khu vực · Dự án · Tháng',
+    'Source: Finance KPI Library':'Nguồn: Thư viện KPI Tài chính',
+    'Dimensions: Region · Project · Product type':'Chiều phân tích: Khu vực · Dự án · Loại sản phẩm',
+    'Dimensions: Region · Project · Phase':'Chiều phân tích: Khu vực · Dự án · Giai đoạn',
+    'Source: Real Estate Sales':'Nguồn: Bán hàng Bất động sản',
+    'Dimensions: Region · Project · Unit type':'Chiều phân tích: Khu vực · Dự án · Loại hình',
+    'Dimensions: Region · Project · Aging bucket':'Chiều phân tích: Khu vực · Dự án · Nhóm nợ quá hạn',
+    'Dimensions:':'Chiều phân tích:',
+    'Source:':'Nguồn:',
+    'View definition':'Xem định nghĩa',
+    'Domain:':'Lĩnh vực:',
+    'Updated:':'Cập nhật:',
+    'Used in:':'Sử dụng trong:',
+    'All metrics':'Tất cả chỉ số',
+    'Real Estate':'Bất động sản',
+    'Finance':'Tài chính',
+    'AI-ready metrics':'Chỉ số sẵn sàng cho AI',
+
+    // Add drill down & report translations
+    'Contract':'Hợp đồng', 'Project':'Dự án', 'Customer':'Khách hàng', 'Unit':'Căn hộ', 'Overdue':'Quá hạn', 'Age':'Tuổi nợ', 'Action':'Hành động',
+    'Region':'Khu vực', 'Unsold units':'Số căn chưa bán', 'Inventory value':'Giá trị tồn kho', 'Absorption':'Tỷ lệ hấp thụ', 'Months to clear':'Tháng để bán hết',
+    'Overdue >60 days':'Quá hạn >60 ngày',
+    'Top 10 concentration':'Tập trung Top 10',
+    'Contracts requiring action':'Hợp đồng cần xử lý',
+    'Total unsold value':'Tổng giá trị chưa bán',
+    'Ocean Vista share':'Tỷ trọng Ocean Vista',
+    'Unsold units':'Số căn chưa bán',
+    'Overdue debt — Top 10 contracts':'Nợ quá hạn — Top 10 hợp đồng',
+    'Unsold inventory · Project breakdown':'Hàng tồn kho — Chi tiết dự án',
+    'Drilled from Financial Status / Receivables Aging / >60 days':'Trích xuất từ Tài chính / Phân tích nợ / >60 ngày',
+    'Drilled from Real Estate Operations / Unsold Inventory':'Trích xuất từ Kinh doanh BĐS / Hàng tồn kho',
+    'Source trace: ERP contract ledger → certified Finance / Real Estate metric → Management Cockpit · Refreshed 06:00 today':'Nguồn: Sổ cái hợp đồng ERP → Chỉ số Tài chính / BĐS đã xác thực → Bảng điều hành — Cập nhật 06:00 hôm nay',
+    
+    // Add report summaries
+    'Operating cash flow is improving, while the overdue action queue and seven delayed actions require cross-functional follow-up.':'Dòng tiền hoạt động đang cải thiện, trong khi hàng chờ xử lý nợ quá hạn và 7 hành động bị trễ cần sự phối hợp chéo.',
+    'Cash generation improved in July, while 32B VND overdue beyond 60 days remains the priority financial exception. Protect cash collection while maintaining gross-margin discipline.':'Tạo dòng tiền cải thiện trong tháng 7, trong khi 32 tỷ VND quá hạn trên 60 ngày vẫn là ngoại lệ ưu tiên về tài chính. Cần bảo vệ thu hồi tiền mặt song song với kỷ luật biên lợi nhuận.',
+    'Assigned-region sales reached 11.3T VND. Commercial recovery should focus on Ocean Vista inventory and broker conversion.':'Doanh số khu vực phụ trách đạt 11,3 nghìn tỷ VND. Phục hồi thương mại cần tập trung vào tồn kho Ocean Vista và tỷ lệ chuyển đổi môi giới.',
+    'Portfolio absorption reached 61.8%, with Ocean Vista Phase 2 driving most of the 280B VND unsold inventory exposure. Central-region commercial recovery is the immediate priority.':'Tỷ lệ hấp thụ danh mục đạt 61,8%, với Ocean Vista Phase 2 chiếm phần lớn trong rủi ro tồn kho 280 tỷ VND. Phục hồi thương mại khu vực Miền Trung là ưu tiên tức thì.',
+    'Operating cash flow':'Dòng tiền hoạt động',
+    'Overdue action queue':'Hàng chờ xử lý nợ',
+    'Actions overdue':'Hành động quá hạn',
+    'Assigned-region sales':'Doanh số khu vực',
+    'Broker conversion':'Chuyển đổi môi giới',
+    'Leasing occupancy':'Tỷ lệ lấp đầy',
+    'Collections improved month on month, but long-aged receivables remain concentrated.':'Thu hồi nợ cải thiện so với tháng trước, nhưng nợ đọng lâu ngày vẫn tập trung.',
+    'The Central region is below the gross-margin target.':'Khu vực miền Trung đang dưới mục tiêu biên lợi nhuận.',
+    'Top overdue contracts require named owners and weekly closure tracking.':'Các hợp đồng nợ quá hạn cao nhất cần người phụ trách cụ thể và theo dõi hàng tuần.',
+    'Ocean Vista remains 24 points below its absorption target.':'Ocean Vista vẫn đang thấp hơn 24 điểm so với mục tiêu hấp thụ.',
+    'Central-region inventory represents the highest portfolio pressure.':'Tồn kho miền Trung tạo áp lực cao nhất cho danh mục.',
+    'Leasing occupancy is improving, led by office assets.':'Tỷ lệ lấp đầy đang cải thiện, dẫn đầu bởi phân khúc văn phòng.',
+    'Confirm recovery plans for visible overdue contracts.':'Xác nhận kế hoạch thu hồi cho các hợp đồng quá hạn.',
+    'Escalate accounts without a committed payment date.':'Báo cáo leo thang các tài khoản không có ngày cam kết thanh toán.',
+    'Review collection and margin movement in the weekly operating meeting.':'Rà soát biến động thu hồi nợ và biên lợi nhuận trong họp vận hành tuần.',
+    'Launch the targeted Ocean Vista broker offer.':'Triển khai gói ưu đãi môi giới nhắm mục tiêu cho Ocean Vista.',
+    'Prioritize high-value villa inventory and qualified site visits.':'Ưu tiên tồn kho biệt thự giá trị cao và các chuyến tham quan chất lượng.',
+    'Track reservations, collections and occupancy every week.':'Theo dõi đặt chỗ, thu tiền và lấp đầy hàng tuần.',
+    
+    // Add additional dash tags
+    'CEO — Group view':'CEO — Góc nhìn tập đoàn',
+    'Chief Executive Officer':'Tổng Giám đốc',
+    'Executive Finance + Executive Real Estate':'Tài chính Tổng thể + BĐS Tổng thể',
+    'Group-level financial and real-estate dashboards':'Bảng điều hành tài chính và BĐS cấp tập đoàn',
+    'Deputy CEO — Operations':'Phó TGĐ — Vận hành',
+    'Operations Control Dashboard':'Bảng kiểm soát vận hành',
+    'Operating exceptions, execution status and action ownership':'Ngoại lệ vận hành, tiến độ và người phụ trách',
+    'Sales Director — Commercial':'GĐ Bán hàng — Kinh doanh',
+    'Sales Director':'Giám đốc Bán hàng',
+    'Sales & Leasing Dashboard':'Bảng Bán hàng & Cho thuê',
+    'Commercial funnel, sales performance and inventory':'Phễu kinh doanh, hiệu suất bán và tồn kho',
+    'Executive Finance':'Tài chính Tổng thể',
+    'Executive Real Estate':'BĐS Tổng thể',
+    'Operations Control':'Kiểm soát Vận hành',
+    'Sales & Leasing':'Bán hàng & Cho thuê',
+    'Overview':'Tổng quan',
+    'Margin':'Biên lợi nhuận',
+    'Receivables':'Các khoản phải thu',
+    'Action Tracking':'Theo dõi hành động',
+    'Commercial Funnel':'Phễu kinh doanh',
+    'Team Performance':'Hiệu suất Đội ngũ',
+    'Current dashboard':'Bảng điều hành hiện tại',
+    'Generating management report…':'Đang tạo báo cáo quản trị…',
+    'Reading authorized metrics, detecting exceptions and preparing actions.':'Đang đọc các chỉ số được ủy quyền, phát hiện ngoại lệ và chuẩn bị hành động.',
+    'Export PDF':'Xuất PDF',
+    'AI Management Report':'Báo cáo Quản trị AI',
+    'Generated from the current role dashboard — Virtual demo data — Updated 06:00 today':'Tạo từ bảng điều hành theo vai trò — Dữ liệu ảo demo — Cập nhật 06:00 hôm nay',
+
+    'Intelligent Analysis':'Phân tích thông minh','Metrics Application':'Ứng dụng chỉ số','Metrics Market':'Danh mục chỉ số','Metrics Center':'Trung tâm chỉ số','INTERACTIVE DEMO · VIRTUAL DATA':'BẢN DEMO TƯƠNG TÁC · DỮ LIỆU MÔ PHỎNG',
     'Management Cockpit':'Bảng điều hành quản trị','Workspace':'Không gian làm việc','AI Analysis':'Phân tích AI','Start New Conversation':'Bắt đầu hội thoại mới','Last 15 days':'15 ngày gần nhất','Last 30 days':'30 ngày gần nhất','Suggested':'Gợi ý','Generate management report':'Tạo báo cáo quản trị',
     'Finance & Priority Real Estate Dashboard':'Bảng điều hành Tài chính & Bất động sản ưu tiên','Generate report':'Tạo báo cáo','Metric Dashboard':'Bảng chỉ số','Management Cockpit':'Bảng điều hành quản trị','Group sales revenue':'Doanh thu bán hàng toàn tập đoàn','Collection rate':'Tỷ lệ thu tiền','Operational profit':'Lợi nhuận hoạt động','Reporting cycle':'Chu kỳ báo cáo','From 7 days previously':'Từ 7 ngày trước','Gross margin':'Biên lợi nhuận gộp','Unsold inventory':'Tồn kho chưa bán','Projects at risk':'Dự án có rủi ro','Data freshness':'Độ mới dữ liệu','Updated 06:00 today':'Cập nhật lúc 06:00 hôm nay','Ocean Vista flagged':'Ocean Vista cần chú ý',
     'Sales revenue by region':'Doanh thu bán hàng theo khu vực','VND trillion · July 2026':'Nghìn tỷ VND · Tháng 7/2026','July 2026':'Tháng 7/2026','June 2026':'Tháng 6/2026','North':'Miền Bắc','Central':'Miền Trung','South':'Miền Nam','Collection status':'Tình trạng thu tiền','Outstanding payments by due date · 388B VND overdue':'Khoản phải thu theo hạn · 388B VND quá hạn','paid on time':'đã thu đúng hạn','Paid / current':'Đã thu / hiện tại','1–30 days late':'Trễ 1–30 ngày','31–60 days late':'Trễ 31–60 ngày','More than 60 days late':'Trễ hơn 60 ngày',
@@ -205,9 +383,9 @@
     huy:{name:'Le Quang Huy',department:'Sales & Commercial',initials:'LH',defaultRole:'sales'}
   };
   const roleConfig={
-    ceo:{label:'CEO · Group view',name:'Nguyen Anh Minh',title:'Chief Executive Officer',initials:'NM',scope:'Executive Finance + Executive Real Estate',note:'Group-level financial and real-estate dashboards'},
-    deputy:{label:'Deputy CEO · Operations',name:'Tran Thu Ha',title:'Deputy CEO · Operations',initials:'TH',scope:'Operations Control Dashboard',note:'Operating exceptions, execution status and action ownership'},
-    sales:{label:'Sales Director · Commercial',name:'Le Quang Huy',title:'Sales Director',initials:'LH',scope:'Sales & Leasing Dashboard',note:'Commercial funnel, sales performance and inventory'}
+    ceo:{label:'CEO — Group view',name:'Nguyen Anh Minh',title:'Chief Executive Officer',initials:'NM',scope:'Executive Finance + Executive Real Estate',note:'Group-level financial and real-estate dashboards'},
+    deputy:{label:'Deputy CEO — Operations',name:'Tran Thu Ha',title:'Deputy CEO · Operations',initials:'TH',scope:'Operations Control Dashboard',note:'Operating exceptions, execution status and action ownership'},
+    sales:{label:'Sales Director — Commercial',name:'Le Quang Huy',title:'Sales Director',initials:'LH',scope:'Sales & Leasing Dashboard',note:'Commercial funnel, sales performance and inventory'}
   };
   const overdueRows=[
     ['CTR-OV2-24018','Ocean Vista P2','Nguyen Minh Phat','Villa V-18','6.8B','94 days','Finance follow-up'],
@@ -234,7 +412,7 @@
     </div>
     <div class="dash-grid">
       <div class="viz-card"><div class="viz-head"><div><h3>Cash flow trend</h3></div><span>Net operating cash · B VND</span></div><div class="trend"><div class="trend-col" style="--h:45%"><i></i><b>138</b><em>Feb</em></div><div class="trend-col" style="--h:52%"><i></i><b>162</b><em>Mar</em></div><div class="trend-col" style="--h:48%"><i></i><b>151</b><em>Apr</em></div><div class="trend-col" style="--h:66%"><i></i><b>204</b><em>May</em></div><div class="trend-col" style="--h:75%"><i></i><b>231</b><em>Jun</em></div><div class="trend-col" style="--h:91%"><i></i><b>286</b><em>Jul</em></div></div></div>
-      <div class="viz-card actionable" onclick="openDrill('overdue')"><div class="viz-head"><div><h3>Receivables aging</h3></div><span class="drill-hint">Click chart to drill down ↗</span></div><div class="hbar-list"><div class="hbar-row"><span>Current</span><div class="hbar-track"><i class="hbar-fill teal" style="--w:100%"></i></div><b>182B</b></div><div class="hbar-row"><span>1–30 days</span><div class="hbar-track"><i class="hbar-fill" style="--w:66%"></i></div><b>120B</b></div><div class="hbar-row"><span>31–60 days</span><div class="hbar-track"><i class="hbar-fill" style="--w:30%"></i></div><b>54B</b></div><div class="hbar-row"><span>&gt;60 days</span><div class="hbar-track"><i class="hbar-fill red" style="--w:18%"></i></div><b>32B</b></div></div></div>
+      <div class="viz-card actionable" onclick="openDrill('overdue')"><div class="viz-head"><div><h3>Receivables aging</h3></div><span class="drill-hint">Click chart to drill down</span></div><div class="hbar-list"><div class="hbar-row"><span>Current</span><div class="hbar-track"><i class="hbar-fill teal" style="--w:100%"></i></div><b>182B</b></div><div class="hbar-row"><span>1–30 days</span><div class="hbar-track"><i class="hbar-fill" style="--w:66%"></i></div><b>120B</b></div><div class="hbar-row"><span>31–60 days</span><div class="hbar-track"><i class="hbar-fill" style="--w:30%"></i></div><b>54B</b></div><div class="hbar-row"><span>&gt;60 days</span><div class="hbar-track"><i class="hbar-fill red" style="--w:18%"></i></div><b>32B</b></div></div></div>
       <div class="viz-card"><div class="viz-head"><div><h3>Revenue by business unit</h3></div><span>July 2026 · VND trillion</span></div><div class="hbar-list"><div class="hbar-row"><span>Real Estate</span><div class="hbar-track"><i class="hbar-fill" style="--w:88%"></i></div><b>18.7T</b></div><div class="hbar-row"><span>Hospitality</span><div class="hbar-track"><i class="hbar-fill teal" style="--w:24%"></i></div><b>3.4T</b></div><div class="hbar-row"><span>Construction</span><div class="hbar-track"><i class="hbar-fill" style="--w:19%"></i></div><b>2.1T</b></div><div class="hbar-row"><span>Other</span><div class="hbar-track"><i class="hbar-fill teal" style="--w:11%"></i></div><b>1.2T</b></div></div></div>
       <div class="viz-card"><div class="viz-head"><div><h3>Gross margin by region</h3></div><span>Actual vs 20% target</span></div><div class="hbar-list"><div class="hbar-row"><span>North</span><div class="hbar-track"><i class="hbar-fill teal" style="--w:100%"></i></div><b>21.4%</b></div><div class="hbar-row"><span>South</span><div class="hbar-track"><i class="hbar-fill" style="--w:91%"></i></div><b>19.6%</b></div><div class="hbar-row"><span>Central</span><div class="hbar-track"><i class="hbar-fill red" style="--w:76%"></i></div><b>16.2%</b></div></div></div>
     </div>`}
@@ -247,7 +425,7 @@
     </div>
     <div class="dash-grid">
       <div class="viz-card"><div class="viz-head"><div><h3>Sales absorption by project</h3></div><span>Actual vs 70% Phase 1 target</span></div><div class="hbar-list"><div class="hbar-row"><span>Harmony Town</span><div class="hbar-track"><i class="hbar-fill teal" style="--w:100%"></i></div><b>75%</b></div><div class="hbar-row"><span>Sunrise</span><div class="hbar-track"><i class="hbar-fill" style="--w:91%"></i></div><b>68%</b></div><div class="hbar-row"><span>Riverside</span><div class="hbar-track"><i class="hbar-fill" style="--w:83%"></i></div><b>62%</b></div><div class="hbar-row"><span>Ocean Vista</span><div class="hbar-track"><i class="hbar-fill red" style="--w:61%"></i></div><b>46%</b></div></div></div>
-      <div class="viz-card actionable" onclick="openDrill('inventory')"><div class="viz-head"><div><h3>Unsold inventory value</h3></div><span class="drill-hint">Click to drill down ↗</span></div><div class="trend"><div class="trend-col warn" style="--h:92%"><i></i><b>120B</b><em>Ocean</em></div><div class="trend-col" style="--h:62%"><i></i><b>80B</b><em>Riverside</em></div><div class="trend-col" style="--h:39%"><i></i><b>50B</b><em>Sunrise</em></div><div class="trend-col" style="--h:23%"><i></i><b>30B</b><em>Harmony</em></div></div></div>
+      <div class="viz-card actionable" onclick="openDrill('inventory')"><div class="viz-head"><div><h3>Unsold inventory value</h3></div><span class="drill-hint">Click to drill down</span></div><div class="trend"><div class="trend-col warn" style="--h:92%"><i></i><b>120B</b><em>Ocean</em></div><div class="trend-col" style="--h:62%"><i></i><b>80B</b><em>Riverside</em></div><div class="trend-col" style="--h:39%"><i></i><b>50B</b><em>Sunrise</em></div><div class="trend-col" style="--h:23%"><i></i><b>30B</b><em>Harmony</em></div></div></div>
       <div class="viz-card"><div class="viz-head"><div><h3>Sales performance by region</h3></div><span>July sales · VND trillion</span></div><div class="hbar-list"><div class="hbar-row"><span>North</span><div class="hbar-track"><i class="hbar-fill" style="--w:100%"></i></div><b>7.4T</b></div><div class="hbar-row"><span>South</span><div class="hbar-track"><i class="hbar-fill teal" style="--w:89%"></i></div><b>6.6T</b></div><div class="hbar-row"><span>Central</span><div class="hbar-track"><i class="hbar-fill red" style="--w:64%"></i></div><b>4.7T</b></div></div></div>
       <div class="viz-card"><div class="viz-head"><div><h3>Leasing performance</h3></div><span>Occupancy / monthly rent collection</span></div><div class="hbar-list"><div class="hbar-row"><span>Office</span><div class="hbar-track"><i class="hbar-fill teal" style="--w:94%"></i></div><b>94%</b></div><div class="hbar-row"><span>Retail</span><div class="hbar-track"><i class="hbar-fill" style="--w:88%"></i></div><b>88%</b></div><div class="hbar-row"><span>Serviced apt.</span><div class="hbar-track"><i class="hbar-fill" style="--w:79%"></i></div><b>79%</b></div></div></div>
       <div class="viz-card full-card"><div class="viz-head"><div><h3>Project commercial performance</h3></div><span class="scope-lock">🔒 Role-scoped data</span></div><div style="overflow:auto"><table class="mini-table"><thead><tr><th>Project</th><th>Region</th><th>Sales absorption</th><th>Unsold value</th><th>Leasing</th><th>Status</th></tr></thead><tbody><tr><td><span class="project-link" onclick="event.stopPropagation();openDrill('inventory')">Ocean Vista Phase 2</span></td><td>Central</td><td>46%</td><td>120B</td><td>74%</td><td><span class="pill risk">Needs action</span></td></tr><tr><td>Riverside Villas</td><td>North</td><td>62%</td><td>80B</td><td>—</td><td><span class="pill ok">On track</span></td></tr><tr><td>Sunrise Residence</td><td>South</td><td>68%</td><td>50B</td><td>89%</td><td><span class="pill ok">On track</span></td></tr><tr><td>Harmony Town</td><td>North</td><td>75%</td><td>30B</td><td>91%</td><td><span class="pill ok">On track</span></td></tr></tbody></table></div></div>
@@ -289,7 +467,7 @@
     const sidebar=cockpitState.role==='ceo'?`<button class="dash-tab ${ceoFinance?'active':''}" onclick="setCockpitDomain('finance')">▥ Executive Finance<small>Cash · debt · revenue · margin</small></button><button class="dash-tab ${!ceoFinance?'active':''}" onclick="setCockpitDomain('real')">⌁ Executive Real Estate<small>Sales · inventory · leasing</small></button>`:`<button class="dash-tab active">${cockpitState.role==='deputy'?'◉ Operations Control':'↗ Sales & Leasing'}<small>${r.note}</small></button>`;
     const tabs=cockpitState.role==='ceo'?`<div class="quick-tabs"><button class="${ceoFinance?'active':''}" onclick="setCockpitDomain('finance')">Executive Finance</button><button class="${!ceoFinance?'active':''}" onclick="setCockpitDomain('real')">Executive Real Estate</button></div>`:'';
     overview.innerHTML=`<div class="phase1-shell"><aside class="phase1-side"><div class="phase1-side-title">Role Dashboard</div>${sidebar}<div class="phase1-scope"><strong>${r.title}</strong><span>This role opens its designated management dashboard.</span></div></aside><div class="phase1-content"><div class="phase1-head"><div class="phase1-title"><h1>${title}</h1><p>${subtitle} · July 2026</p></div><div class="phase1-head-actions"><button class="generate-report-btn" onclick="openPhaseReport()">✦ Generate report</button><div class="role-box">${userChipMarkup(true)}</div></div></div><div class="role-note role-${cockpitState.role}"><span class="role-identity"><span class="role-view-icon">${roleIcon}</span><span><strong>Current dashboard: ${r.scope}</strong><small>${r.note}</small></span></span><span class="role-watermark">${r.label}</span></div>${tabs}<div class="drill-legend"><i></i>Blue-highlighted cards and charts are interactive — click to see source-level details.</div><div id="dashboardBody">${dashboard}</div></div></div>`;
-    updateAccountTrigger();
+    updateAccountTrigger(); if(currentLang==="vi") applyLanguage("vi");
   }
   function setCockpitDomain(domain){if(cockpitState.role!=='ceo')return;cockpitState.domain=domain;renderCockpit()}
   function setRole(role){cockpitState.role=role;cockpitState.domain=role==='ceo'?'finance':role==='deputy'?'finance':'real';renderCockpit()}
@@ -304,7 +482,7 @@
   }
   function closeLogin(){document.getElementById('loginOverlay')?.remove()}
   function submitDemoLogin(){const user=document.getElementById('loginUser').value;const role=document.getElementById('loginRole').value;loginAs(user,role)}
-  function loginAs(user,role){cockpitState.user=user;cockpitState.role=role;cockpitState.domain=role==='sales'?'real':'finance';closeLogin();renderCockpit();const u=userConfig[user],r=roleConfig[role];document.body.insertAdjacentHTML('beforeend',`<div id="loginToast" class="login-toast">✓ Signed in as ${u.name} · ${r.title}</div>`);setTimeout(()=>document.getElementById('loginToast')?.remove(),1800)}
+  function loginAs(user,role){cockpitState.user=user;cockpitState.role=role;cockpitState.domain=role==='sales'?'real':'finance';closeLogin();renderCockpit(); if(currentLang==="vi") applyLanguage("vi"); const u=userConfig[user],r=roleConfig[role];document.body.insertAdjacentHTML('beforeend',`<div id="loginToast" class="login-toast">✓ Signed in as ${u.name} · ${r.title}</div>`);setTimeout(()=>document.getElementById('loginToast')?.remove(),1800)}
   function phaseReportMarkup(){
     const finance=cockpitState.domain==='finance',role=cockpitState.role,r=roleConfig[role];
     const summary=finance
@@ -320,8 +498,8 @@
   function openPhaseReport(){
     document.getElementById('phaseReportOverlay')?.remove();
     const r=roleConfig[cockpitState.role];
-    document.body.insertAdjacentHTML('beforeend',`<div id="phaseReportOverlay" class="drill-overlay" onclick="if(event.target===this)closePhaseReport()"><div class="drill-modal"><div class="drill-modal-head"><div><h2>AI Management Report</h2><p>Current dashboard · ${r.label}</p></div><div class="phase-report-actions"><button id="phaseExportButton" class="primary hidden" onclick="printPhaseReport()">Export PDF</button><button class="drill-close" onclick="closePhaseReport()" aria-label="Close">×</button></div></div><div class="drill-body"><div id="phaseReportLoading" class="phase-report-loading"><div class="report-spinner"></div><h3>Generating management report…</h3><p>Reading authorized metrics, detecting exceptions and preparing actions.</p></div><div id="phaseReportContent" class="hidden"></div></div></div></div>`);
-    setTimeout(()=>{const loading=document.getElementById('phaseReportLoading'),content=document.getElementById('phaseReportContent'),button=document.getElementById('phaseExportButton');if(!content)return;loading?.classList.add('hidden');content.innerHTML=phaseReportMarkup();content.classList.remove('hidden');button?.classList.remove('hidden')},900)
+    document.body.insertAdjacentHTML('beforeend',`<div id="phaseReportOverlay" class="drill-overlay" onclick="if(event.target===this)closePhaseReport()"><div class="drill-modal"><div class="drill-modal-head"><div><h2>AI Management Report</h2><p>Current dashboard · ${r.label}</p></div><div class="phase-report-actions"><button id="phaseExportButton" class="primary hidden" onclick="printPhaseReport()">Export PDF</button><button class="drill-close" onclick="closePhaseReport()" aria-label="Close">×</button></div></div><div class="drill-body"><div id="phaseReportLoading" class="phase-report-loading"><div class="report-spinner"></div><h3>Generating management report…</h3><p>Reading authorized metrics, detecting exceptions and preparing actions.</p></div><div id="phaseReportContent" class="hidden"></div></div></div></div>`); if(currentLang==="vi") applyLanguage("vi");
+    setTimeout(()=>{const loading=document.getElementById('phaseReportLoading'),content=document.getElementById('phaseReportContent'),button=document.getElementById('phaseExportButton');if(!content)return;loading?.classList.add('hidden');content.innerHTML=phaseReportMarkup();content.classList.remove('hidden');button?.classList.remove('hidden'); if(currentLang==='vi') applyLanguage('vi'); },900)
   }
   function closePhaseReport(){document.getElementById('phaseReportOverlay')?.remove()}
   function printPhaseReport(){const content=document.getElementById('phaseReportContent');if(!content)return;const w=window.open('','_blank');if(!w)return;w.document.write(`<html><head><title>CEO Group Management Report</title><style>body{font-family:Arial;max-width:900px;margin:42px auto;color:#09245f;line-height:1.55}.phase-report-context{display:flex;gap:8px;flex-wrap:wrap}.phase-report-context span{padding:6px 9px;background:#eef6ff;border-radius:99px;font-size:11px}.report-summary,.report-sections{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}.report-sections{grid-template-columns:1fr 1fr}.report-kpi,.report-block{border:1px solid #dbeaf9;border-radius:10px;padding:14px}.report-kpi small{display:block;color:#6b7da4}.report-kpi strong{display:block;font-size:22px;margin-top:6px}.source-line{margin-top:18px;color:#8ca0c4;font-size:11px}@media print{body{margin:15mm}}</style></head><body><h1>CEO Group · Management Report</h1>${content.innerHTML}</body></html>`);w.document.close();w.focus();setTimeout(()=>w.print(),250)}
@@ -331,7 +509,7 @@
     const headers=isOverdue?['Contract','Project','Customer','Unit','Overdue','Age','Action']:['Project','Region','Unsold units','Inventory value','Absorption','Months to clear'];
     const displayRows=rows.map(row=>`<tr>${row.map(cell=>`<td>${cell}</td>`).join('')}</tr>`).join('');
     const summary=isOverdue?`<div><small>Overdue >60 days</small><strong>32B VND</strong></div><div><small>Top 10 concentration</small><strong>84%</strong></div><div><small>Contracts requiring action</small><strong>${rows.length}</strong></div>`:'<div><small>Total unsold value</small><strong>280B VND</strong></div><div><small>Ocean Vista share</small><strong>43%</strong></div><div><small>Unsold units</small><strong>185</strong></div>';
-    document.body.insertAdjacentHTML('beforeend',`<div id="drillOverlay" class="drill-overlay" onclick="if(event.target===this)closeDrill()"><div class="drill-modal"><div class="drill-modal-head"><div><h2>${isOverdue?'Overdue debt · Top 10 contracts':'Unsold inventory · Project breakdown'}</h2><p>${isOverdue?'Drilled from Financial Status / Receivables Aging / >60 days':'Drilled from Real Estate Operations / Unsold Inventory'} · ${roleConfig[role].label}</p></div><button class="drill-close" onclick="closeDrill()" aria-label="Close">×</button></div><div class="drill-body"><div class="drill-summary">${summary}</div><div style="overflow:auto"><table class="mini-table"><thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${displayRows}</tbody></table></div><div class="source-line">Source trace: ERP contract ledger → certified Finance / Real Estate metric → Management Cockpit · Refreshed 06:00 today</div></div></div></div>`);
+    document.body.insertAdjacentHTML('beforeend',`<div id="drillOverlay" class="drill-overlay" onclick="if(event.target===this)closeDrill()"><div class="drill-modal"><div class="drill-modal-head"><div><h2>${isOverdue?'Overdue debt — Top 10 contracts':'Unsold inventory · Project breakdown'}</h2><p>${isOverdue?'Drilled from Financial Status / Receivables Aging / >60 days':'Drilled from Real Estate Operations / Unsold Inventory'} · ${roleConfig[role].label}</p></div><button class="drill-close" onclick="closeDrill()" aria-label="Close">×</button></div><div class="drill-body"><div class="drill-summary">${summary}</div><div style="overflow:auto"><table class="mini-table"><thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${displayRows}</tbody></table></div><div class="source-line">Source trace: ERP contract ledger → certified Finance / Real Estate metric → Management Cockpit · Refreshed 06:00 today</div></div></div></div>`); if(currentLang==="vi") applyLanguage("vi");
   }
   function closeDrill(){document.getElementById('drillOverlay')?.remove()}
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrill();closePhaseReport()}});
